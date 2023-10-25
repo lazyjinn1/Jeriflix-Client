@@ -2,4 +2,99 @@
   color: #4682b4;
 }
 
+body {
+  background-image: linear-gradient(to right, #ff09, #2692bd99, #2692bd99, #2692bd99, #ff09);
+}
+
+button {
+  transition: all .3s;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: .8;
+  transform: scale(1.2);
+}
+
+button:active {
+  transform: scale(1);
+}
+
+.Welcome {
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-size: 40px;
+}
+
+.Title, .Genre, .Director {
+  font-weight: bold;
+  top: 30%;
+}
+
+.Description {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.MovieView {
+  text-align: left;
+  margin: 100px;
+  line-height: 2;
+}
+
+.MovieImg {
+  float: left;
+  border-radius: 20px;
+  width: 275px;
+  height: 400px;
+  margin-right: 20px;
+}
+
+.MovieCard-grid {
+  z-index: 1;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 20px 10px;
+  margin: 10px 15%;
+  display: flex;
+}
+
+.MovieCard {
+  color: #000;
+  z-index: 1;
+  display: relative;
+  background: #fff;
+  border-left: 4px solid #000;
+  border-right: 4px solid #000;
+  border-radius: 20px;
+  width: 100%;
+  height: 50px;
+  font-weight: bolder;
+  box-shadow: 10px 5px 5px #000;
+}
+
+.MovieCard-Preview-Container {
+  justify-content: center;
+  align-items: center;
+}
+
+.MovieCard-Preview {
+  opacity: 0;
+  border-radius: 20px;
+  justify-content: center;
+  width: 15%;
+  height: 50%;
+  transition: opacity .5s;
+  display: none;
+  position: fixed;
+}
+
+.MovieCard:hover + .MovieCard-Preview-Container .MovieCard-Preview {
+  opacity: 1;
+  z-index: 9999;
+  display: block;
+  box-shadow: 20px 5px 5px #000;
+}
+
 /*# sourceMappingURL=index.ce1d6491.css.map */
