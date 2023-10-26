@@ -16,4 +16,3 @@ const root = createRoot(container);
 //Tells React to render my app in the root DOM element
 root.render(<JeriFlixApplication />);
 
-

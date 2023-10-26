@@ -415,6 +415,8 @@ export const MainView = () => {
     return <div>Movie list is empty!</div>;
   }
 
+  
+
   return (
     <div class = "MovieCard-grid">
       {movies.map((movie) => (

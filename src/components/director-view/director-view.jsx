@@ -23,7 +23,7 @@ export const DirectorView = ({movieData, onBackClick}) => {
   
         <br></br>
   
-        <button>Movies like this:</button> 
+        <button>Movies by {movieData.Director.Name}:</button> 
   
         <br></br>
         <br></br>
