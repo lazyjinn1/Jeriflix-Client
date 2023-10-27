@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
 
 
 
 
 export const MainView = () => {
+<<<<<<< Updated upstream
   const [movies, setMovies] = useState([
     {
       _id: { "$oid": "65286702197c5ca4202d2fab" },
@@ -402,10 +404,47 @@ export const MainView = () => {
       Featured: true
     }
   ]);
-
+=======
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState([null]);
+
+  if(!user){
+    return <LoginView />;
+  }
+
+  useEffect(() => {
+    fetch('https://jeriflix.onrender.com/movies')
+      .then((response) => response.json())
+      .then((data) => {
+        const MoviesFromApi = data.map((movie) => {
+          return {
+            ID: movie._id,
+            Title: movie.Title,
+            Description: movie.Description,
+            ImagePath: movie.ImagePath,
+            Director: movie.Director.Name,
+            Genre: movie.Genre.Name
+          };
+        });
+        setMovies(MoviesFromApi);
+      });
+  }, []);
+
+>>>>>>> Stashed changes
+
+  
 
   if (selectedMovie) {
+<<<<<<< Updated upstream
+=======
+    let similarMovies = movies.filter((simMovie) => {
+      return (simMovie.Genre === selectedMovie.Genre && simMovie!== selectedMovie)
+    })
+
+    console.log(similarMovies);
+    
+>>>>>>> Stashed changes
     return (
       <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
     );
