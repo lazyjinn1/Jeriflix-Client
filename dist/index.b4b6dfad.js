@@ -27196,15 +27196,11 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     if (selectedMovie) {
         let similarMovies = movies.filter((simMovie)=>{
-            return simMovie.Genre === selectedMovie.Genre;
+            return simMovie.Genre === selectedMovie.Genre && simMovie !== selectedMovie;
         });
-        if (similarMovies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: "No similar movies!"
-        }, void 0, false, {
-            fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 38,
-            columnNumber: 14
-        }, undefined);
+        // if (similarMovies.length === 0) {
+        //   return <div>No similar movies!</div>;
+        // }
         console.log(similarMovies);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: [

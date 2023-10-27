@@ -31,12 +31,12 @@ export const MainView = () => {
 
   if (selectedMovie) {
     let similarMovies = movies.filter((simMovie) => {
-      return (simMovie.Genre === selectedMovie.Genre)
+      return (simMovie.Genre === selectedMovie.Genre && simMovie!== selectedMovie)
     })
 
-    if (similarMovies.length === 0) {
-      return <div>No similar movies!</div>;
-    }
+    // if (similarMovies.length === 0) {
+    //   return <div>No similar movies!</div>;
+    // }
 
     console.log(similarMovies);
     
