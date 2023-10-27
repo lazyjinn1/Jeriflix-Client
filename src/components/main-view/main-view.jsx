@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -10,10 +10,6 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState([null]);
-
-  if(!user){
-    return <LoginView />;
-  }
 
   useEffect(() => {
     fetch('https://jeriflix.onrender.com/movies')
@@ -33,9 +29,10 @@ export const MainView = () => {
       });
   }, []);
 
-
+  if(!user){
+    return <LoginView />;
+  }
   
-
   if (selectedMovie) {
     let similarMovies = movies.filter((simMovie) => {
       return (simMovie.Genre === selectedMovie.Genre && simMovie!== selectedMovie)

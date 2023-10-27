@@ -1,5 +1,4 @@
 // import { DirectorView } from "../director-view/director-view";
-import PropTypes from "prop-types"
 
 // export const MovieView = ({movieData, onBackClick, onDirectorClick}) => {
 export const MovieView = ({movieData, onBackClick}) => {
@@ -47,23 +46,4 @@ export const MovieView = ({movieData, onBackClick}) => {
 
     </div>
   );
-};
-MovieCard.PropTypes = {
-  movieData: PropTypes.shape({
-      Title: PropTypes.string.isRequired,
-      Description: PropTypes.string.isRequired,
-      Director: PropTypes.shape({
-          Name: PropTypes.string.isRequired,
-          Bio: PropTypes.string.isRequired,
-          Birth: PropTypes.instanceOf(Date),
-          Death: PropTypes.instanceOf(Date)
-      }).isRequired,
-      Genre: PropTypes.shape({
-          Name: PropTypes.string.isRequired,
-          Description: PropTypes.string.isRequired
-      }).isRequired,
-      ImagePath: PropTypes.string.isRequired
-  }).isRequired,
-
-  onBackClick: PropTypes.func.isRequired
 };
