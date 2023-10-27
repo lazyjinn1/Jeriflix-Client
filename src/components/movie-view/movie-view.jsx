@@ -37,7 +37,6 @@ export const MovieView = ({movieData, onBackClick}) => {
       </button> */}
       
       <button> See more from this director:</button>
-      <button>Movies like this:</button> 
 
       <br></br>
       <br></br>
