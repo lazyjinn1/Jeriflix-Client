@@ -1,4 +1,4 @@
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 export const MovieCard = ({movieData, onMovieClick}) => {
     return (
@@ -23,8 +23,8 @@ MovieCard.PropTypes = {
         Director: PropTypes.shape({
             Name: PropTypes.string.isRequired,
             Bio: PropTypes.string.isRequired,
-            Birth: PropTypes.instanceOf(Date),
-            Death: PropTypes.instanceOf(Date)
+            Birth: PropTypes.any,
+            Death: PropTypes.any
         }).isRequired,
         Genre: PropTypes.shape({
             Name: PropTypes.string.isRequired,
