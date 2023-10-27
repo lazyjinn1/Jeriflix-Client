@@ -9,7 +9,14 @@ import { LoginView } from "../login-view/login-view";
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState([null]);
+  const [user, setUser] = useState(null);
+
+  console.log(user);
+  
+  if(!user){
+    return <LoginView onLoggedIn = {(user) => setUser(user)} />;
+  }
+  <button onClick={() => { setUser(null); }}>Logout</button>
 
   useEffect(() => {
     fetch('https://jeriflix.onrender.com/movies')
@@ -26,12 +33,11 @@ export const MainView = () => {
           };
         });
         setMovies(MoviesFromApi);
+        <button onClick={() => { setUser(null); }}>Logout</button>
       });
   }, []);
 
-  if(!user){
-    return <LoginView />;
-  }
+  
   
   if (selectedMovie) {
     let similarMovies = movies.filter((simMovie) => {
@@ -45,14 +51,14 @@ export const MainView = () => {
     );
   }
 
-  if (movies.length === 0) {
-    return <div>Movie list is empty!</div>;
-  }
+  // if (movies.length === 0) {
+  //   return <div>Movie list is empty!</div>;
+  // }
 
   
 
   return (
-    <div class = "MovieCard-grid">
+    <div className = "MovieCard-grid">
       {movies.map((movie) => (
         <MovieCard
           key={movie._id}
