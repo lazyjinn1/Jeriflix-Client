@@ -1,58 +1,64 @@
-import {useState} from "react";
+import { useState } from 'react';
 
 export const LoginView = ({ onLoggedIn }) => {
-    
-    const [Username, setUsername] = useState("");
-    const [Password, setPassword] = useState("");
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const data = {
-            Username: Username,
-            Password: Password
+            username: username,
+            password: password
         };
 
         console.log(data);
 
-        fetch ('https://jeriflix.onrender.com/login', {
+        fetch('https://jeriflix.onrender.com/login', {
             method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })  .then((response) => response.json())
+            .then((data) => {
+                console.log('Login response: ', data);
+                if (data.user) {
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    localStorage.setItem('token', data.token);
+                    onLoggedIn(data.user, data.token);
+                } else {
+                    alert('Something went wrong3');
+                }
+            })
+            .catch((error) => {
+                console.error('Error during Login', error);
+                alert('Something went wrong4');
             }
-        }).then ((response) => {
-            if (response.ok) {
-                const responseData = response.JSON();
-                localStorage.setItem('user', JSON.stringify(responseData.user));
-                localStorage.setItem('token', responseData.token);
-                onLoggedIn(Username);
-            } else {
-                alert ('Login Failed');
-            }
-        });
+        );
     };
-    return ( 
-        <form onSubmit = {handleSubmit}>
-            <label> 
-                Username: 
-                <input 
-                    type = "text"
-                    value = {Username}
-                    onChange ={(e) => setUsername(e.target.value)}
-                    required></input>
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>
+            Username:
+                <input
+                    type='text'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                 />
             </label>
 
             <label>
-                Password: 
-                <input 
-                type = "password"
-                value = {Password}
-                onChange = {(e) => setPassword(e.target.value)}
-                required></input>
+            Password:
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
             </label>
 
-            <button type ="submit">
+            <button type='submit'>
                 Log in:
             </button>
         </form>

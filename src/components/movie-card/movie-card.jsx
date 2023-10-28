@@ -1,16 +1,16 @@
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 export const MovieCard = ({movieData, onMovieClick}) => {
     return (
             <div>
-                <button className = "MovieCard" onClick= {() => {
+                <button className = 'MovieCard' onClick= {() => {
                         onMovieClick(movieData);
                     }}>
                     {movieData.Title}
                 </button>
 
-                <div className = "MovieCard-Preview-Container">
-                    <img className = "MovieCard-Preview" src = {movieData.ImagePath} />
+                <div className = 'MovieCard-Preview-Container'>
+                    <img className = 'MovieCard-Preview' src = {movieData.ImagePath} />
                 </div>
             </div>
     );
