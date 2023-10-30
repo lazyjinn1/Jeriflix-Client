@@ -23,7 +23,7 @@ export const MainView = () => {
     }
 
     fetch('https://jeriflix.onrender.com/movies', {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -32,8 +32,16 @@ export const MainView = () => {
           Title: movie.Title,
           Description: movie.Description,
           ImagePath: movie.ImagePath,
-          Director: movie.Director.Name,
-          Genre: movie.Genre.Name
+          Director: {
+            Name: movie.Director.Name,
+            Bio: movie.Director.Bio,
+            Birth: movie.Director.Birth,
+            Death: movie.Director.Death
+          },
+          Genre: {
+            Name: movie.Genre.Name,
+            Description: movie.Genre.Description
+          }
         }));
         setMovies(MoviesFromApi);
 

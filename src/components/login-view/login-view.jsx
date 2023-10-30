@@ -9,8 +9,8 @@ export const LoginView = ({ onLoggedIn }) => {
         event.preventDefault();
 
         const data = {
-            username: username,
-            password: password
+            Username: username,
+            Password: password,
         };
 
         console.log(data);
@@ -18,8 +18,8 @@ export const LoginView = ({ onLoggedIn }) => {
         fetch('https://jeriflix.onrender.com/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        })  .then((response) => response.json())
+            body: JSON.stringify(data),
+        }).then((response) => response.json())
             .then((data) => {
                 console.log('Login response: ', data);
                 if (data.user) {
@@ -27,7 +27,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     localStorage.setItem('token', data.token);
                     onLoggedIn(data.user, data.token);
                 } else {
-                    alert('Something went wrong3');
+                    alert('Something went wrong5');
                 }
             })
             .catch((error) => {
