@@ -16,9 +16,9 @@ export const LoginView = ({ onLoggedIn }) => {
         console.log(data);
 
         fetch('https://jeriflix.onrender.com/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+            method: "POST",
             body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json'},
         }).then((response) => response.json())
             .then((data) => {
                 console.log('Login response: ', data);
@@ -27,7 +27,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     localStorage.setItem('token', data.token);
                     onLoggedIn(data.user, data.token);
                 } else {
-                    alert('Something went wrong5');
+                    alert('Something went wrong3');
                 }
             })
             .catch((error) => {
@@ -58,7 +58,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </label>
 
-            <button type='submit'>
+            <button type= 'submit'>
                 Log in:
             </button>
         </form>
