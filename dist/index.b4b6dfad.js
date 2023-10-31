@@ -28488,29 +28488,48 @@ const LoginView = ({ onLoggedIn })=>{
     const [password, setPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const data = {
+        const userData = {
             Username: username,
             Password: password
         };
-        console.log(data);
+        fetchLogin(onLoggedIn, userData);
+    };
+    async function fetchLogin(onLoggedIn, userData) {
+        console.log(userData);
+        //  axios.post('https://jeriflix.onrender.com/login', {
+        //     Username: userData.Username,
+        //     Password: userData.Password,
+        // })
+        // .then((response) => {
+        //     localStorage.setItem('user', JSON.stringify(response.userData.user));
+        //     localStorage.setItem('token', response.userData.token);
+        //     onLoggedIn(response.data.user, response.userData.token);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+        // Saturnine  Catoptric
         fetch("https://jeriflix.onrender.com/login", {
             method: "POST",
-            body: JSON.stringify(data),
+            body: JSON.stringify(userData),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response)=>response.json()).then((data)=>{
-            console.log("Login response: ", data);
-            if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
-            } else alert("Something went wrong3");
+        }).then((response)=>response.json()).then((userData)=>{
+            console.log("Login response: ", userData);
+            if (userData.user) {
+                localStorage.setItem("user", JSON.stringify(userData.user));
+                localStorage.setItem("token", userData.token);
+                onLoggedIn(userData.user, userData.token);
+            } else {
+                console.log();
+                alert("Something went wrong3");
+            }
         }).catch((error)=>{
             console.error("Error during Login", error);
             alert("Something went wrong4");
         });
-    };
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
         onSubmit: handleSubmit,
         children: [
@@ -28524,13 +28543,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 43,
+                        lineNumber: 64,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 41,
+                lineNumber: 62,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28543,13 +28562,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 53,
+                        lineNumber: 74,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 51,
+                lineNumber: 72,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28557,13 +28576,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Log in:"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 61,
+                lineNumber: 82,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 40,
+        lineNumber: 61,
         columnNumber: 9
     }, undefined);
 };
