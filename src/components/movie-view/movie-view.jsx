@@ -1,6 +1,3 @@
-// import { DirectorView } from '../director-view/director-view';
-
-// export const MovieView = ({movieData, onBackClick, onDirectorClick}) => {
 export const MovieView = ({movieData, onBackClick}) => {
   return (
     <div className = 'MovieView'>
@@ -30,14 +27,7 @@ export const MovieView = ({movieData, onBackClick}) => {
 
       <br></br>
 
-      {/* <button onClick={() => {
-            DirectorView(movieData);
-          }}>
-          See more from this director:
-      </button> */}
-      
       <button> See more from this director:</button>
-      <button>Movies like this:</button> 
 
       <br></br>
       <br></br>

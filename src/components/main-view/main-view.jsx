@@ -23,7 +23,7 @@ export const MainView = () => {
     }
 
     fetch('https://jeriflix.onrender.com/movies', {
-      headers: { Authorization: `Bearer${token}` },
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
