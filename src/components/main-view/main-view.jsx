@@ -60,9 +60,6 @@ export const MainView = () => {
             setToken(token)
           }}
         />
-        <br></br>
-        <br></br>
-        <br></br>
         <SignUpView />
       </>);
   }
@@ -77,6 +74,18 @@ export const MainView = () => {
     return (
       <>
         <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        <br></br>
+        <br></br>
+        <br></br>
+        <h2>Similar Movies:</h2>
+        {similarMovies.map((movie) => (
+          <MovieCard
+            movieData={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        ))}
       </>
     );
   }

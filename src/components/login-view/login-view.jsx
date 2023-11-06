@@ -38,7 +38,7 @@ export const LoginView = ({ onLoggedIn }) => {
         fetch('https://jeriflix.onrender.com/login', {
             method: 'POST',
             body: JSON.stringify(userData),
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
         }).then((response) => response.json())
             .then((userData) => {
                 console.log('Login response: ', userData);
@@ -55,22 +55,22 @@ export const LoginView = ({ onLoggedIn }) => {
                 console.error('Error during Login', error);
                 alert('Something went wrong4');
             }
-        );
+            );
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
             <label>
-            Username:
+                Username:
                 <input
                     type='text'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                 />
+                />
             </label>
 
             <label>
-            Password:
+                Password:
                 <input
                     type='password'
                     value={password}
@@ -79,7 +79,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </label>
 
-            <button type= 'submit'>
+            <button type='submit'>
                 Log in:
             </button>
         </form>
