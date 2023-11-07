@@ -35,12 +35,8 @@ export const MovieView = ({movieData, onBackClick}) => {
       <br></br>
       <br></br>
 
-<<<<<<< Updated upstream
-      <button onClick={(onBackClick)}>Back</button>
-=======
       <button onClick={(onBackClick)} className = "back-button">Back</button>
 
->>>>>>> Stashed changes
 
     </div>
   );
