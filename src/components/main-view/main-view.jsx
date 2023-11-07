@@ -15,7 +15,7 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  console.log(user);
+  //console.log(user);
 
   useEffect(() => {
     if (!token) {
@@ -60,23 +60,29 @@ export const MainView = () => {
             setToken(token)
           }}
         />
-        <br></br>
-        <br></br>
-        <br></br>
         <SignUpView />
       </>);
   }
 
   if (selectedMovie) {
     let similarMovies = movies.filter((simMovie) => {
-      return (simMovie.Genre === selectedMovie.Genre && simMovie !== selectedMovie)
+      return (simMovie.Genre.Name === selectedMovie.Genre.Name && simMovie !== selectedMovie)
     })
-
-    console.log(similarMovies);
-
+    console.log (similarMovies);
     return (
       <>
         <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+        <br></br>
+        <h2>Similar Movies:</h2>
+        {similarMovies.map((simMovie) => (
+          <MovieCard
+            key={simMovie._id}
+            movieData={simMovie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+          />
+        ))}
       </>
     );
   }
@@ -99,6 +105,7 @@ export const MainView = () => {
 
       {movies.map((movie) => (
         <MovieCard
+          key = {movie._id}
           movieData={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);

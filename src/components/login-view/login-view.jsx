@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// import { axios } from 'axios';
 
 export const LoginView = ({ onLoggedIn }) => {
 
@@ -8,25 +9,45 @@ export const LoginView = ({ onLoggedIn }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const data = {
+        const userData = {
             Username: username,
             Password: password,
         };
 
-        console.log(data);
+        fetchLogin(onLoggedIn, userData);
+    }
+
+    async function fetchLogin(onLoggedIn, userData) {
+        console.log(userData);
+
+        //  axios.post('https://jeriflix.onrender.com/login', {
+        //     Username: userData.Username,
+        //     Password: userData.Password,
+        // })
+        // .then((response) => {
+        //     localStorage.setItem('user', JSON.stringify(response.userData.user));
+        //     localStorage.setItem('token', response.userData.token);
+        //     onLoggedIn(response.data.user, response.userData.token);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+
+        // Saturnine  Catoptric
 
         fetch('https://jeriflix.onrender.com/login', {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json'},
+            method: 'POST',
+            body: JSON.stringify(userData),
+            headers: { 'Content-Type': 'application/json' },
         }).then((response) => response.json())
-            .then((data) => {
-                console.log('Login response: ', data);
-                if (data.user) {
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    localStorage.setItem('token', data.token);
-                    onLoggedIn(data.user, data.token);
+            .then((userData) => {
+                console.log('Login response: ', userData);
+                if (userData.user) {
+                    localStorage.setItem('user', JSON.stringify(userData.user));
+                    localStorage.setItem('token', userData.token);
+                    onLoggedIn(userData.user, userData.token);
                 } else {
+                    console.log()
                     alert('Something went wrong3');
                 }
             })
@@ -34,22 +55,22 @@ export const LoginView = ({ onLoggedIn }) => {
                 console.error('Error during Login', error);
                 alert('Something went wrong4');
             }
-        );
+            );
     };
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
             <label>
-            Username:
+                Username:
                 <input
                     type='text'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                 />
+                />
             </label>
 
             <label>
-            Password:
+                Password:
                 <input
                     type='password'
                     value={password}
@@ -58,7 +79,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </label>
 
-            <button type= 'submit'>
+            <button type='submit'>
                 Log in:
             </button>
         </form>

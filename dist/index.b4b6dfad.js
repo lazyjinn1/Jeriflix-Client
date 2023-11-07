@@ -27185,7 +27185,7 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    console.log(user);
+    //console.log(user);
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://jeriflix.onrender.com/movies", {
@@ -27228,43 +27228,52 @@ const MainView = ()=>{
                 lineNumber: 57,
                 columnNumber: 9
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 63,
-                columnNumber: 9
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 64,
-                columnNumber: 9
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 65,
-                columnNumber: 9
-            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignUpView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 66,
+                lineNumber: 63,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true);
     if (selectedMovie) {
         let similarMovies = movies.filter((simMovie)=>{
-            return simMovie.Genre === selectedMovie.Genre && simMovie !== selectedMovie;
+            return simMovie.Genre.Name === selectedMovie.Genre.Name && simMovie !== selectedMovie;
         });
         console.log(similarMovies);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                movieData: selectedMovie,
-                onBackClick: ()=>setSelectedMovie(null)
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 79,
-                columnNumber: 9
-            }, undefined)
-        }, void 0, false);
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                    movieData: selectedMovie,
+                    onBackClick: ()=>setSelectedMovie(null)
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 74,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 75,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    children: "Similar Movies:"
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 76,
+                    columnNumber: 9
+                }, undefined),
+                similarMovies.map((simMovie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movieData: simMovie,
+                        onMovieClick: (newSelectedMovie)=>{
+                            setSelectedMovie(newSelectedMovie);
+                        }
+                    }, simMovie._id, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 78,
+                        columnNumber: 11
+                    }, undefined))
+            ]
+        }, void 0, true);
     }
     // if (movies.length === 0) {
     //   return <div>Movie list is empty!</div>;
@@ -27281,7 +27290,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 94,
+                lineNumber: 100,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27289,15 +27298,15 @@ const MainView = ()=>{
                     onMovieClick: (newSelectedMovie)=>{
                         setSelectedMovie(newSelectedMovie);
                     }
-                }, void 0, false, {
+                }, movie._id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 101,
+                    lineNumber: 107,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 92,
+        lineNumber: 98,
         columnNumber: 5
     }, undefined);
 };
@@ -27361,7 +27370,7 @@ const MovieCard = ({ movieData, onMovieClick })=>{
     }, undefined);
 };
 _c = MovieCard;
-MovieCard.PropTypes = {
+MovieCard.propTypes = {
     movieData: (0, _propTypesDefault.default).shape({
         Title: (0, _propTypesDefault.default).string.isRequired,
         Description: (0, _propTypesDefault.default).string.isRequired,
@@ -28488,30 +28497,50 @@ const LoginView = ({ onLoggedIn })=>{
     const [password, setPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const data = {
+        const userData = {
             Username: username,
             Password: password
         };
-        console.log(data);
+        fetchLogin(onLoggedIn, userData);
+    };
+    async function fetchLogin(onLoggedIn, userData) {
+        console.log(userData);
+        //  axios.post('https://jeriflix.onrender.com/login', {
+        //     Username: userData.Username,
+        //     Password: userData.Password,
+        // })
+        // .then((response) => {
+        //     localStorage.setItem('user', JSON.stringify(response.userData.user));
+        //     localStorage.setItem('token', response.userData.token);
+        //     onLoggedIn(response.data.user, response.userData.token);
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+        // Saturnine  Catoptric
         fetch("https://jeriflix.onrender.com/login", {
             method: "POST",
-            body: JSON.stringify(data),
+            body: JSON.stringify(userData),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response)=>response.json()).then((data)=>{
-            console.log("Login response: ", data);
-            if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
-            } else alert("Something went wrong3");
+        }).then((response)=>response.json()).then((userData)=>{
+            console.log("Login response: ", userData);
+            if (userData.user) {
+                localStorage.setItem("user", JSON.stringify(userData.user));
+                localStorage.setItem("token", userData.token);
+                onLoggedIn(userData.user, userData.token);
+            } else {
+                console.log();
+                alert("Something went wrong3");
+            }
         }).catch((error)=>{
             console.error("Error during Login", error);
             alert("Something went wrong4");
         });
-    };
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+        className: "login-form",
         onSubmit: handleSubmit,
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28524,13 +28553,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 43,
+                        lineNumber: 64,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 41,
+                lineNumber: 62,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28543,13 +28572,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 53,
+                        lineNumber: 74,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 51,
+                lineNumber: 72,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28557,13 +28586,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Log in:"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 61,
+                lineNumber: 82,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 40,
+        lineNumber: 61,
         columnNumber: 9
     }, undefined);
 };
