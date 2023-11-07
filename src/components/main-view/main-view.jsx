@@ -15,8 +15,6 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  console.log(user);
-
   useEffect(() => {
     if (!token) {
       return;
@@ -60,9 +58,6 @@ export const MainView = () => {
             setToken(token)
           }}
         />
-        <br></br>
-        <br></br>
-        <br></br>
         <SignUpView />
       </>);
   }
@@ -71,9 +66,6 @@ export const MainView = () => {
     let similarMovies = movies.filter((simMovie) => {
       return (simMovie.Genre === selectedMovie.Genre && simMovie !== selectedMovie)
     })
-
-    console.log(similarMovies);
-
     return (
       <>
         <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
@@ -91,13 +83,6 @@ export const MainView = () => {
       </>
     );
   }
-
-
-  if (movies.length === 0) {
-    return <div>Movie list is empty!</div>;
-  }
-
-
 
   return (
     <div className='MovieCard-grid'>
