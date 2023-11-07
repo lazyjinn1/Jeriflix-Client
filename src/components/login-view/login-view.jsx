@@ -13,15 +13,11 @@ export const LoginView = ({ onLoggedIn }) => {
             Password: password,
         };
 
-<<<<<<< Updated upstream
-        console.log(data);
-=======
         fetchLogin(onLoggedIn, userData);
     }
 
     async function fetchLogin(onLoggedIn, userData) {
         console.log(userData);
->>>>>>> Stashed changes
 
         fetch('https://jeriflix.onrender.com/login', {
             method: "POST",

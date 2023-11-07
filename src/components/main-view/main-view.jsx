@@ -15,11 +15,8 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-<<<<<<< Updated upstream
   console.log(user);
 
-=======
->>>>>>> Stashed changes
   useEffect(() => {
     if (!token) {
       return;
@@ -80,8 +77,6 @@ export const MainView = () => {
     return (
       <>
         <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-<<<<<<< Updated upstream
-=======
         <br></br>
         <h2>Similar Movies:</h2>
         {similarMovies.map((simMovie) => (
@@ -93,7 +88,6 @@ export const MainView = () => {
             }}
           />
         ))}
->>>>>>> Stashed changes
       </>
     );
   }
@@ -116,10 +110,7 @@ export const MainView = () => {
 
       {movies.map((movie) => (
         <MovieCard
-<<<<<<< Updated upstream
-=======
           key = {movie.ID}
->>>>>>> Stashed changes
           movieData={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
