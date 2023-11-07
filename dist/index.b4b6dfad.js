@@ -27185,10 +27185,7 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-<<<<<<< Updated upstream
     console.log(user);
-=======
->>>>>>> Stashed changes
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://jeriflix.onrender.com/movies", {
@@ -27228,12 +27225,12 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 55,
+                lineNumber: 57,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 61,
+                lineNumber: 63,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
@@ -27259,36 +27256,25 @@ const MainView = ()=>{
         });
         console.log(similarMovies);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-<<<<<<< Updated upstream
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                movieData: selectedMovie,
-                onBackClick: ()=>setSelectedMovie(null)
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 79,
-                columnNumber: 9
-            }, undefined)
-        }, void 0, false);
-=======
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
                     movieData: selectedMovie,
                     onBackClick: ()=>setSelectedMovie(null)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 72,
+                    lineNumber: 79,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 73,
+                    lineNumber: 80,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Similar Movies:"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 74,
+                    lineNumber: 81,
                     columnNumber: 9
                 }, undefined),
                 similarMovies.map((simMovie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27298,18 +27284,17 @@ const MainView = ()=>{
                         }
                     }, simMovie.ID, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 76,
+                        lineNumber: 83,
                         columnNumber: 11
                     }, undefined))
             ]
         }, void 0, true);
->>>>>>> Stashed changes
     }
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "Movie list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 90,
+        lineNumber: 97,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27324,11 +27309,7 @@ const MainView = ()=>{
                 children: "Logout"
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-<<<<<<< Updated upstream
-                lineNumber: 94,
-=======
-                lineNumber: 98,
->>>>>>> Stashed changes
+                lineNumber: 105,
                 columnNumber: 7
             }, undefined),
             movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27336,25 +27317,15 @@ const MainView = ()=>{
                     onMovieClick: (newSelectedMovie)=>{
                         setSelectedMovie(newSelectedMovie);
                     }
-<<<<<<< Updated upstream
-                }, void 0, false, {
-                    fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 101,
-=======
                 }, movie.ID, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 105,
->>>>>>> Stashed changes
+                    lineNumber: 112,
                     columnNumber: 9
                 }, undefined))
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-<<<<<<< Updated upstream
-        lineNumber: 92,
-=======
-        lineNumber: 96,
->>>>>>> Stashed changes
+        lineNumber: 103,
         columnNumber: 5
     }, undefined);
 };
@@ -27418,7 +27389,7 @@ const MovieCard = ({ movieData, onMovieClick })=>{
     }, undefined);
 };
 _c = MovieCard;
-MovieCard.PropTypes = {
+MovieCard.propTypes = {
     movieData: (0, _propTypesDefault.default).shape({
         Title: (0, _propTypesDefault.default).string.isRequired,
         Description: (0, _propTypesDefault.default).string.isRequired,
@@ -28547,36 +28518,32 @@ const LoginView = ({ onLoggedIn })=>{
     const [password, setPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        const data = {
+        const data1 = {
             Username: username,
             Password: password
         };
-<<<<<<< Updated upstream
-        console.log(data);
-=======
         fetchLogin(onLoggedIn, userData);
     };
-    async function fetchLogin(onLoggedIn, userData) {
-        console.log(userData);
->>>>>>> Stashed changes
+    async function fetchLogin(onLoggedIn, userData1) {
+        console.log(userData1);
         fetch("https://jeriflix.onrender.com/login", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response)=>response.json()).then((data)=>{
-            console.log("Login response: ", data);
-            if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user));
-                localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
+        }).then((response)=>response.json()).then((data1)=>{
+            console.log("Login response: ", data1);
+            if (data1.user) {
+                localStorage.setItem("user", JSON.stringify(data1.user));
+                localStorage.setItem("token", data1.token);
+                onLoggedIn(data1.user, data1.token);
             } else alert("Something went wrong3");
         }).catch((error)=>{
             console.error("Error during Login", error);
             alert("Something went wrong4");
         });
-    };
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
         onSubmit: handleSubmit,
         children: [
@@ -28590,21 +28557,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-                        lineNumber: 43,
-=======
-                        lineNumber: 48,
->>>>>>> Stashed changes
+                        lineNumber: 47,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-                lineNumber: 41,
-=======
-                lineNumber: 46,
->>>>>>> Stashed changes
+                lineNumber: 45,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28617,21 +28576,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-                        lineNumber: 53,
-=======
-                        lineNumber: 58,
->>>>>>> Stashed changes
+                        lineNumber: 57,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-                lineNumber: 51,
-=======
-                lineNumber: 56,
->>>>>>> Stashed changes
+                lineNumber: 55,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28639,21 +28590,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Log in:"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-                lineNumber: 61,
-=======
-                lineNumber: 66,
->>>>>>> Stashed changes
+                lineNumber: 65,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-<<<<<<< Updated upstream
-        lineNumber: 40,
-=======
-        lineNumber: 45,
->>>>>>> Stashed changes
+        lineNumber: 44,
         columnNumber: 9
     }, undefined);
 };
