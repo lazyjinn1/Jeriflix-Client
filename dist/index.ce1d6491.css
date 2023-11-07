@@ -2,6 +2,10 @@
   color: #4682b4;
 }
 
+.login-form {
+  margin: 20px 0;
+}
+
 body {
   background-image: linear-gradient(to right, #ff09, #2692bd99, #2692bd99, #2692bd99, #ff09);
 }
