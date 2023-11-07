@@ -64,8 +64,9 @@ export const MainView = () => {
 
   if (selectedMovie) {
     let similarMovies = movies.filter((simMovie) => {
-      return (simMovie.Genre === selectedMovie.Genre && simMovie !== selectedMovie)
+      return (simMovie.Genre.Name === selectedMovie.Genre.Name && simMovie !== selectedMovie)
     })
+    console.log(similarMovies);
     return (
       <>
         <MovieView movieData={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
