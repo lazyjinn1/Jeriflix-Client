@@ -5,22 +5,21 @@ import './movie-card.scss';
 
 export const MovieCard = ({movieData, onMovieClick}) => {
     return (
-            <Card className = "h-100">
-                <Card.Img variant = "top" src = {movieData.ImagePath} />
+            <Card className = "h-100 p-0 gx-0">
+                <Button 
+                    className = 'p-0 m-0'
+                    onClick={() => onMovieClick(movieData)} 
+                    variant="link">
+                    <Card.Img src = {movieData.ImagePath} />
+                </Button>
+                
                 <Card.Body>
                     <Card.Title>{movieData.Title}</Card.Title>
-                    <Card.Text>{movieData.Director.Name}</Card.Text>
-                    <Card.Text>{movieData.Genre.Name}</Card.Text>
-                    <Card.Text>{movieData.Description}</Card.Text>
-
-                    <Button onClick={() => onMovieClick(movieData)} variant="link">
-                        Open
-                    </Button>
+                    <Card.Text>Director: {movieData.Director.Name}</Card.Text>
+                    <Card.Text>Genre: {movieData.Genre.Name}</Card.Text>
+                    <Card.Text>Description: {movieData.Description}</Card.Text>
                 </Card.Body>
 
-                {/* <div className = 'MovieCard-Preview-Container'>
-                    <img className = 'MovieCard-Preview' src = {movieData.ImagePath} />
-                </div> */}
             </Card>
     );
 };

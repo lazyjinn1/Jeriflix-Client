@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -6,7 +6,7 @@ import { SignUpView } from '../signup-view/signup-view';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import { Button } from 'react-bootstrap';
 
 
 
@@ -57,20 +57,49 @@ export const MainView = () => {
 
   if (selectedMovie) {
     similarMovies = movies.filter((simMovie) => {
-      return (simMovie.Genre.Name === selectedMovie.Genre.Name && simMovie.Title !== selectedMovie.Title)
+      return (
+          simMovie.Genre.Name === selectedMovie.Genre.Name && simMovie.Title !== selectedMovie.Title
+      )
     })
     directorMovies = movies.filter((dirMovie) => {
       return (dirMovie.Director.Name === selectedMovie.Director.Name && dirMovie.Title !== selectedMovie.Title)
     })
   }
 
+  const ref = useRef(null);
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
+
 
 
   return (
     <Row className = 'justify-content-md-center'>
+      <h1 className = 'fixed-top text-center' style={{zIndex:1}}>Jeriflix</h1>
+        <Col>
+          <Button 
+            className = 'position-fixed top-50 start-0 translate-middle' 
+            onClick={() => scroll(-20)}
+            style={{zIndex:100}}
+            >
+            LEFT
+          </Button>
+          <Button 
+            className = 'position-fixed top-50 start-100 translate-middle' 
+            onClick={() => scroll(20)}
+            style={{zIndex:100}}
+            >  
+            RIGHT
+          </Button>
+        </Col>
       {!user ? (
         <Col md = {5}>
-          <h3 className = 'm-2'>Login:</h3>
+          <h3 
+            className = 'm-2 z-100' 
+            style={{zIndex:50}}>
+            Login:
+          </h3>
             <LoginView onLoggedIn={
               (user, token) => {
                 setUser(user)
@@ -81,8 +110,8 @@ export const MainView = () => {
             <SignUpView />
         </Col>
       ) : selectedMovie ? (
-        <Container>
-          <Row className = 'justify-content-md-center'>
+        <Container className = 'gx-0'>
+          <Row className = 'justify-content-md-center gx-0'>
             <MovieView 
               movieData={selectedMovie} 
               onBackClick={() => setSelectedMovie(null)} 
@@ -91,11 +120,11 @@ export const MainView = () => {
           
           <h1 className = 'm-4'>Other titles you may like:</h1>
 
-          <Row>
+          <Row className = 'm-3'>
             <h2 className = 'm-3'>By Genre:</h2>
             
             {similarMovies.map((simMovie) => (
-              <Col className = "m-1" md = {3}>
+              <Col className = 'm-2 gx-0' md = {3}>
                 <MovieCard
                   key={simMovie.ID}
                   movieData={simMovie}
@@ -107,11 +136,11 @@ export const MainView = () => {
             ))}
           </Row> 
 
-          <Row>
+          <Row className = 'm-3'>
             <h2 className = 'm-3'>By Director:</h2>
             
             {directorMovies.map((dirMovie) => (
-              <Col className = "m-1" md = {3}>
+              <Col className = 'm-2 gx-0' md = {3}>
                 <MovieCard
                   key={dirMovie.ID}
                   movieData={dirMovie}
@@ -126,13 +155,17 @@ export const MainView = () => {
 
         </Container>
       ) : (
-        <Row className = 'justify-content-md-center'>
-            <button onClick={() => {
+        <Container className = 'container-fluid py-2'>
+          <Col>
+            <Button 
+              onClick={() => {
               setUser(null);
               setToken(null);
               localStorage.clear();
-            }}>Logout</button>
-
+            }}>Logout</Button>
+          </Col>
+          
+          <Row className = 'd-flex flex-row flex-nowrap'>
             {movies.map((movie) => (
               <Col className = "mb-5"  md = {3}>
                 <MovieCard
@@ -144,7 +177,8 @@ export const MainView = () => {
                 />
               </Col>
             ))}
-        </Row>
+          </Row>
+        </Container>
       )}
     </Row>
   );
