@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
 
 
 export const SignUpView = () => {
@@ -34,50 +37,82 @@ export const SignUpView = () => {
     };
 
     return (
-        <form onSubmit = {handleSubmit}>
-            <label>
-                Username:
-                    <input 
-                        type = 'text' 
-                        value = {username}
-                        onChange = {(e) => setUsername(e.target.value)}
-                        required
-                        minLength = '3'
-                    />
-            </label>
-            <br></br>
-            <label>
-            Password:
-                    <input 
-                        type = 'password' 
-                        value = {password}
-                        onChange = {(e) => setPassword(e.target.value)}
-                        required
-                        minLength = '8'
-                        maxLength = '16'
-                    />
-            </label>
-            <br></br>
-            <label>
-            Email:
-                    <input 
-                        type = 'text' 
-                        value = {email}
-                        onChange = {(e) => setEmail(e.target.value)}
-                        required
-                    />
-            </label>
-            <br></br>
-            <label>
-            Birthday:  
-                    <input 
-                        type = 'date' 
-                        value = {birthday}
-                        onChange = {(e) => setBirthday(e.target.value)}
-                        required
-                    />
-            </label>
-            <button type = 'submit'>Submit</button>
-        </form>
+        <Form onSubmit = {handleSubmit}>
+           <Form.Group controlId = 'formUsername'>
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type = 'text'
+                    value = {username}
+                    onChange = {(e) => {
+                        setUsername(e.target.value)
+                    }}
+                    required
+                    minLength = '6'
+                    placeholder = 'Write Username here'
+                />
+                <Form.Control.Feedback type="invalid">
+                    Username must be at least 6 characters.
+                </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId = 'formPassword'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type = 'password'
+                    value = {password}
+                    onChange = {(e) => {
+                        setPassword(e.target.value)
+                    }}
+                    required
+                    minLength = '8'
+
+                    placeholder = 'Write Password here'
+                />
+
+                <Form.Control.Feedback type="invalid">
+                    Password must be at least 8 characters.
+                </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId = 'formEmail'>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    type = 'email'
+                    value = {email}
+                    onChange = {(e) => {
+                        setEmail(e.target.value)
+                    }}
+                    required
+                    placeholder = 'Write Email here'
+                />
+
+                <Form.Control.Feedback type="invalid">
+                    Must be a valid email.
+                </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group controlId = 'formBirthday'>
+                <Form.Label>Birthday</Form.Label>
+                <Form.Control
+                    type = 'birthday'
+                    value = {birthday}
+                    onChange = {(e) => {
+                        setBirthday(e.target.value)
+                    }}
+                    required
+                    placeholder = 'xx/xx/20xx'
+                />
+
+                <Form.Control.Feedback type="invalid">
+                    Must be a valid Birthday.
+                </Form.Control.Feedback>
+            </Form.Group>
+
+
+
+            <Button variant = 'primary' type = 'submit'>
+                Submit
+            </Button>
+        </Form>
     );
 };

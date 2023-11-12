@@ -1,9 +1,11 @@
 import propTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 
+import './movie-card.scss';
+
 export const MovieCard = ({movieData, onMovieClick}) => {
     return (
-            <Card>
+            <Card className = "h-100">
                 <Card.Img variant = "top" src = {movieData.ImagePath} />
                 <Card.Body>
                     <Card.Title>{movieData.Title}</Card.Title>
@@ -16,9 +18,9 @@ export const MovieCard = ({movieData, onMovieClick}) => {
                     </Button>
                 </Card.Body>
 
-                <div className = 'MovieCard-Preview-Container'>
+                {/* <div className = 'MovieCard-Preview-Container'>
                     <img className = 'MovieCard-Preview' src = {movieData.ImagePath} />
-                </div>
+                </div> */}
             </Card>
     );
 };
