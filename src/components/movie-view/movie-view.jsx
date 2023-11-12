@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 export const MovieView = ({movieData, onBackClick}) => {
   return (
-    <Card className = 'h-50 w-50'>
+    <Card className = 'w-50'>
       <Card.Img
         src = {movieData.ImagePath}
       />
