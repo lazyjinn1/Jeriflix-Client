@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export const LoginView = ({ onLoggedIn }) => {
 
@@ -31,40 +33,48 @@ export const LoginView = ({ onLoggedIn }) => {
                     localStorage.setItem('token', userData.token);
                     onLoggedIn(userData.user, userData.token);
                 } else {
-                    alert('Something went wrong3');
+                    alert('User not found');
                 }
             })
             .catch((error) => {
                 console.error('Error during Login', error);
-                alert('Something went wrong4');
+                alert('Something went wrong');
             }
         );
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-            Username:
-                <input
-                    type='text'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                 />
-            </label>
+        <Form onSubmit={handleSubmit}>
 
-            <label>
-            Password:
-                <input
-                    type='password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+            <Form.Group controlId = 'formUsername'>
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type = 'text'
+                    value = {username}
+                    onChange = {(e) => {
+                        setUsername(e.target.value)
+                    }}
                     required
+                    minLength = '3'
                 />
-            </label>
+            </Form.Group>
 
-            <button type= 'submit'>
-                Log in:
-            </button>
-        </form>
+            <Form.Group controlId = 'formPassword'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type = 'password'
+                    value = {password}
+                    onChange = {(e) => {
+                        setPassword(e.target.value)
+                    }}
+                    required
+                    minLength = '8'
+                />
+            </Form.Group>
+
+            <Button variant = 'primary' type = 'submit'>
+                Submit
+            </Button>
+
+        </Form>
     );
 };

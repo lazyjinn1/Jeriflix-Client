@@ -1,4 +1,11 @@
+$primary: SeaGreen;
+$body-bg: Honeydew;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
 $color: steelblue;
+
+
 
 .jeri-flix{
     color: $color;
@@ -41,92 +48,92 @@ button:active{
     margin: 0;
 }
 
-.Title, .Genre, .Director{
-    font-weight: bold;
-    top: 30%;
-}
+// .Title, .Genre, .Director{
+//     font-weight: bold;
+//     top: 30%;
+// }
 
-.Description{
-    font-style: italic;
-    font-weight: bold;
-}
+// .Description{
+//     font-style: italic;
+//     font-weight: bold;
+// }
 
-.MovieView{
-    text-align: left;
-    line-height: 2;
-    margin: 100px ;
-}
+// .MovieView{
+//     text-align: left;
+//     line-height: 2;
+//     margin: 100px ;
+// }
 
-.MovieImg{
-    border-radius: 20px;
-    margin-right: 20px;
-    height: 400px;
-    width: 275px;
-    float: left;
-}
+// .MovieImg{
+//     border-radius: 20px;
+//     margin-right: 20px;
+//     height: 400px;
+//     width: 275px;
+//     float: left;
+// }
 
-.MovieCard-grid{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+// .MovieCard-grid{
+//     display:flex;
+//     flex-direction: row;
+//     flex-wrap: wrap;
 
-    justify-content: center;
-    gap: 20px 10px;
+//     justify-content: center;
+//     gap: 20px 10px;
 
-    margin: 10px 15%;
+//     margin: 10px 15%;
 
-    z-index: 1;
-}
+//     z-index: 1;
+// }
 
-.MovieCard{
-    font-weight: bolder;
+// .MovieCard{
+//     font-weight: bolder;
 
-    height: 50px;
-    width: 100%;
-    border-radius: 20px;
-    border-right: solid black 4px;
-    border-left: solid black 4px;
+//     height: 50px;
+//     width: 100%;
+//     border-radius: 20px;
+//     border-right: solid black 4px;
+//     border-left: solid black 4px;
 
-    box-shadow: 10px 5px 5px black;
+//     box-shadow: 10px 5px 5px black;
 
-    color: black;
-    background: white;
+//     color: black;
+//     background: white;
 
-    z-index: 1;
+//     z-index: 1;
 
-    display: relative;
-}
+//     display: relative;
+// }
 
-.MovieCard-Preview-Container {
-    justify-content: center;
-    align-items: center;
-}
+// .MovieCard-Preview-Container {
+//     justify-content: center;
+//     align-items: center;
+// }
 
-.MovieCard-Preview{
-    position: fixed;
-    display: none;
+// .MovieCard-Preview{
+//     position: fixed;
+//     display: none;
 
-    justify-content: center;
-    width: 15%;
-    height: 50%;
+//     justify-content: center;
+//     width: 15%;
+//     height: 50%;
 
-    border-radius: 20px;
+//     border-radius: 20px;
 
-    opacity: 0;
+//     opacity: 0;
 
-    transition: opacity .5s;
+//     transition: opacity .5s;
 
-}
+// }
 
-.MovieCard:hover + .MovieCard-Preview-Container .MovieCard-Preview{
-    display: block;
+// .MovieCard:hover + .MovieCard-Preview-Container .MovieCard-Preview{
+//     display: block;
 
-    opacity: 1;
+//     opacity: 1;
 
-    z-index: 9999;
+//     z-index: 9999;
 
-    box-shadow: 20px 5px 5px black;
-}
+//     box-shadow: 20px 5px 5px black;
+// }
 
 
 

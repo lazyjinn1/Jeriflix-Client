@@ -1,43 +1,40 @@
 import './movie-view.scss';
+import Card from 'react-bootstrap/Card';
 
 
 export const MovieView = ({movieData, onBackClick}) => {
   return (
-    <div className = 'MovieView'>
-      <div>
-        <img className = 'MovieImg' src = {movieData.ImagePath} />
-      </div>
+    <Card className = 'w-50'>
+      <Card.Img
+        src = {movieData.ImagePath}
+      />
+      <Card.Body>
+        <Card.Title>
+          <span>Title: </span> 
+          <span className = 'Title'>{movieData.Title}</span>
+        </Card.Title>
 
-      <div>
-        <span>Title: </span> 
-        <span className = 'Title'>{movieData.Title}</span>
-      </div>
+        <Card.Text>
+          <span>Director: </span>
+          <span className = 'Director'>{movieData.Director.Name}</span>
+        </Card.Text>
 
-      <div>
-        <span>Director: </span>
-        <span className = 'Director'>{movieData.Director.Name}</span>
-      </div>
+        <Card.Text>
+          <span>Genre: </span>
+          <span className = 'Genre'>{movieData.Genre.Name}</span>
+        </Card.Text>
 
-      <div>
-        <span>Genre: </span>
-        <span className = 'Genre'>{movieData.Genre.Name}</span>
-      </div>
+        <Card.Text>
+          <span>Description: </span>
+          <span className = 'Description'>{movieData.Description}</span>
+        </Card.Text>
 
-      <div>
-        <span>Description: </span>
-        <span className = 'Description'>{movieData.Description}</span>
-      </div>
+        <br></br>
 
-      <br></br>
+        <button onClick={(onBackClick)} className = "back-button">Back</button>
 
-      <button> See more from this director:</button>
-
-      <br></br>
-      <br></br>
-
-      <button onClick={(onBackClick)} className = "back-button">Back</button>
-
-
-    </div>
+      </Card.Body>
+      
+    </Card>
   );
 };
