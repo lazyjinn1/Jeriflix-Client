@@ -1,9 +1,7 @@
-import { useState, useEffect} from 'react';
 import { useParams } from "react-router";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { MainView } from '../main-view/main-view';
 import { Card } from 'react-bootstrap';
 
 export const ProfileView = (userData, movieData) => {
