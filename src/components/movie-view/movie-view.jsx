@@ -1,10 +1,8 @@
 import { useParams } from "react-router";
 import { MovieCard } from '../movie-card/movie-card';
 import { Link } from "react-router-dom";
-import { Card } from 'react-bootstrap';
+import { Button, Card, Row, Col} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './movie-view.scss';
 
 
@@ -57,12 +55,11 @@ export const MovieView = ({movieData}) => {
               </Card.Text>
 
               <Link to={`/`}>
-                
-                <button 
-                  className="back-button"
+                <Button 
+                  className='close-open-btn'
                   onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});  }}>
-                  Back
-                </button>
+                    Back
+                </Button>
               </Link>
             </Card.Body>
           </Card>
@@ -74,9 +71,8 @@ export const MovieView = ({movieData}) => {
       <Row>
         <h3 className="m-3">By Genre:</h3>
         {similarMovies.map((simMovie) => (
-          <Col className = "mb-5"  md = {2}>
+          <Col className = "mb-5"  md = {2} key = {simMovie.ID}>
             <MovieCard
-              key = {simMovie.ID}
               movieData={simMovie}
             />
           </Col>
@@ -86,9 +82,8 @@ export const MovieView = ({movieData}) => {
       <Row>
         <h3 className="m-2">By Director:</h3>
         {directorMovies.map((dirMovie) => (
-          <Col className = "mb-5"  md = {2}>
+          <Col className = "mb-5"  md = {2} key = {dirMovie.ID}>
             <MovieCard
-              key = {dirMovie.ID}
               movieData={dirMovie}
             />
           </Col>

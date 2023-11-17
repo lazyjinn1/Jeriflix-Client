@@ -13,7 +13,7 @@ export const MovieCard = ({movieData}) => {
                         className = 'p-0 gx-0'
                         variant="link"
                         onClick={() => {
-                            window.scrollTo({top: 100, left: 0, behavior: 'smooth'});
+                            window.scrollTo({top: 125, left: 0, behavior: 'smooth'});
                         }}>
                         <Card.Img src = {movieData.ImagePath} />
                     </Button>

@@ -3,6 +3,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignUpView } from '../signup-view/signup-view';
+import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -61,14 +62,14 @@ export const MainView = () => {
           setUser(null);
         }}
       />
-      <Row className="justify-content-md-center">
+      <Row className='justify-content-md-center'>
         <Routes>
           <Route
-            path="/signup"
+            path='/signup'
             element={
               <>
                 {user ? (
-                  <Navigate to="/" />
+                  <Navigate to='/' />
                 ) : (
                   <Col md={5}>
                     <SignUpView />
@@ -79,11 +80,11 @@ export const MainView = () => {
             }
           />
           <Route
-            path="/login"
+            path='/login'
             element={
               <>
                 {user ? (
-                  <Navigate to="/" />
+                  <Navigate to='/' />
                 ) : (
                   <Col md={5}>
                     <LoginView onLoggedIn={
@@ -99,16 +100,17 @@ export const MainView = () => {
             }
           />
           <Route
-            path="/movies/:movieID"
+            path='/movies/:movieID'
             element={
               <>
                 {!user ? (
-                  <Navigate to="/login" replace />
+                  <Navigate to='/login' replace />
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
-                  <Row className='gx-0'>
+                  <Row className='gx-0' key = {movies.ID}>
                     <MovieView
+                      
                       movieData={movies}
                     />
                   </Row>
@@ -118,26 +120,48 @@ export const MainView = () => {
           />
 
           <Route
-            path="/"
+            path='/'
             element={
               <Container>
                 {!user ? (
-                  <Navigate to="/login" replace />
+                  <Navigate to='/login' replace />
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
                   <Container className='container-fluid py-2'>
-                    <Row className='d-flex flex-row flex-nowrap'>
+                    <Row className='flex-row flex-nowrap'>
                       {movies.map((movie) => (
-                        <Col className="mb-5" md={3}>
+                        <Col className='mb-5' md={3} key={movie.ID}>
                           <MovieCard
-                            key={movie.ID}
                             movieData={movie}
                           />
                         </Col>
                       ))}
                     </Row>
                   </Container>
+                )}
+              </Container>
+            }
+          />
+
+          <Route 
+            path = '/profile'
+            element = {
+              <Container>
+                {!user ? (
+                  <Navigate to = '/login' replace />
+                ) : (
+                  <Col>
+                    <Row>
+                      <ProfileView 
+                        user = {user}
+                        setUser = {setUser}
+                        token = {token}
+                        movieData = {movies}
+                      />
+                    </Row>
+                  </Col>
+                  
                 )}
               </Container>
             }
