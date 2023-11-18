@@ -94,13 +94,12 @@ export const SignUpView = () => {
             <Form.Group controlId = 'formBirthday'>
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
-                    type = 'birthday'
+                    type = 'date'
                     value = {birthday}
                     onChange = {(e) => {
                         setBirthday(e.target.value)
                     }}
                     required
-                    placeholder = 'xx/xx/20xx'
                 />
 
                 <Form.Control.Feedback type="invalid">

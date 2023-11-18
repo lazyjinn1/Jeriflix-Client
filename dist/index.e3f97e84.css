@@ -1,6 +1,13 @@
 
 
+#moviePoster {
+  max-width: 100%;
+  height: auto;
+}
 
+#customColumn {
+  width: 40%;
+}
 
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
@@ -13217,6 +13224,7 @@ textarea.form-control-lg {
 
 body {
   background-image: linear-gradient(to right, #ff09, #2692bd99, #2692bd99, #2692bd99, #ff09);
+  margin: 10px 50px;
 }
 
 button {

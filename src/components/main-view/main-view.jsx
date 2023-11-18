@@ -47,7 +47,6 @@ export const MainView = () => {
           }
         }));
         setMovies(MoviesFromApi);
-
       })
       .catch((error) => {
         console.error('Error fetching movies: ' + error);
@@ -59,7 +58,9 @@ export const MainView = () => {
       <NavigationBar 
         user = {user}
         onLoggedOut = {() => {
+          setToken(null);
           setUser(null);
+          localStorage.clear();
         }}
       />
       <Row className='justify-content-md-center'>

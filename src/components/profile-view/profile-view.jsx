@@ -1,19 +1,20 @@
-import { MovieCard } from '../movie-card/movie-card'
-import Container from 'react-bootstrap/Container';
 import { useState } from 'react';
 import { Card, Form, Row, Col, Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
+import { MovieCard } from '../movie-card/movie-card'
 
 export const ProfileView = ({ user, setUser, token, movieData }) => {
 
     const [username, setUsername] = useState(user.Username);
     const [password, setPassword] = useState(user.Password);
     const [email, setEmail] = useState(user.Email);
-    const [birthday, setBirthday] = useState(user.Birthday);
-    //const [profilePic, setPfp] = useState(user.ProfilePic);
+    const [birthday, setBirthday] = (useState(user.Birthday));
+    const [favMovies, setFavMovies] = (useState(user.FavoriteMovies));
+
+    let formattedBirthday = new Date(birthday.replace(/-/g, '\/').replace(/T.+/, '')).toLocaleDateString();
 
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
-    console.log(FavoriteMovies);
 
     const handleUpdate = (event) => {
         event.preventDefault();
@@ -33,26 +34,24 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            console.log(response)
             if (response.ok) {
                 return response.json();
             } else {
                 return response.text();
             }
-        }).then((newData) => {
-            if (newData) {
-                localStorage.setItem('user', JSON.stringify(newData));
-                setUser(newData);
-                window.location.reload();
-                console.log('Account successfully updated.');
+        }).then((data) => {
+            if (data) {
+                localStorage.setItem('user', JSON.stringify(data));
+                setUser(data);
+                alert('Account successfully updated.');
             } else {
-                console.log('Update failed');
+                alert('No changes detected or invalid entries');
             }
-        })
+        });
     };
 
     const handleRemove = () => {
-        fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
+        fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`
@@ -60,6 +59,8 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
         }).then((response) => {
             if (response.ok) {
                 setUser(null);
+                setToken(null);
+                localStorage.clear();
                 alert('Your account has been deleted');
             } else {
                 alert('Something went wrong');
@@ -70,11 +71,11 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     return (
         <Container className='m-1 p-2 overflow-hidden'>
             <Row className='text-center'>
-                <Col md={9}>
+                <Col md={8}>
                     <h3 className='justify-content-center'>Favorite Movies</h3>
                 </Col>
                 <Col>
-                    <h3 className='justify-content-center'>About:</h3>
+                    <h3>About:</h3>
                 </Col>
             </Row>
             <Row>
@@ -92,42 +93,38 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                         </Row>
                     </Row>
                 </Col>
-                <Col md={4} className='ml-auto'>
+                <Col md={4} className='ml-auto text-center'>
                     <Card >
-                        {/* {pictureUrl && (
-                        <Image src={'..../assets/silenceofthelambs.jpg'} alt="User Profile Picture" fluid />
-                    )} */}
                         <Card.Body>
                             <Card.Title>{username}</Card.Title>
-                            {/* {shortBio && <Card.Text>{shortBio}</Card.Text>} */}
                             <Card.Text>Email: {email}</Card.Text>
-                            <Card.Text>Birthday: {birthday}</Card.Text>
+                            <Card.Text>Birthday: {formattedBirthday}</Card.Text>
                         </Card.Body>
                     </Card>
 
-                    <h2 className="profile-title">Update info</h2>
+                    <h2 className='profile-title justify-content-center'>Update info</h2>
 
-                    <Form className="my-profile" onSubmit={handleUpdate}>
+                    <Form className='my-profile' onSubmit = {handleUpdate}>
 
-                        <Form.Group className="mb-2" controlId="formUsername">
+                        <Form.Group className='mb-2' controlId='formUsername'>
                             <Form.Label>Username: </Form.Label>
                             <Form.Control
-                                type="text"
+                                type='text'
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 minLength='6'
+                                disabled
                                 
                                 placeholder='Change Username here'
                             />
 
-                            <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type='invalid'>
                                 Username must be at least 6 characters.
                             </Form.Control.Feedback>
                         </Form.Group >
 
                         <Form.Group className="mb-2" controlId="formPassword">
                             <Form.Label>Password:</Form.Label>
-
                             <Form.Control
                                 type="password"
                                 value={password}
@@ -136,45 +133,42 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                 disabled
                                 placeholder='Change Password here'
                             />
-
                             <Form.Control.Feedback type="invalid">
                                 Password must be at least 8 characters.
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Form.Group className="mb-2" controlId="formEmail">
+                        <Form.Group className='mb-2' controlId='formEmail'>
                             <Form.Label>Email:</Form.Label>
 
                             <Form.Control
-                                type="email"
+                                type='email'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder='Change Email here'
                             />
 
-                            <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type='invalid'>
                                 Must be a valid email.
                             </Form.Control.Feedback>
                         </Form.Group>
 
 
-                        <Form.Group controlId="formBirthday">
+                        <Form.Group controlId='formBirthday'>
                             <Form.Label>Birthday:</Form.Label>
 
                             <Form.Control
-                                type="date"
+                                type='date'
                                 value={birthday}
                                 onChange={(e) => setBirthday(e.target.value)}
-                                placeholder='xx/xx/20xx'
                             />
 
-                            <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type='invalid'>
                                 Must be a valid Birthday.
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>
-                        <Button className="delete my-3 mx-5" onClick={handleRemove}>Delete Account</Button>
+                        <Button className='update my-3 mx-3' onClick={handleUpdate} type='submit'>Update</Button>
+                        <Button className='delete my-3 mx-3' onClick={handleRemove}>Delete Account</Button>
 
                     </Form>
                 </Col>
