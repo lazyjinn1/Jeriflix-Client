@@ -23,11 +23,6 @@ export const MovieCard = ({movieData}) => {
                     <Card.Text>Director: {movieData.Director.Name}</Card.Text>
                     <Card.Text>Genre: {movieData.Genre.Name}</Card.Text>
                     <Card.Text>Description: {movieData.Description}</Card.Text>
-
-                    <Button
-                        onClick={() => addToFavorites(movieData)}>
-                        Add to favorites
-                    </Button>
                 </Card.Body>
 
             </Card>

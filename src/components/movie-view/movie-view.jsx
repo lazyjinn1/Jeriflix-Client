@@ -54,28 +54,13 @@ export const MovieView = ({movieData}) => {
                 <span className = 'Description'>{movie.Description}</span>
               </Card.Text>
 
-              <Row>
-                <Col>
-                  <Link to={`/`}>
-                    <Button 
-                      className='close-open-btn'
-                      onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});  }}>
-                        Back
-                    </Button>
-                  </Link>
-                </Col>
-                
-                <Col>
-                  <Link to={`/`}>
-                    <Button 
-                      className='close-open-btn'
-                      onClick={() => { addtoFavorites(movie)  }}>
-                        Add to Favorites
-                    </Button>
-                  </Link>
-                </Col>
-              </Row>
-              
+              <Link to={`/`}>
+                <Button 
+                  className='close-open-btn'
+                  onClick={() => { window.scrollTo({top: 0, left: 0, behavior: 'smooth'});  }}>
+                    Back
+                </Button>
+              </Link>
             </Card.Body>
           </Card>
         </Col>

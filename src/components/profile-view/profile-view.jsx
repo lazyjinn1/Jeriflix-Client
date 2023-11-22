@@ -1,57 +1,73 @@
+import { MovieCard } from '../movie-card/movie-card'
+import Container from 'react-bootstrap/Container';
 import { useState } from 'react';
 import { Card, Form, Row, Col, Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
 
-import { MovieCard } from '../movie-card/movie-card'
 
-export const ProfileView = ({ user, setUser, token, movieData }) => {
+export const ProfileView = ({user, setUser, token, movieData }) =>  {
 
-    const [username, setUsername] = useState(user.Username);
-    const [password, setPassword] = useState(user.Password);
-    const [email, setEmail] = useState(user.Email);
-    const [birthday, setBirthday] = (useState(user.Birthday));
-    const [favMovies, setFavMovies] = (useState(user.FavoriteMovies));
+    let fixedUser = JSON.parse(localStorage.getItem("user"));
 
-    let formattedBirthday = new Date(birthday.replace(/-/g, '\/').replace(/T.+/, '')).toLocaleDateString();
+    let tesobject = JSON.stringify(JSON.parse(localStorage.getItem("user")));
 
-    let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
+   
+    const [username, setUsername] = useState(fixedUser.Username);
+    const [password, setPassword] = useState(fixedUser.Password);
+    const [email, setEmail] = useState(fixedUser.Email);
+    const [birthday, setBirthday] = useState(fixedUser.Birthday);
+    // let [profilePic, setPfp] = useState(user.ProfilePic);
+    let [favoriteMovies, setFavoriteMovies] = useState(fixedUser.FavoriteMovies);
 
-    const handleUpdate = (event) => {
+    let FavoriteMovies = fixedUser.FavoriteMovies ? movieData.filter((movie) => fixedUser.FavoriteMovies.includes(movie.ID)) : [];
+    // console.log(FavoriteMovies);
+    // console.log(user);
+    // console.log(fixedUser);
+
+    let handleUpdate = (event) => {
         event.preventDefault();
+        
+        
 
         let data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday,
+            username: username, 
+            password: password,
+            email: email,
+            birthday: birthday,
+           
         };
-
-        fetch(`https://jeriflix.onrender.com/users/${username}`, {
+        console.log(data);
+        console.log('https://jeriflix.onrender.com/users/'+ fixedUser.Username);
+        fetch(`https://jeriflix.onrender.com/users/${fixedUser.Username}`, {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: data,
             headers: {
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
+                Authorization: 'Bearer ' + token
             }
-        }).then((response) => {
+        })
+        .then((response) => {
+
+            console.log(response);
             if (response.ok) {
+                // if (updatedUser) {
+                //     localStorage.setItem('user', JSON.stringify(updatedUser));
+                //     setUser(updatedUser);
+                //     //window.location.reload();
+                //     console.log('Account successfully updated.');
+                // } else {
+                //     console.log('Update failed');
+                // }
                 return response.json();
-            } else {
+            } else{
                 return response.text();
             }
-        }).then((data) => {
-            if (data) {
-                localStorage.setItem('user', JSON.stringify(data));
-                setUser(data);
-                alert('Account successfully updated.');
-            } else {
-                alert('No changes detected or invalid entries');
-            }
-        });
+        })
     };
 
-    const handleRemove = () => {
-        fetch(`https://jeriflix.onrender.com/users/${username}`, {
+    let handleRemove = () => {
+        fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`
@@ -59,8 +75,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
         }).then((response) => {
             if (response.ok) {
                 setUser(null);
-                setToken(null);
-                localStorage.clear();
                 alert('Your account has been deleted');
             } else {
                 alert('Something went wrong');
@@ -71,11 +85,11 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     return (
         <Container className='m-1 p-2 overflow-hidden'>
             <Row className='text-center'>
-                <Col md={8}>
+                <Col md={9}>
                     <h3 className='justify-content-center'>Favorite Movies</h3>
                 </Col>
                 <Col>
-                    <h3>About:</h3>
+                    <h3 className='justify-content-center'>About:</h3>
                 </Col>
             </Row>
             <Row>
@@ -93,82 +107,77 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                         </Row>
                     </Row>
                 </Col>
-                <Col md={4} className='ml-auto text-center'>
+                <Col md={4} className='ml-auto'>
                     <Card >
                         <Card.Body>
-                            <Card.Title>{username}</Card.Title>
-                            <Card.Text>Email: {email}</Card.Text>
-                            <Card.Text>Birthday: {formattedBirthday}</Card.Text>
+                            <Card.Title>{fixedUser.Username}</Card.Title>
+                            <Card.Text>Email: {fixedUser.Email}</Card.Text>
+                            <Card.Text>Birthday: {fixedUser.Birthday}</Card.Text>
                         </Card.Body>
                     </Card>
 
-                    <h2 className='profile-title justify-content-center'>Update info</h2>
+                    <h2 className="profile-title">Update info</h2>
 
-                    <Form className='my-profile' onSubmit = {handleUpdate}>
+                    <Form className="my-profile">
 
-                        <Form.Group className='mb-2' controlId='formUsername'>
-                            <Form.Label>Username: </Form.Label>
+                        {/* <Form.Group className="mb-2" controlId="formUsername">
+                            <Form.Label>Username:</Form.Label>
                             <Form.Control
-                                type='text'
+                                type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                minLength='6'
                                 disabled
-                                
-                                placeholder='Change Username here'
                             />
-
-                            <Form.Control.Feedback type='invalid'>
-                                Username must be at least 6 characters.
-                            </Form.Control.Feedback>
-                        </Form.Group >
+                        </Form.Group>
 
                         <Form.Group className="mb-2" controlId="formPassword">
-                            <Form.Label>Password:</Form.Label>
+                            <Form.Label>Password: </Form.Label>
+
                             <Form.Control
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 minLength='8'
                                 disabled
-                                placeholder='Change Password here'
                             />
+
                             <Form.Control.Feedback type="invalid">
                                 Password must be at least 8 characters.
                             </Form.Control.Feedback>
-                        </Form.Group>
+                        </Form.Group> */}
 
-                        <Form.Group className='mb-2' controlId='formEmail'>
+                        <Form.Group className="mb-2" controlId="formEmail">
                             <Form.Label>Email:</Form.Label>
 
                             <Form.Control
-                                type='email'
+                                type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
 
-                            <Form.Control.Feedback type='invalid'>
+                            <Form.Control.Feedback type="invalid">
                                 Must be a valid email.
                             </Form.Control.Feedback>
                         </Form.Group>
 
 
-                        <Form.Group controlId='formBirthday'>
+                        <Form.Group controlId="formBirthday">
                             <Form.Label>Birthday:</Form.Label>
 
                             <Form.Control
-                                type='date'
+                                type="date"
                                 value={birthday}
                                 onChange={(e) => setBirthday(e.target.value)}
+                            
                             />
 
-                            <Form.Control.Feedback type='invalid'>
+                            <Form.Control.Feedback type="invalid">
                                 Must be a valid Birthday.
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button className='update my-3 mx-3' onClick={handleUpdate} type='submit'>Update</Button>
-                        <Button className='delete my-3 mx-3' onClick={handleRemove}>Delete Account</Button>
+                        <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>
+                        <Button className="delete my-3 mx-5" onClick={handleRemove}>Delete Account</Button>
 
                     </Form>
                 </Col>

@@ -18,7 +18,7 @@ export const LoginView = ({ onLoggedIn }) => {
         fetchLogin(onLoggedIn, userData);
     }
 
-    async function fetchLogin(onLoggedIn, userData) {
+    function fetchLogin(onLoggedIn, userData) {
         console.log(userData);
 
         fetch('https://jeriflix.onrender.com/login', {

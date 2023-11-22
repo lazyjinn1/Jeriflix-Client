@@ -10,15 +10,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-
-
-
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedToken = localStorage.getItem('token');
+   let storedUser = localStorage.getItem('user');
+   let storedToken = localStorage.getItem('token');
+  
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  
+  console.log(user);
 
   useEffect(() => {
     if (!token) {
@@ -47,6 +47,7 @@ export const MainView = () => {
           }
         }));
         setMovies(MoviesFromApi);
+
       })
       .catch((error) => {
         console.error('Error fetching movies: ' + error);
@@ -58,8 +59,8 @@ export const MainView = () => {
       <NavigationBar 
         user = {user}
         onLoggedOut = {() => {
-          setToken(null);
           setUser(null);
+          setToken(null);
           localStorage.clear();
         }}
       />
@@ -111,7 +112,6 @@ export const MainView = () => {
                 ) : (
                   <Row className='gx-0' key = {movies.ID}>
                     <MovieView
-                      
                       movieData={movies}
                     />
                   </Row>
