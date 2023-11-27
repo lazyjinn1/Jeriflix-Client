@@ -25,9 +25,12 @@ export const MainView = () => {
       return;
     }
 
-    fetch('https://jeriflix.onrender.com/movies', {
+    fetch('http://localhost:8080/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
+    // fetch('https://jeriflix.onrender.com/movies', {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // })
       .then((response) => response.json())
       .then((data) => {
         const MoviesFromApi = data.map((movie) => ({

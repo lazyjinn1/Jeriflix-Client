@@ -18,10 +18,11 @@ export const LoginView = ({ onLoggedIn }) => {
         fetchLogin(onLoggedIn, userData);
     }
 
-    function fetchLogin(onLoggedIn, userData) {
+    async function fetchLogin(onLoggedIn, userData) {
         console.log(userData);
 
-        fetch('https://jeriflix.onrender.com/login', {
+        // await fetch('https://jeriflix.onrender.com/login', {
+        await fetch('http://localhost:8080/login', {
             method: "POST",
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json'},
@@ -31,8 +32,9 @@ export const LoginView = ({ onLoggedIn }) => {
                 if (userData.user) {
                     localStorage.setItem('user', JSON.stringify(userData.user));
                     localStorage.setItem('token', userData.token);
-                    onLoggedIn(userData.user, userData.token);
+                    onLoggedIn(username, userData.token);
                 } else {
+                    console.log(userData);
                     alert('User not found');
                 }
             })

@@ -6,19 +6,19 @@ import { Card, Form, Row, Col, Button } from 'react-bootstrap';
 
 export const ProfileView = ({user, setUser, token, movieData }) =>  {
 
-    let fixedUser = JSON.parse(localStorage.getItem("user"));
+    user = JSON.parse(localStorage.getItem("user"));
 
-    let tesobject = JSON.stringify(JSON.parse(localStorage.getItem("user")));
+    // let tesobject = JSON.stringify(JSON.parse(localStorage.getItem("user")));
 
    
-    const [username, setUsername] = useState(fixedUser.Username);
-    const [password, setPassword] = useState(fixedUser.Password);
-    const [email, setEmail] = useState(fixedUser.Email);
-    const [birthday, setBirthday] = useState(fixedUser.Birthday);
+    const [username, setUsername] = useState(user.Username);
+    const [password, setPassword] = useState(user.Password);
+    const [email, setEmail] = useState(user.Email);
+    const [birthday, setBirthday] = useState(user.Birthday);
     // let [profilePic, setPfp] = useState(user.ProfilePic);
-    let [favoriteMovies, setFavoriteMovies] = useState(fixedUser.FavoriteMovies);
+    let [favoriteMovies, setFavoriteMovies] = useState(user.FavoriteMovies);
 
-    let FavoriteMovies = fixedUser.FavoriteMovies ? movieData.filter((movie) => fixedUser.FavoriteMovies.includes(movie.ID)) : [];
+    let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
     // console.log(FavoriteMovies);
     // console.log(user);
     // console.log(fixedUser);
@@ -26,48 +26,52 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
     let handleUpdate = (event) => {
         event.preventDefault();
         
-        
-
         let data = {
-            username: username, 
-            password: password,
-            email: email,
-            birthday: birthday,
+            Username: username, 
+            Password: password,
+            Email: email,
+            Birthday: birthday,
            
         };
-        console.log(data);
-        console.log('https://jeriflix.onrender.com/users/'+ fixedUser.Username);
-        fetch(`https://jeriflix.onrender.com/users/${fixedUser.Username}`, {
+        // console.log(JSON.stringify(data));
+
+        fetch(`http://localhost:8080/users/${username}`, {
             method: 'PUT',
-            body: data,
+            body: JSON.stringify(data),
             headers: {
-                "Access-Control-Allow-Origin" : "*",
-                "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept",
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
             }
         })
+        // fetch(`https://jeriflix.onrender.com/users/${username}`, {
+        //     method: 'PUT',
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         Authorization: `Bearer ${token}`
+        //     }
+        // })
         .then((response) => {
-
-            console.log(response);
+            console.log("HELLO WORLD", response.body);
+            
             if (response.ok) {
-                // if (updatedUser) {
-                //     localStorage.setItem('user', JSON.stringify(updatedUser));
-                //     setUser(updatedUser);
-                //     //window.location.reload();
-                //     console.log('Account successfully updated.');
-                // } else {
-                //     console.log('Update failed');
-                // }
                 return response.json();
             } else{
                 return response.text();
             }
-        })
-    };
+
+        }).then((data) => {
+            if (data) {
+                localStorage.setItem('user', JSON.stringify(data));
+                setUser(data);
+                alert('Account successfully updated.');
+            } else {
+                alert('No changes detected or invalid entries');
+            }
+        });
+    }
 
     let handleRemove = () => {
-        fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
+        fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`
@@ -110,9 +114,9 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                 <Col md={4} className='ml-auto'>
                     <Card >
                         <Card.Body>
-                            <Card.Title>{fixedUser.Username}</Card.Title>
-                            <Card.Text>Email: {fixedUser.Email}</Card.Text>
-                            <Card.Text>Birthday: {fixedUser.Birthday}</Card.Text>
+                            <Card.Title>{user.Username}</Card.Title>
+                            <Card.Text>Email: {user.Email}</Card.Text>
+                            <Card.Text>Birthday: {user.Birthday}</Card.Text>
                         </Card.Body>
                     </Card>
 
@@ -120,7 +124,7 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
 
                     <Form className="my-profile">
 
-                        {/* <Form.Group className="mb-2" controlId="formUsername">
+                        <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username:</Form.Label>
                             <Form.Control
                                 type="text"
@@ -144,7 +148,7 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                             <Form.Control.Feedback type="invalid">
                                 Password must be at least 8 characters.
                             </Form.Control.Feedback>
-                        </Form.Group> */}
+                        </Form.Group>
 
                         <Form.Group className="mb-2" controlId="formEmail">
                             <Form.Label>Email:</Form.Label>
