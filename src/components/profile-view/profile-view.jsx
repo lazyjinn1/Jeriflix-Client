@@ -7,12 +7,8 @@ import { Card, Form, Row, Col, Button } from 'react-bootstrap';
 export const ProfileView = ({user, setUser, token, movieData }) =>  {
 
     user = JSON.parse(localStorage.getItem("user"));
-
-    // let tesobject = JSON.stringify(JSON.parse(localStorage.getItem("user")));
-
    
     const [username, setUsername] = useState(user.Username);
-    const [password, setPassword] = useState(user.Password);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     // let [profilePic, setPfp] = useState(user.ProfilePic);
@@ -28,28 +24,27 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
         
         let data = {
             Username: username, 
-            Password: password,
             Email: email,
             Birthday: birthday,
-           
         };
         // console.log(JSON.stringify(data));
 
-        fetch(`http://localhost:8080/users/${username}`, {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            }
-        })
-        // fetch(`https://jeriflix.onrender.com/users/${username}`, {
+        // fetch(`http://localhost:8080/users/${username}`, {
         //     method: 'PUT',
         //     body: JSON.stringify(data),
         //     headers: {
+        //         "Content-Type": "application/json",
         //         Authorization: `Bearer ${token}`
         //     }
         // })
+        fetch(`https://jeriflix.onrender.com/users/${username}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                    "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
         .then((response) => {
             console.log("HELLO WORLD", response.body);
             
@@ -101,9 +96,8 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                     <Row>
                         <Row className='flex-row flex-nowrap'>
                             {FavoriteMovies.map((movie) => (
-                                <Col className='mb-5' md={3}>
+                                <Col className='mb-5' md={3} key={movie.ID}>
                                     <MovieCard
-                                        key={movie.ID}
                                         movieData={movie}
                                     />
                                 </Col>
@@ -132,22 +126,6 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                                 onChange={(e) => setUsername(e.target.value)}
                                 disabled
                             />
-                        </Form.Group>
-
-                        <Form.Group className="mb-2" controlId="formPassword">
-                            <Form.Label>Password: </Form.Label>
-
-                            <Form.Control
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                minLength='8'
-                                disabled
-                            />
-
-                            <Form.Control.Feedback type="invalid">
-                                Password must be at least 8 characters.
-                            </Form.Control.Feedback>
                         </Form.Group>
 
                         <Form.Group className="mb-2" controlId="formEmail">

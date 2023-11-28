@@ -12,19 +12,6 @@ export const SignUpView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    const testGet = (event) => {
-
-       
-            fetch("http://localhost:8080/testApi", {
-                method: "GET",
-               
-               
-            }).then((response) => {
-                console.log(response)
-            });
-        
-    }
-
     const handleSubmit = (event) => {
             event.preventDefault();
 
@@ -36,8 +23,8 @@ export const SignUpView = () => {
         };
         console.log(data);
 
-         //fetch("https://jeriflix.onrender.com/users", {
-        fetch("http://localhost:8080/users", {
+        fetch("https://jeriflix.onrender.com/users", {
+        //fetch("http://localhost:8080/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json"}
@@ -45,7 +32,7 @@ export const SignUpView = () => {
             if (response.ok) {
                 console.log(data);
                 alert ("Signup Successful");
-                // window.location.reload();
+                window.location.reload();
                 console.log(response);
 
             } else {
@@ -131,9 +118,6 @@ export const SignUpView = () => {
                     Submit
                 </Button>
 
-                <Button variant ="danger" type="button" onClick={testGet}>
-                    TEST
-                </Button>
             </Form>
         </Card>
         

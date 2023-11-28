@@ -11,26 +11,23 @@ import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 export const MainView = () => {
-   let storedUser = localStorage.getItem('user');
-   let storedToken = localStorage.getItem('token');
+  let storedUser = localStorage.getItem('user');
+  let storedToken = localStorage.getItem('token');
   
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  
-  console.log(user);
 
   useEffect(() => {
     if (!token) {
       return;
     }
-
-    fetch('http://localhost:8080/movies', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    // fetch('https://jeriflix.onrender.com/movies', {
+    // fetch('http://localhost:8080/movies', {
     //   headers: { Authorization: `Bearer ${token}` },
     // })
+    fetch('https://jeriflix.onrender.com/movies', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => response.json())
       .then((data) => {
         const MoviesFromApi = data.map((movie) => ({
@@ -115,6 +112,9 @@ export const MainView = () => {
                 ) : (
                   <Row className='gx-0' key = {movies.ID}>
                     <MovieView
+                      user = {user}
+                      setUser = {setUser}
+                      token = {token}
                       movieData={movies}
                     />
                   </Row>

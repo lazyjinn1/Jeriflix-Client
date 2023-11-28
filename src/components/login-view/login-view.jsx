@@ -21,8 +21,8 @@ export const LoginView = ({ onLoggedIn }) => {
     async function fetchLogin(onLoggedIn, userData) {
         console.log(userData);
 
-        // await fetch('https://jeriflix.onrender.com/login', {
-        await fetch('http://localhost:8080/login', {
+        await fetch('https://jeriflix.onrender.com/login', {
+        // await fetch('http://localhost:8080/login', {
             method: "POST",
             body: JSON.stringify(userData),
             headers: { 'Content-Type': 'application/json'},
