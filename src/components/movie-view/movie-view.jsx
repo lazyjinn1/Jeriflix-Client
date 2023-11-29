@@ -8,10 +8,13 @@ import './movie-view.scss';
 
 
 export const MovieView = ({ user, setUser, token, movieData }) => {
-
-  user = JSON.parse(localStorage.getItem("user"));
   const { movieID } = useParams();
   const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+  }, []);
 
   const movie = movieData.find((b) => b.ID === movieID);
 
@@ -34,10 +37,8 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     }
   }, [user]);
 
-  console.log(user);
-
-  const addToFavorites = () => {
-    fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
+  const addToFavorites = async() => {
+    await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +46,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
       }
     }
     )
-    fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
+    await fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -62,16 +63,17 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
         setIsFavorite(true);
+        console.log(user);
         alert(`${movie.Title} added to Favorites`);
-        window.location.reload();
+        // window.location.reload();
       }
     }).catch((error) => {
       alert(error);
     });
   }
 
-  const removeFromFavorites = () => {
-    fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
+  const removeFromFavorites = async() => {
+    await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +81,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
       }
     }
     )
-    fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
+    await fetch(`https://jeriflix.onrender.com/users/${user.Username}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,8 +98,9 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         localStorage.setItem("user", JSON.stringify(user));
         setUser(user);
         setIsFavorite(false);
+        console.log(user);
         alert(`${movie.Title} removed from Favorites`);
-        window.location.reload();
+        // window.location.reload();
       }
     }).catch((error) => {
       alert(error);
