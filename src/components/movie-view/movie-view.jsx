@@ -109,7 +109,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
 
 
   return (
-    <Container className='align-items-center h-100 m-5'>
+    <Container className='align-items-center h-100 mt-2'>
       <Row>
         <Col md={4} className='m-3'>
           <Card.Img
