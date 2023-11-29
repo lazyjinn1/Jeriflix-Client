@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -13,7 +13,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 export const MainView = () => {
   let storedUser = localStorage.getItem('user');
   let storedToken = localStorage.getItem('token');
-  
+
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
@@ -56,15 +56,15 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-      <NavigationBar 
-        user = {user}
-        onLoggedOut = {() => {
+      <NavigationBar
+        user={user}
+        onLoggedOut={() => {
           setUser(null);
           setToken(null);
           localStorage.clear();
         }}
       />
-      <Row className='justify-content-md-center'>
+      <Row className='justify-content-md-center mt-5'>
         <Routes>
           <Route
             path='/signup'
@@ -110,11 +110,11 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
-                  <Row className='gx-0' key = {movies.ID}>
+                  <Row className='gx-0' key={movies.ID}>
                     <MovieView
-                      user = {user}
-                      setUser = {setUser}
-                      token = {token}
+                      user={user}
+                      setUser={setUser}
+                      token={token}
                       movieData={movies}
                     />
                   </Row>
@@ -136,6 +136,7 @@ export const MainView = () => {
                     <Row className='flex-row flex-nowrap'>
                       {movies.map((movie) => (
                         <Col className='mb-5' md={3} key={movie.ID}>
+                          <h2 className='fixed-top text-center justify-center'> All Movies</h2>
                           <MovieCard
                             movieData={movie}
                           />
@@ -148,24 +149,24 @@ export const MainView = () => {
             }
           />
 
-          <Route 
-            path = '/profile'
-            element = {
+          <Route
+            path='/profile'
+            element={
               <Container>
                 {!user ? (
-                  <Navigate to = '/login' replace />
+                  <Navigate to='/login' replace />
                 ) : (
                   <Col>
                     <Row>
-                      <ProfileView 
-                        user = {user}
-                        setUser = {setUser}
-                        token = {token}
-                        movieData = {movies}
+                      <ProfileView
+                        user={user}
+                        setUser={setUser}
+                        token={token}
+                        movieData={movies}
                       />
                     </Row>
                   </Col>
-                  
+
                 )}
               </Container>
             }

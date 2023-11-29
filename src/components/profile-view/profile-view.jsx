@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { Card, Form, Row, Col, Button } from 'react-bootstrap';
 
 
-export const ProfileView = ({user, setUser, token, movieData }) =>  {
+export const ProfileView = ({ user, setUser, token, movieData }) => {
 
     user = JSON.parse(localStorage.getItem("user"));
-   
+
     const [username, setUsername] = useState(user.Username);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
+    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', {timeZone: 'PST'});
     // let [profilePic, setPfp] = useState(user.ProfilePic);
 
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
@@ -20,9 +21,9 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
 
     let handleUpdate = (event) => {
         event.preventDefault();
-        
+
         let data = {
-            Username: username, 
+            Username: username,
             Email: email,
             Birthday: birthday,
         };
@@ -40,28 +41,28 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
-                    "Content-Type": "application/json",
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
         })
-        .then((response) => {
-            console.log("HELLO WORLD", response.body);
-            
-            if (response.ok) {
-                return response.json();
-            } else{
-                return response.text();
-            }
+            .then((response) => {
+                // console.log("HELLO WORLD", response.body);
 
-        }).then((data) => {
-            if (data) {
-                localStorage.setItem('user', JSON.stringify(data));
-                setUser(data);
-                alert('Account successfully updated.');
-            } else {
-                alert('No changes detected or invalid entries');
-            }
-        });
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+
+            }).then((data) => {
+                if (data) {
+                    localStorage.setItem('user', JSON.stringify(data));
+                    setUser(data);
+                    alert('Account successfully updated.');
+                } else {
+                    alert('No changes detected or invalid entries');
+                }
+            });
     }
 
     let handleRemove = () => {
@@ -83,7 +84,7 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
     return (
         <Container className='m-1 p-2 overflow-hidden'>
             <Row className='text-center'>
-                <Col md={9}>
+                <Col md={8}>
                     <h3 className='justify-content-center'>Favorite Movies</h3>
                 </Col>
                 <Col>
@@ -93,7 +94,7 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
             <Row>
                 <Col md={8}>
                     <Row>
-                        <Row className='flex-row flex-nowrap'>
+                        <Row className='flex-row flex-wrap'>
                             {FavoriteMovies.map((movie) => (
                                 <Col className='mb-5' md={3} key={movie.ID}>
                                     <MovieCard
@@ -105,15 +106,15 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                     </Row>
                 </Col>
                 <Col md={4} className='ml-auto'>
-                    <Card >
+                    <Card className = 'mb-3'>
                         <Card.Body>
                             <Card.Title>{user.Username}</Card.Title>
                             <Card.Text>Email: {user.Email}</Card.Text>
-                            <Card.Text>Birthday: {user.Birthday}</Card.Text>
+                            <Card.Text>Birthday: {fixedBirthday}</Card.Text>
                         </Card.Body>
                     </Card>
 
-                    <h2 className="profile-title">Update info</h2>
+                    <h3 className="profile-title">Update info</h3>
 
                     <Form className="my-profile">
 
@@ -149,7 +150,7 @@ export const ProfileView = ({user, setUser, token, movieData }) =>  {
                                 type="date"
                                 value={birthday}
                                 onChange={(e) => setBirthday(e.target.value)}
-                            
+
                             />
 
                             <Form.Control.Feedback type="invalid">
