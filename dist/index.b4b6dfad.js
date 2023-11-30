@@ -27319,7 +27319,7 @@ const MainView = ()=>{
                                                 md: 4,
                                                 children: [
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                                        className: "fixed-top text-center justify-center",
+                                                        className: "fixed-top text-center justify-center w-100 pe-none",
                                                         children: " All Movies"
                                                     }, void 0, false, void 0, void 0),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -48740,9 +48740,7 @@ const ProfileView = ({ user, setUser, token, movieData })=>{
     const [username, setUsername] = (0, _react.useState)(user.Username);
     const [email, setEmail] = (0, _react.useState)(user.Email);
     const [birthday, setBirthday] = (0, _react.useState)(user.Birthday);
-    const fixedBirthday = new Date(birthday).toLocaleDateString("en-US", {
-        timeZone: "PST"
-    });
+    const fixedBirthday = new Date(birthday).toLocaleDateString();
     let [profilePicture, setProfilePicture] = (0, _react.useState)(user.ProfilePicture);
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie)=>user.FavoriteMovies.includes(movie.ID)) : [];
     // console.log(FavoriteMovies);
@@ -49094,6 +49092,9 @@ const NavigationBar = ({ user, onLoggedOut })=>{
         expand: "lg",
         fixed: "top",
         className: "mb-5",
+        style: {
+            zIndex: 100
+        },
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {

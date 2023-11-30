@@ -11,7 +11,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [username, setUsername] = useState(user.Username);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
-    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', {timeZone: 'PST'});
+    const fixedBirthday = new Date(birthday).toLocaleDateString();
     let [profilePicture, setProfilePicture] = useState(user.ProfilePicture);
 
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
