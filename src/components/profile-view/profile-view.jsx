@@ -26,7 +26,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             Username: username,
             Email: email,
             Birthday: birthday,
-            profilePicture: profilePicture
         };
 
         // fetch(`http://localhost:8080/users/${username}`, {
@@ -73,6 +72,12 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
         })
     }
 
+    let updatePicture = () => {
+        fetch(`https://jeriflix.onrender.com/users/${username}`, {
+            method: ''
+        })
+    }
+
     return (
         <Container className='m-1 p-2 overflow-hidden'>
             <Row className='text-center'>
@@ -100,8 +105,8 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 <Col md={4} className='ml-auto'>
                     <Card className = 'mb-3'>
                         <Card.Body>
-                            <Card.Title>{user.Username}</Card.Title>
-                            <Card.Text>Email: {user.Email}</Card.Text>
+                            <Card.Title>{username}</Card.Title>
+                            <Card.Text>Email: {email}</Card.Text>
                             <Card.Text>Birthday: {fixedBirthday}</Card.Text>
                         </Card.Body>
                     </Card>

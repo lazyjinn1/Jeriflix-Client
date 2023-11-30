@@ -135,7 +135,7 @@ export const MainView = () => {
                   <Container className='container-fluid py-2'>
                     <Row className='flex-row flex-nowrap'>
                       {movies.map((movie) => (
-                        <Col className='mb-5' md={3} key={movie.ID}>
+                        <Col className='mb-5' md={4} key={movie.ID}>
                           <h2 className='fixed-top text-center justify-center'> All Movies</h2>
                           <MovieCard
                             movieData={movie}
