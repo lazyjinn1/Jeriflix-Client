@@ -6,55 +6,54 @@ import Button from "react-bootstrap/Button";
 
 
 export const SignUpView = () => {
-    
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+    const [profilePicture, setProfilePicture] = useState("");
 
     const handleSubmit = (event) => {
-            event.preventDefault();
+        event.preventDefault();
 
         const data = {
             Username: username,
             Password: password,
             Email: email,
             Birthday: birthday,
+            profilePicture: profilePicture,
         };
         console.log(data);
 
         fetch("https://jeriflix.onrender.com/users", {
-        //fetch("http://localhost:8080/users", {
+            //fetch("http://localhost:8080/users", {
             method: "POST",
             body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json"}
+            headers: { "Content-Type": "application/json" }
         }).then((response) => {
             if (response.ok) {
-                console.log(data);
-                alert ("Signup Successful");
-                window.location.reload();
+                alert("Signup Successful");
                 console.log(response);
 
             } else {
                 alert("Signup Failed");
-                alert("Username already taken");
             }
         });
     };
 
     return (
-        <Card className = "p-3">
-            <Form onSubmit = {handleSubmit}>
-                <Form.Group controlId = "formUsername">
+        <Card className="p-3">
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
-                        type = "text"
-                        value = {username}
-                        onChange = {(e) => {
+                        type="text"
+                        value={username}
+                        onChange={(e) => {
                             setUsername(e.target.value)
                         }}
                         required
-                        minLength = "6"
+                        minLength="6"
 
                     />
                     <Form.Control.Feedback type="invalid">
@@ -62,16 +61,16 @@ export const SignUpView = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId = "formPassword">
+                <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                        type = "password"
-                        value = {password}
-                        onChange = {(e) => {
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
                             setPassword(e.target.value)
                         }}
                         required
-                        minLength = "8"
+                        minLength="8"
 
                     />
 
@@ -80,12 +79,12 @@ export const SignUpView = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId = "formEmail">
+                <Form.Group controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                        type = "email"
-                        value = {email}
-                        onChange = {(e) => {
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
                             setEmail(e.target.value)
                         }}
                         required
@@ -96,12 +95,12 @@ export const SignUpView = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group controlId = "formBirthday">
+                <Form.Group controlId="formBirthday">
                     <Form.Label>Birthday</Form.Label>
                     <Form.Control
-                        type = "date"
-                        value = {birthday}
-                        onChange = {(e) => {
+                        type="date"
+                        value={birthday}
+                        onChange={(e) => {
                             setBirthday(e.target.value)
                         }}
                         required
@@ -112,14 +111,23 @@ export const SignUpView = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
+                <Form.Group controlId="formProfilePic">
+                    <Form.Label>Profile Picture:</Form.Label>
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setProfilePicture(e.target.files[0])}
+                    />
+                </Form.Group>
 
 
-                <Button variant = "primary" type = "submit">
+
+                <Button variant="primary" type="submit">
                     Submit
                 </Button>
 
             </Form>
         </Card>
-        
+
     );
 };

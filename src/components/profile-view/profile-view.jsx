@@ -12,7 +12,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', {timeZone: 'PST'});
-    // let [profilePic, setPfp] = useState(user.ProfilePic);
+    let [profilePicture, setProfilePicture] = useState(user.ProfilePicture);
 
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
     // console.log(FavoriteMovies);
@@ -26,17 +26,10 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             Username: username,
             Email: email,
             Birthday: birthday,
+            profilePicture: profilePicture
         };
-        // console.log(JSON.stringify(data));
 
         // fetch(`http://localhost:8080/users/${username}`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // })
         fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -46,7 +39,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             }
         })
             .then((response) => {
-                // console.log("HELLO WORLD", response.body);
 
                 if (response.ok) {
                     return response.json();

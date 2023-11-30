@@ -13240,4 +13240,8 @@ button:active {
   transform: scale(1);
 }
 
+.profile-title {
+  text-align: center;
+}
+
 /*# sourceMappingURL=index.e3f97e84.css.map */
