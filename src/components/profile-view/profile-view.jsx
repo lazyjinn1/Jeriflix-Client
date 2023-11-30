@@ -9,11 +9,11 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     user = JSON.parse(localStorage.getItem("user"));
 
     const [username, setUsername] = useState(user.Username);
+    const [profilePicture, setProfilePicture] = useState(user.ProfilePicture);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     const fixedBirthday = new Date(birthday).toLocaleDateString();
-    let [profilePicture, setProfilePicture] = useState(user.ProfilePicture);
-
+    
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
     // console.log(FavoriteMovies);
     // console.log(user);
@@ -22,11 +22,17 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     let handleUpdate = (event) => {
         event.preventDefault();
 
-        let data = {
-            Username: username,
-            Email: email,
-            Birthday: birthday,
-        };
+        let data = new FormData();
+        
+        data.append('Username', username);
+        data.append('Email', email);
+        data.append('Birthday', birthday);
+        data.append('ProfilePicture', profilePicture);
+
+        console.log(username);
+        console.log(profilePicture);
+        console.log(email);
+        console.log(birthday);
 
         // fetch(`http://localhost:8080/users/${username}`, {
         fetch(`https://jeriflix.onrender.com/users/${username}`, {
@@ -36,30 +42,31 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
-        })
-            .then((response) => {
+        }).then((response) => {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
 
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    return response.text();
-                }
-
-            }).then((data) => {
-                if (data) {
-                    localStorage.setItem('user', JSON.stringify(data));
-                    setUser(data);
-                    alert('Account successfully updated.');
-                } else {
-                    alert('No changes detected or invalid entries');
-                }
-            });
+            } else {
+                return response.text();
+            }
+        }).then((data) => {
+            if (data) {
+                console.log(data);
+                localStorage.setItem('user', JSON.stringify(data));
+                setUser(data);
+                alert('Account successfully updated.');
+            } else {
+                alert('No changes detected or invalid entries');
+            }
+        });
     }
 
     let handleRemove = () => {
         fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'DELETE',
             headers: {
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
@@ -69,12 +76,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             } else {
                 alert('Something went wrong');
             }
-        })
-    }
-
-    let updatePicture = () => {
-        fetch(`https://jeriflix.onrender.com/users/${username}`, {
-            method: ''
         })
     }
 
@@ -103,7 +104,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                     </Row>
                 </Col>
                 <Col md={4} className='ml-auto'>
-                    <Card className = 'mb-3'>
+                    <Card className='mb-3'>
                         <Card.Body>
                             <Card.Title>{username}</Card.Title>
                             <Card.Text>Email: {email}</Card.Text>
@@ -113,7 +114,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
                     <h3 className="profile-title">Update info</h3>
 
-                    <Form className="my-profile">
+                    <Form className="my-profile" encType="multipart/form-data">
 
                         <Form.Group className="mb-2" controlId="formUsername">
                             <Form.Label>Username:</Form.Label>
@@ -153,6 +154,16 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                             <Form.Control.Feedback type="invalid">
                                 Must be a valid Birthday.
                             </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="formProfilePic">
+                            <Form.Label>Profile Picture:</Form.Label>
+                            <Form.Control
+                                type="file"
+                                accept="image/*"
+                                name='ProfilePicture'
+                                onChange={(e) => setProfilePicture(e.target.files[0])}
+                            />
                         </Form.Group>
 
                         <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>

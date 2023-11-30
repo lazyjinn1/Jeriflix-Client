@@ -11,7 +11,7 @@ export const SignUpView = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
-    const [profilePicture, setProfilePicture] = useState("");
+    const [profilePicture, setProfilePicture] = useState(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -21,7 +21,7 @@ export const SignUpView = () => {
             Password: password,
             Email: email,
             Birthday: birthday,
-            profilePicture: profilePicture,
+            ProfilePicture: profilePicture
         };
         console.log(data);
 
@@ -116,6 +116,7 @@ export const SignUpView = () => {
                     <Form.Control
                         type="file"
                         accept="image/*"
+                        name={profilePicture}
                         onChange={(e) => setProfilePicture(e.target.files[0])}
                     />
                 </Form.Group>
