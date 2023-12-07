@@ -136,7 +136,7 @@ export const MainView = () => {
                     <Row className='flex-row flex-nowrap'>
                       {movies.map((movie) => (
                         <Col className='mb-5' md={3} key={movie.ID}>
-                          <h2 className='fixed-top text-center justify-center'> All Movies</h2>
+                          <h2 className='fixed-top text-center justify-center pe-none'> All Movies</h2>
                           <MovieCard
                             movieData={movie}
                           />
