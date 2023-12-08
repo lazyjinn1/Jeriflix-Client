@@ -25,6 +25,8 @@ body{
         rgba(38, 146, 189, 0.6),
         rgba(255, 0, 13, 0.6),
     );
+
+    overflow-x: hidden;
 }
 
 button{
@@ -64,8 +66,22 @@ button:active{
 
 #movielist{
     overflow-x: scroll;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     overflow: hidden;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 10px solid black;
+    border-top: 5px solid black;
+    background-image: linear-gradient(
+        to right,
+        black,
+
+        rgba(255, 0, 13, 0.6),
+        rgba(255, 0, 13, 0.6),
+        rgba(255, 0, 13, 0.6),
+
+        black,
+    )
 }
 
 #movielist:hover{
@@ -88,7 +104,6 @@ button:active{
     align-items: center;
     width: 100%;
     opacity: 0;
-    transition: opacity 0.5s ease;
 }
 
 .movie-card .image-container:hover .overlay {
@@ -108,7 +123,8 @@ button:active{
 }
 
 .ProfilePicture{
-    width: 80%;
+    width: 65%;
+    height: auto;
     border-radius: 50%;
 }
 
