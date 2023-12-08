@@ -1,5 +1,15 @@
-import { MovieCard } from '../movie-card/movie-card'
+import { MovieCard } from '../movie-card/movie-card';
+import { PictureCard } from '../picture-card/picture-card';
 import Container from 'react-bootstrap/Container';
+import Avatar1 from '../../../assets/ProfilePictures/Avatar1.png'
+import Avatar2 from '../../../assets/ProfilePictures/Avatar2.png'
+import Avatar3 from '../../../assets/ProfilePictures/Avatar3.png'
+import Avatar4 from '../../../assets/ProfilePictures/Avatar4.png'
+import Avatar5 from '../../../assets/ProfilePictures/Avatar5.png'
+import Avatar6 from '../../../assets/ProfilePictures/Avatar6.png'
+import Avatar7 from '../../../assets/ProfilePictures/Avatar7.png'
+import Avatar8 from '../../../assets/ProfilePictures/Avatar8.png'
+import Avatar9 from '../../../assets/ProfilePictures/Avatar9.png'
 import { useState } from 'react';
 import { Card, Form, Row, Col, Button, Modal } from 'react-bootstrap';
 
@@ -12,14 +22,26 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' });
-    // let [profilePic, setPfp] = useState(user.ProfilePic);
+    const [selectedProfilePicture, setSelectedProfilePicture] = useState();
+    const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const profilePictures = [
+        Avatar1,
+        Avatar2,
+        Avatar3,
+        Avatar4,
+        Avatar5,
+        Avatar6,
+        Avatar7,
+        Avatar8,
+        Avatar9
+    ];
 
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
 
-    openModal = () => this.setState({ isOpen: true });
-    closeModal = () => this.setState({ isOpen: false });
-
+    let pickPFP = (picture) => {
+        setSelectedProfilePicture(picture);
+    }
     let handleUpdate = (event) => {
         event.preventDefault();
 
@@ -27,17 +49,10 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             Username: username,
             Email: email,
             Birthday: birthday,
+            ProfilePicture: selectedProfilePicture
         };
-        // console.log(JSON.stringify(data));
 
         // fetch(`http://localhost:8080/users/${username}`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // })
         fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -98,7 +113,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                     <Row>
                         <Row className='flex-row flex-wrap'>
                             {FavoriteMovies.map((movie) => (
-                                <Col className='mb-5' md={3} key={movie.ID}>
+                                <Col className='mb-5' md={4} key={movie.ID}>
                                     <MovieCard
                                         movieData={movie}
                                     />
@@ -108,8 +123,11 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                     </Row>
                 </Col>
                 <Col md={4} className='ml-auto'>
-                    <Card className='mb-3'>
+                    <Card className='mx-3 p-1 mb-3 Account-Info'>
                         <Card.Body>
+                            <Card.Img className='ProfilePicture'
+                                src={user.ProfilePicture}>
+                            </Card.Img>
                             <Card.Title>{user.Username}</Card.Title>
                             <Card.Text>Email: {user.Email}</Card.Text>
                             <Card.Text>Birthday: {fixedBirthday}</Card.Text>
@@ -117,55 +135,95 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                     </Card>
 
 
-                    <Button variant="primary" onClick= {() => setIsOpen(true)}>
-                        <h3 className="profile-title">Update info</h3>
+                    <Button className='mx-3 p-3 mb-3' variant="primary" onClick={() => setIsOpen(true)}>
+                        <h5 className="profile-title">Update Account</h5>
                     </Button>
-                    <Modal show = {isOpen} onHide = {() => setIsOpen(false)}>
+                    <Modal show={isOpen} onHide={() => setIsOpen(false)}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Change Account Info</Modal.Title>
+                            <Modal.Title>Update Account</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
+
                             <Form className="my-profile">
+                                <Row>
+                                    <Col>
+                                        <Button onClick={() => setIsPictureMenuOpen(true)}>
+                                            <p className="profile-title">Change Profile Picture</p>
+                                        </Button>
+                                    </Col>
 
-                                <Form.Group className="mb-2" controlId="formUsername">
-                                    <Form.Label>Username:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        disabled
-                                    />
-                                </Form.Group>
+                                    <Col>
+                                        <Card.Img className='PreviewPicture'
+                                            src={selectedProfilePicture}>
+                                        </Card.Img>
+                                    </Col>
 
-                                <Form.Group className="mb-2" controlId="formEmail">
-                                    <Form.Label>Email:</Form.Label>
+                                    <Modal show={isPictureMenuOpen} onHide={() => setIsPictureMenuOpen(false)}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Choose your favorite!</Modal.Title>
+                                        </Modal.Header>
 
-                                    <Form.Control
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
+                                        <Modal.Body>
+                                            <Row className='flex-row flex-wrap'>
+                                                {profilePictures.map((pictureData) => (
+                                                    <Col className='mb-5' md={4}>
+                                                        <PictureCard
+                                                            pictureData={pictureData}
+                                                            onSelect={() => {
+                                                                pickPFP(pictureData)
+                                                                setIsPictureMenuOpen(false)
+                                                            }}
+                                                        />
+                                                    </Col>
+                                                ))}
+                                            </Row>
+                                        </Modal.Body>
 
-                                    <Form.Control.Feedback type="invalid">
-                                        Must be a valid email.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                                    </Modal>
+                                </Row>
+
+                                <Row>
+                                    <Form.Group className="mb-2" controlId="formUsername">
+                                        <Form.Label>Username:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={username}
+                                            onChange={(e) => setUsername(e.target.value)}
+                                            disabled
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-2" controlId="formEmail">
+                                        <Form.Label>Email:</Form.Label>
+
+                                        <Form.Control
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+
+                                        <Form.Control.Feedback type="invalid">
+                                            Must be a valid email.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
 
 
-                                <Form.Group controlId="formBirthday">
-                                    <Form.Label>Birthday:</Form.Label>
+                                    <Form.Group controlId="formBirthday">
+                                        <Form.Label>Birthday:</Form.Label>
 
-                                    <Form.Control
-                                        type="date"
-                                        value={birthday}
-                                        onChange={(e) => setBirthday(e.target.value)}
+                                        <Form.Control
+                                            type="date"
+                                            value={birthday}
+                                            onChange={(e) => setBirthday(e.target.value)}
 
-                                    />
+                                        />
 
-                                    <Form.Control.Feedback type="invalid">
-                                        Must be a valid Birthday.
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                                        <Form.Control.Feedback type="invalid">
+                                            Must be a valid Birthday.
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </Row>
+
 
                                 <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>
                                 <Button className="delete my-3 mx-5" onClick={handleRemove}>Delete Account</Button>
@@ -173,7 +231,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                             </Form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="primary" onClick = {() => setIsOpen(false)}>Close</Button>
+                            <Button variant="primary" onClick={() => setIsOpen(false)}>Close</Button>
                         </Modal.Footer>
                     </Modal>
 

@@ -1,27 +1,40 @@
 import propTypes from 'prop-types';
-import { Button, Card, Container} from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Card, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 
 import './movie-card.scss';
 
 export const MovieCard = ({ movieData }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
         <Container>
 
-            <Card className='h-100 gx-0 mt-1'>
+            <Card
+                className='h-100 gx-0 mt-1 movie-card'
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
 
                 <Link to={`/movies/${encodeURIComponent(movieData.ID)}`}>
                     <Button
                         className='p-0 gx-0'
                         variant="link"
-
                         onClick={() => {
                             window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
                         }}>
-                        <Card.Img src={movieData.ImagePath} />
+                        <div className='image-container'>
+
+                            <Card.Img src={movieData.ImagePath} />
+                            {isHovered && <div className="overlay">
+                                <div className="title">{movieData.Title}</div>
+                            </div>}
+                        </div>
+
                     </Button>
                 </Link>
-
             </Card>
         </Container>
 

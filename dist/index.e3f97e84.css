@@ -13223,7 +13223,7 @@ textarea.form-control-lg {
 }
 
 body {
-  background-image: linear-gradient(to right, #ff09, #2692bd99, #2692bd99, #2692bd99, #ff09);
+  background-image: linear-gradient(to right, #ff000d99, #2692bd99, #2692bd99, #2692bd99, #ff000d99);
 }
 
 button {
@@ -13233,11 +13233,71 @@ button {
 button:hover {
   cursor: pointer;
   opacity: .8;
+  z-index: 10000;
   transform: scale(1.2);
 }
 
 button:active {
   transform: scale(1);
+}
+
+.profile-title {
+  text-align: center;
+}
+
+#movielist {
+  scroll-behavior: auto;
+  overflow: hidden;
+}
+
+#movielist:hover {
+  cursor: pointer;
+}
+
+.movie-card .image-container {
+  position: relative;
+}
+
+.movie-card .image-container .overlay {
+  opacity: 0;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .5s;
+  display: flex;
+  position: absolute;
+  inset: 0;
+}
+
+.movie-card .image-container:hover .overlay {
+  opacity: 1;
+}
+
+.movie-card .image-container .overlay .title {
+  color: #fff;
+  font-family: Trebuchet MS, Lucida Sans Unicode, Lucida Grande, Lucida Sans, Arial, sans-serif;
+  font-size: 24px;
+  transition: opacity .5s;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.ProfilePicture {
+  border-radius: 50%;
+  width: 80%;
+}
+
+.PreviewPicture {
+  border-radius: 50%;
+  width: 65%;
+}
+
+.card-body {
+  text-align: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

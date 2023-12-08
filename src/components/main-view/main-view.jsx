@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
@@ -17,6 +17,57 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [sliderRef, setSliderRef] = useState(null);
+  // console.log(sliderRef);
+
+  const handleSliderRef = useCallback((node) => {
+    if (node !== null) {
+      setSliderRef(node);
+    }
+  }, []);
+  
+  useEffect(() => {
+    const slider = sliderRef;
+    
+    if (!slider) {
+      return;
+    }
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      slider.classList.add('active');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      slider.classList.remove('active');
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      slider.classList.remove('active');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5; 
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    slider.addEventListener('mousedown', handleMouseDown);
+    slider.addEventListener('mouseleave', handleMouseLeave);
+    slider.addEventListener('mouseup', handleMouseUp);
+    slider.addEventListener('mousemove', handleMouseMove);
+  }, [sliderRef]);
+
 
   useEffect(() => {
     if (!token) {
@@ -133,10 +184,10 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Container className='container-fluid py-2'>
-                    <Row className='flex-row flex-nowrap'>
+                    <Row className='flex-row flex-nowrap h-100'id = 'movielist' ref = {handleSliderRef}>
                       {movies.map((movie) => (
-                        <Col className='mb-5' md={3} key={movie.ID}>
-                          <h2 className='fixed-top text-center justify-center pe-none'> All Movies</h2>
+                        <Col className='mb-3' md={4} key={movie.ID}>
+                          <h2 className='fixed-top text-center justify-center pe-none '> All Movies</h2>
                           <MovieCard
                             movieData={movie}
                           />

@@ -19,11 +19,11 @@ $color: steelblue;
 body{
     background-image: linear-gradient(
         to right, 
-        rgba(255,255,0,.6),
+        rgba(255, 0, 13, 0.6),
         rgba(38, 146, 189, 0.6),
         rgba(38, 146, 189, 0.6), 
         rgba(38, 146, 189, 0.6),
-        rgba(255,255,0,.6),
+        rgba(255, 0, 13, 0.6),
     );
 }
 
@@ -35,6 +35,7 @@ button:hover{
     cursor: pointer;
     opacity: .8;
     transform: scale(1.2);
+    z-index: 10000;
 }
 
 button:active{
@@ -43,4 +44,63 @@ button:active{
 
 .profile-title{
     text-align: center;
+}
+
+#movielist{
+    overflow-x: scroll;
+    scroll-behavior: auto;
+    overflow: hidden;
+}
+
+#movielist:hover{
+    cursor: pointer;
+}
+
+.movie-card .image-container {
+    position: relative;
+}
+
+.movie-card .image-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.movie-card .image-container:hover .overlay {
+    opacity: 1;
+}
+
+.movie-card .image-container .overlay .title {
+    color: white;
+    font-size: 24px;
+    transition: opacity 0.5s ease;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.ProfilePicture{
+    width: 80%;
+    border-radius: 50%;
+}
+
+.PreviewPicture{
+    width:65%;
+    border-radius:50%;
+}
+
+.card-body{
+    text-align: center;
+    justify-content: center;
 }
