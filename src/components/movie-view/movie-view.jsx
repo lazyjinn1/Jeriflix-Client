@@ -100,7 +100,6 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         setIsFavorite(false);
         console.log(user);
         alert(`${movie.Title} removed from Favorites`);
-        // window.location.reload();
       }
     }).catch((error) => {
       alert(error);

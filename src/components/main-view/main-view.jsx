@@ -5,10 +5,10 @@ import { LoginView } from '../login-view/login-view';
 import { SignUpView } from '../signup-view/signup-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Container, Button, Row, Col } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import LeftArrow from '../../../assets/LeftArrow.png'
+import RightArrow from '../../../assets/RightArrow.png'
 
 export const MainView = () => {
   let storedUser = localStorage.getItem('user');
@@ -18,17 +18,16 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [sliderRef, setSliderRef] = useState(null);
-  // console.log(sliderRef);
 
-  const handleSliderRef = useCallback((node) => {
-    if (node !== null) {
-      setSliderRef(node);
+  const handleSliderRef = useCallback((e) => {
+    if (e !== null) {
+      setSliderRef(e);
     }
   }, []);
-  
+
   useEffect(() => {
     const slider = sliderRef;
-    
+
     if (!slider) {
       return;
     }
@@ -58,7 +57,7 @@ export const MainView = () => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.5; 
+      const walk = (x - startX) * 2;
       slider.scrollLeft = scrollLeft - walk;
     };
 
@@ -66,7 +65,33 @@ export const MainView = () => {
     slider.addEventListener('mouseleave', handleMouseLeave);
     slider.addEventListener('mouseup', handleMouseUp);
     slider.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      slider.removeEventListener('mousedown', handleMouseDown);
+      slider.removeEventListener('mouseleave', handleMouseLeave);
+      slider.removeEventListener('mouseup', handleMouseUp);
+      slider.removeEventListener('mousemove', handleMouseMove);
+    };
   }, [sliderRef]);
+
+  // Function to handle right scroll
+  const scrollRight = () => {
+    const slider = sliderRef;
+    console.log(slider);
+    if (slider) {
+      slider.scrollBy({ left: 1000, behavior: 'smooth' });
+    }
+  };
+
+  // Function to handle left scroll
+  const scrollLeft = () => {
+    const slider = sliderRef;
+    console.log(slider);
+    if (slider) {
+      slider.scrollBy({ left: -1000, behavior: 'smooth' });
+    }
+  };
+
 
 
   useEffect(() => {
@@ -183,17 +208,39 @@ export const MainView = () => {
                 ) : movies.length === 0 ? (
                   <Col>The list is empty!</Col>
                 ) : (
-                  <Container className='container-fluid py-2'>
-                    <Row className='flex-row flex-nowrap h-100'id = 'movielist' ref = {handleSliderRef}>
-                      {movies.map((movie) => (
-                        <Col className='mb-3' md={4} key={movie.ID}>
-                          <h2 className='fixed-top text-center justify-center pe-none '> All Movies</h2>
-                          <MovieCard
-                            movieData={movie}
-                          />
-                        </Col>
-                      ))}
+
+                  <Container className='mt-5 mw-100' >
+                    <Row>
+                      <Col md={2}>
+                        <Button className = 'directionArrow' variant='contained' onClick={scrollLeft} style={{ float: 'left'}}>
+                          <img className='img-fluid h-50 w-50' src={LeftArrow} />
+                        </Button>
+                      </Col>
+
+                      <Col md={8}>
+                        <Row className='flex-nowrap m-0' id='movielist' ref={handleSliderRef}>
+
+                          {movies.map((movie) => (
+
+                            <Col className='mb-3' md={4} key={movie.ID}>
+                              <h2 className='fixed-top text-center justify-center pe-none movieCard'> All Movies</h2>
+                              <MovieCard
+                                movieData={movie}
+                              />
+
+                            </Col>
+                          ))}
+                        </Row>
+                      </Col>
+
+                      <Col md={2}>
+                        <Button className = 'directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
+                          <img className='img-fluid h-50 w-50' src={RightArrow} />
+                        </Button>
+                      </Col>
                     </Row>
+
+
                   </Container>
                 )}
               </Container>
@@ -224,6 +271,6 @@ export const MainView = () => {
           />
         </Routes>
       </Row>
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };

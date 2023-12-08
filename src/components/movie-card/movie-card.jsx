@@ -20,7 +20,7 @@ export const MovieCard = ({ movieData }) => {
 
                 <Link to={`/movies/${encodeURIComponent(movieData.ID)}`}>
                     <Button
-                        className='p-0 gx-0'
+                        className='p-0 gx-0 movieCard'
                         variant="link"
                         onClick={() => {
                             window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
