@@ -1,14 +1,14 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
-.ProfilePicture{
-    width: 250px;
-    height: auto;
-    max-width: 65%;
-    max-height: auto;
-    border-radius: 50%;
+.pfpCard{
+    max-width: 125px;
+    max-height: 150px;
+    border-radius:50%;
+    border:none;
+    background:none;
 }
-
-.PreviewPicture{
-    width:65%;
+.pfpCard .pictureChoice{
+    max-width: 125px;
+    max-height: 150px;
     border-radius:50%;
 }

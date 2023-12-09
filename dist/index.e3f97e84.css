@@ -39658,17 +39658,18 @@ textarea.form-control-lg {
   }
 }
 
-.ProfilePicture {
-  max-height: auto;
+.pfpCard {
+  background: none;
+  border: none;
   border-radius: 50%;
-  width: 250px;
-  max-width: 65%;
-  height: auto;
+  max-width: 125px;
+  max-height: 150px;
 }
 
-.PreviewPicture {
+.pfpCard .pictureChoice {
   border-radius: 50%;
-  width: 65%;
+  max-width: 125px;
+  max-height: 150px;
 }
 
 :root, [data-bs-theme="light"] {
@@ -52876,24 +52877,23 @@ textarea.form-control-lg {
   }
 }
 
-.ProfilePicture {
+.profile-title {
+  text-align: center;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.card-body .ProfilePicture {
   border-radius: 50%;
   max-width: 225px;
   max-height: 300px;
 }
 
-.PreviewPicture {
+.col .PreviewPicture {
+  float: right;
   border-radius: 50%;
-  width: 65%;
-}
-
-.profile-title {
-  text-align: center;
-}
-
-.pictureChoice {
-  max-width: 125px;
-  max-height: 150px;
+  width: 80%;
 }
 
 :root, [data-bs-theme="light"] {
@@ -79364,6 +79364,12 @@ button:hover {
 
 button:active {
   transform: scale(1);
+}
+
+.directionArrow {
+  background-image: none;
+  border: none;
+  outline: none;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

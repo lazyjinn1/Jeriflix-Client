@@ -14,7 +14,6 @@ import { useState } from 'react';
 import { Card, Form, Row, Col, Button, Modal } from 'react-bootstrap';
 import './profile-view.scss';
 
-
 export const ProfileView = ({ user, setUser, token, movieData }) => {
 
     user = JSON.parse(localStorage.getItem("user"));
@@ -107,17 +106,17 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
 
     return (
-        <Container className='m-1 p-2 overflow-hidden'>
+        <Container className='mr-5 p-1 overflow-hidden profile-body'>
             <Row className='text-center'>
-                <Col md={8}>
+                <Col md={9}>
                     <h3 className='justify-content-center'>Favorite Movies</h3>
                 </Col>
                 <Col>
-                    <h3 className='justify-content-center'>About:</h3>
+                    <h3 className='justify-content-center mr-3'>About:</h3>
                 </Col>
             </Row>
             <Row>
-                <Col md={8}>
+                <Col md={9}>
                     <Row>
                         {/* User's Favorite Movies */}
                         <Row className='flex-row flex-wrap'>
@@ -131,23 +130,28 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                         </Row>
                     </Row>
                 </Col>
-                <Col md={4} className='ml-auto'>
-                    <Card className='mx-3 p-1 mb-3 Account-Info'>
-                        {/* Main User Account Info Card */}
-                        <Card.Body>
-                            <Card.Img className='ProfilePicture'
-                                src={user.ProfilePicture}>
-                            </Card.Img>
-                            <Card.Title>{user.Username}</Card.Title>
-                            <Card.Text>Email: {user.Email}</Card.Text>
-                            <Card.Text>Birthday: {fixedBirthday}</Card.Text>
-                        </Card.Body>
-                    </Card>
+                <Col md={3} className='ml-auto'>
+                    <Row>
+                        <Card className='p-1 mb-3 Account-Info'>
+                            {/* Main User Account Info Card */}
+                            <Card.Body>
+                                <Card.Img className='ProfilePicture'
+                                    src={user.ProfilePicture}>
+                                </Card.Img>
+                                <Card.Title>{user.Username}</Card.Title>
+                                <Card.Text>Email: {user.Email}</Card.Text>
+                                <Card.Text>Birthday: {fixedBirthday}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Row>
 
-                    {/* Opens up the Update Account Modal */}
-                    <Button className='mx-3 p-3 mb-3' variant="primary" onClick={() => setIsOpen(true)}>
-                        <h5 className="profile-title">Update Account</h5>
-                    </Button>
+                    <Row>
+                        {/* Opens up the Update Account Modal */}
+                        <Button className='p-2 mb-3 profile-title' variant="primary" onClick={() => setIsOpen(true)}>
+                            <h5 className="profile-title">Update Account</h5>
+                        </Button>
+                    </Row>
+
 
                     {/* Update Account Modal */}
                     <Modal className='w-100 h-100' show={isOpen} onHide={() => setIsOpen(false)}>
@@ -180,7 +184,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         <Modal.Body>
                                             <Row className='flex-row flex-wrap'>
                                                 {profilePictures.map((pictureData) => (
-                                                    <Col className='mb-5' md={4} key = {pictureData}>
+                                                    <Col className='mb-5' md={4} key={pictureData}>
                                                         <PictureCard
                                                             pictureData={pictureData}
                                                             onSelect={() => {
@@ -247,7 +251,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
                             </Form>
                         </Modal.Body>
-                        
+
                         {/* Close the Modal Button */}
                         <Modal.Footer>
                             <Button variant="primary" onClick={() => setIsOpen(false)}>Close</Button>
