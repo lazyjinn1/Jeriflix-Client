@@ -1,0 +1,33 @@
+.movie-card .image-container {
+    position: relative;
+}
+
+.movie-card .image-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    opacity: 0;
+}
+
+.movie-card .image-container:hover .overlay {
+    opacity: 1;
+}
+
+.movie-card .image-container .overlay .title {
+    color: white;
+    font-size: 1vw;
+    transition: opacity 0.5s ease;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.card-body{
+    text-align: center;
+    justify-content: center;
+}

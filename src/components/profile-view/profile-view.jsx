@@ -12,6 +12,7 @@ import Avatar8 from '../../../assets/ProfilePictures/Avatar8.png'
 import Avatar9 from '../../../assets/ProfilePictures/Avatar9.png'
 import { useState } from 'react';
 import { Card, Form, Row, Col, Button, Modal } from 'react-bootstrap';
+import './profile-view.scss';
 
 
 export const ProfileView = ({ user, setUser, token, movieData }) => {

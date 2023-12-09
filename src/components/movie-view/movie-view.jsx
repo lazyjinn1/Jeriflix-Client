@@ -8,19 +8,21 @@ import './movie-view.scss';
 
 
 export const MovieView = ({ user, setUser, token, movieData }) => {
-  const { movieID } = useParams();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { movieID } = useParams(); // useParams allows us to use the URL (which is how our backend is setup for movieView)
+  const [isFavorite, setIsFavorite] = useState(false); 
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = JSON.parse(localStorage.getItem('user')); // makes sure that we have our user stored and is parsed
     setUser(storedUser);
   }, []);
 
-  const movie = movieData.find((b) => b.ID === movieID);
+  const movie = movieData.find((b) => b.ID === movieID); //defines all movies' IDs
 
+  // Filters based on movies with the same Genres
   let similarMovies = movieData.filter((simMovie) => {
     return (simMovie.Genre.Name === movie.Genre.Name && simMovie.Title !== movie.Title)
   })
+  // Filters based on movies with the same Directors
   let directorMovies = movieData.filter((dirMovie) => {
     return (dirMovie.Director.Name === movie.Director.Name && dirMovie.Title !== movie.Title)
   })
@@ -29,6 +31,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
   // console.log(directorMovies);
 
   useEffect(() => {
+    // Changes the property of a movie based on if they are in the Favorites List or not
     if (user.FavoriteMovies && user.FavoriteMovies.includes(movieID)) {
       setIsFavorite(true);
     }
@@ -37,6 +40,14 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    // Ensure that user and user's favorite movies are not undefined
+    if (user && user.FavoriteMovies) {
+      setIsFavorite(user.FavoriteMovies.includes(movieID));
+    }
+  }, [user, movieID]); 
+
+  //Function for adding a movie to their favorites
   const addToFavorites = async () => {
     await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "PUT",
@@ -64,8 +75,6 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         setUser(user);
         setIsFavorite(true);
         console.log(user);
-        alert(`${movie.Title} added to Favorites`);
-        // window.location.reload();
       }
     }).catch((error) => {
       alert(error);
@@ -99,7 +108,6 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         setUser(user);
         setIsFavorite(false);
         console.log(user);
-        alert(`${movie.Title} removed from Favorites`);
       }
     }).catch((error) => {
       alert(error);
@@ -169,7 +177,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
 
           <h3 className="m-2"> Similar Movies: </h3>
           <Row>
-            <h4 className="mx-3">By Genre:</h4>
+            <h4 className="mx-3">Other {movie.Genre.Name} movies: </h4>
             {similarMovies.length > 0 ? (
               similarMovies.map((simMovie) => (
                 <Col className="mb-3" md={3} key={simMovie.ID}>
@@ -179,10 +187,10 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 </Col>
               ))
             ) : (
-              <p className="mx-3">No similar movies found.</p>
+              <p className="mx-3">No other {movie.Genre.Name} movies found.</p>
             )}
 
-            <h4 className="mx-3">By Director:</h4>
+            <h4 className="mx-3">Other movies by {movie.Director.Name}:</h4>
             {directorMovies.length > 0 ? (
               directorMovies.map((dirMovie) => (
                 <Col className="mb-3" md={3} key={dirMovie.ID}>
@@ -192,7 +200,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 </Col>
               ))
             ) : (
-              <p className="mx-3">No other movies by this director found.</p>
+              <p className="mx-3">No other movies by {movie.Director.Name} found.</p>
             )}
           </Row>
         </Col>

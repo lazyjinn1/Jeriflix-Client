@@ -1,4 +1,33 @@
+.movie-card .image-container {
+  position: relative;
+}
 
+.movie-card .image-container .overlay {
+  opacity: 0;
+  background: #0000004d;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  display: flex;
+  position: absolute;
+  inset: 0;
+}
+
+.movie-card .image-container:hover .overlay {
+  opacity: 1;
+}
+
+.movie-card .image-container .overlay .title {
+  color: #fff;
+  font-family: Trebuchet MS, Lucida Sans Unicode, Lucida Grande, Lucida Sans, Arial, sans-serif;
+  font-size: 1vw;
+  transition: opacity .5s;
+}
+
+.card-body {
+  text-align: center;
+  justify-content: center;
+}
 
 #moviePoster {
   max-width: 100%;
@@ -7,6 +36,32 @@
 
 #customColumn {
   width: 40%;
+}
+
+.ProfilePicture {
+  max-height: auto;
+  border-radius: 50%;
+  width: 250px;
+  max-width: 65%;
+  height: auto;
+}
+
+.PreviewPicture {
+  border-radius: 50%;
+  width: 65%;
+}
+
+.ProfilePicture {
+  max-height: auto;
+  border-radius: 50%;
+  width: 250px;
+  max-width: 65%;
+  height: auto;
+}
+
+.PreviewPicture {
+  border-radius: 50%;
+  width: 65%;
 }
 
 :root, [data-bs-theme="light"] {
@@ -13280,55 +13335,6 @@ button:active {
 
 #movielist:hover {
   cursor: pointer;
-}
-
-.movie-card .image-container {
-  position: relative;
-}
-
-.movie-card .image-container .overlay {
-  opacity: 0;
-  background: #0000004d;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  position: absolute;
-  inset: 0;
-}
-
-.movie-card .image-container:hover .overlay {
-  opacity: 1;
-}
-
-.movie-card .image-container .overlay .title {
-  color: #fff;
-  font-family: Trebuchet MS, Lucida Sans Unicode, Lucida Grande, Lucida Sans, Arial, sans-serif;
-  font-size: 1vw;
-  transition: opacity .5s;
-}
-
-.col-centered {
-  float: none;
-  margin: 0 auto;
-}
-
-.ProfilePicture {
-  max-height: auto;
-  border-radius: 50%;
-  width: 250px;
-  max-width: 65%;
-  height: auto;
-}
-
-.PreviewPicture {
-  border-radius: 50%;
-  width: 65%;
-}
-
-.card-body {
-  text-align: center;
-  justify-content: center;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

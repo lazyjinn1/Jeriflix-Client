@@ -11,25 +11,26 @@ import LeftArrow from '../../../assets/LeftArrow.png'
 import RightArrow from '../../../assets/RightArrow.png'
 
 export const MainView = () => {
-  let storedUser = localStorage.getItem('user'); // finds what our storedUser is (which was set in log-in)
-  let storedToken = localStorage.getItem('token'); // finds what our storedToken is (which was set in log-in)
+  let storedUser = localStorage.getItem('user'); 
+  let storedToken = localStorage.getItem('token'); 
 
-  const [user, setUser] = useState(storedUser ? storedUser : null); // defines user as storedUser IF it exists (it should if you logged on)
-  const [token, setToken] = useState(storedToken ? storedToken : null); // defines token as storedToken IF it exists (it should if you logged on)
+  const [user, setUser] = useState(storedUser ? storedUser : null); 
+  const [token, setToken] = useState(storedToken ? storedToken : null); 
   const [movies, setMovies] = useState([]); // initially defines movies as an empty array
   const [sliderRef, setSliderRef] = useState(null); // defines sliderRef which is the container that our slider functions are used for. It is null until we define it later
   const [searchTerm, setSearchTerm] = useState(''); // defines searchTerm which is used for our searching function
 
-  const handleSliderRef = useCallback((e) => { // This uses callbacks to define SliderRef and prevents it from being 'null'
+  // This uses callbacks to define SliderRef and prevents it from being 'null'
+  const handleSliderRef = useCallback((e) => { 
     if (e !== null) {
       setSliderRef(e);
     }
   }, []);
 
   useEffect(() => {
-    const slider = sliderRef; // defines slider as sliderRef
+    const slider = sliderRef;
 
-    if (!slider) { // if slider does not exist, end this whole useEffect
+    if (!slider) { 
       return;
     }
 
@@ -74,7 +75,7 @@ export const MainView = () => {
     slider.addEventListener('mousemove', handleMouseMove);
   }, [sliderRef]);
 
-  // Function to handle right scroll
+  // Function to handle right scroll. This uses the buttons.
   const scrollRight = () => {
     const slider = sliderRef;
     console.log(slider);
@@ -83,7 +84,7 @@ export const MainView = () => {
     }
   };
 
-  // Function to handle left scroll
+  // Function to handle left scroll. This uses the buttons.
   const scrollLeft = () => {
     const slider = sliderRef;
     console.log(slider);
@@ -98,9 +99,8 @@ export const MainView = () => {
     if (!token) {
       return;
     }
+    // This grabs all of the movies from our backend and adds them onto our 'movies' variable.
     // fetch('http://localhost:8080/movies', {
-    //   headers: { Authorization: `Bearer ${token}` },
-    // })
     fetch('https://jeriflix.onrender.com/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -131,10 +131,12 @@ export const MainView = () => {
   }, [token]);
 
 
+  // function for setting the search term to be searched in 'filteredMovies' below
   const handleSearchMovie = (e) => {
     setSearchTerm(e.target.value);
   }
 
+  // uses searchTerm to filter the movies array.
   const filteredMovies = movies.filter(movie => {
     if (!searchTerm) {
       return;
@@ -143,11 +145,13 @@ export const MainView = () => {
       return movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
     }
   });
-  console.log(filteredMovies);
+  // console.log(filteredMovies);
 
 
   return (
-    <BrowserRouter>
+    // This allows us to make this whole thing a one-pager
+    <BrowserRouter> 
+    {/* This is our nav bar which shows at the top of every page */}
       <NavigationBar
         user={user}
         onLoggedOut={() => {
@@ -156,6 +160,7 @@ export const MainView = () => {
           localStorage.clear();
         }}
       />
+      {/* Sign Up */}
       <Row className='justify-content-md-center mt-5'>
         <Routes>
           <Route
@@ -173,6 +178,7 @@ export const MainView = () => {
 
             }
           />
+          {/* Log-In */}
           <Route
             path='/login'
             element={
@@ -193,6 +199,7 @@ export const MainView = () => {
 
             }
           />
+          {/* Single Movie View */}
           <Route
             path='/movies/:movieID'
             element={
@@ -214,7 +221,8 @@ export const MainView = () => {
               </>
             }
           />
-
+          
+          {/* Main Page */}
           <Route
             path='/'
             element={
@@ -226,13 +234,16 @@ export const MainView = () => {
                 ) : (
 
                   <Container className='mw-100 mh-100 overflow-hidden' >
+                    {/* First Row */}
                     <Row>
+                      {/* Direction Arrow Left */}
                       <Col md={2}>
                         <Button className='directionArrow' variant='contained' onClick={scrollLeft} style={{ float: 'left' }}>
                           <img className='img-fluid h-50 w-50' src={LeftArrow} />
                         </Button>
                       </Col>
 
+                      {/* The main movie list which shows ALL the movies */}
                       <Col md={8}>
                         <Row className='flex-nowrap m-0' id='movielist' ref={handleSliderRef}>
 
@@ -248,20 +259,25 @@ export const MainView = () => {
                           ))}
                         </Row>
                       </Col>
-
+                            
+                      {/* Direction Arrow Right */}
                       <Col md={2}>
                         <Button className='directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
                           <img className='img-fluid h-50 w-50' src={RightArrow} />
                         </Button>
                       </Col>
                     </Row>
+                    
+                    {/* Second Row */}
                     <Row>
+                      {/* This is the UI for our search  */}
                       <Form>
                         <Form.Group>
                           <Form.Label>Search</Form.Label>
                           <Form.Control type="text" placeholder= "Search movies..." onChange={handleSearchMovie}></Form.Control>
                         </Form.Group>
                       </Form>
+                      {/* This shows the new filteredMovies based on the above search */}
                       <Row className='flex-nowrap m-0' id='movielist'>
                           {filteredMovies.map((movie) => (
                             <Col md={1} key={movie.ID}>
@@ -273,13 +289,13 @@ export const MainView = () => {
                       </Row>
                     </Row>
 
-
                   </Container>
                 )}
               </Container>
             }
           />
 
+          {/* User Profile */}
           <Route
             path='/profile'
             element={
