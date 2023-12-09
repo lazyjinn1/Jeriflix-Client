@@ -79329,12 +79329,6 @@ textarea.form-control-lg {
   }
 }
 
-.directionArrow {
-  background-image: none;
-  border: none;
-  outline: none;
-}
-
 .login-form {
   margin: 20px 0;
 }
@@ -79370,23 +79364,6 @@ button:hover {
 
 button:active {
   transform: scale(1);
-}
-
-.ProfilePicture {
-  max-height: auto;
-  border-radius: 50%;
-  width: 250px;
-  max-width: 65%;
-  height: auto;
-}
-
-.PreviewPicture {
-  border-radius: 50%;
-  width: 65%;
-}
-
-.profile-title {
-  text-align: center;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */
