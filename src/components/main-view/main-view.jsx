@@ -11,32 +11,34 @@ import LeftArrow from '../../../assets/LeftArrow.png'
 import RightArrow from '../../../assets/RightArrow.png'
 
 export const MainView = () => {
-  let storedUser = localStorage.getItem('user');
-  let storedToken = localStorage.getItem('token');
+  let storedUser = localStorage.getItem('user'); // finds what our storedUser is (which was set in log-in)
+  let storedToken = localStorage.getItem('token'); // finds what our storedToken is (which was set in log-in)
 
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
-  const [sliderRef, setSliderRef] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [user, setUser] = useState(storedUser ? storedUser : null); // defines user as storedUser IF it exists (it should if you logged on)
+  const [token, setToken] = useState(storedToken ? storedToken : null); // defines token as storedToken IF it exists (it should if you logged on)
+  const [movies, setMovies] = useState([]); // initially defines movies as an empty array
+  const [sliderRef, setSliderRef] = useState(null); // defines sliderRef which is the container that our slider functions are used for. It is null until we define it later
+  const [searchTerm, setSearchTerm] = useState(''); // defines searchTerm which is used for our searching function
 
-  const handleSliderRef = useCallback((e) => {
+  const handleSliderRef = useCallback((e) => { // This uses callbacks to define SliderRef and prevents it from being 'null'
     if (e !== null) {
       setSliderRef(e);
     }
   }, []);
 
   useEffect(() => {
-    const slider = sliderRef;
+    const slider = sliderRef; // defines slider as sliderRef
 
-    if (!slider) {
+    if (!slider) { // if slider does not exist, end this whole useEffect
       return;
     }
 
+    // variables used for our scrolling
     let isDown = false;
     let startX;
     let scrollLeft;
 
+    // handles what to do when mouse button is clicked down
     const handleMouseDown = (e) => {
       isDown = true;
       slider.classList.add('active');
@@ -44,16 +46,19 @@ export const MainView = () => {
       scrollLeft = slider.scrollLeft;
     };
 
+    // handles what to do when mouse leaves the app
     const handleMouseLeave = () => {
       isDown = false;
       slider.classList.remove('active');
     };
 
+    // handles what to do when mouse button is unclicked
     const handleMouseUp = () => {
       isDown = false;
       slider.classList.remove('active');
     };
 
+    // handles what to do when cursor is moved around
     const handleMouseMove = (e) => {
       if (!isDown) return;
       e.preventDefault();
@@ -62,17 +67,11 @@ export const MainView = () => {
       slider.scrollLeft = scrollLeft - walk;
     };
 
+    // adds our eventListeners
     slider.addEventListener('mousedown', handleMouseDown);
     slider.addEventListener('mouseleave', handleMouseLeave);
     slider.addEventListener('mouseup', handleMouseUp);
     slider.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      slider.removeEventListener('mousedown', handleMouseDown);
-      slider.removeEventListener('mouseleave', handleMouseLeave);
-      slider.removeEventListener('mouseup', handleMouseUp);
-      slider.removeEventListener('mousemove', handleMouseMove);
-    };
   }, [sliderRef]);
 
   // Function to handle right scroll

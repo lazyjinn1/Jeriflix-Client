@@ -27187,36 +27187,41 @@ var _rightArrowPngDefault = parcelHelpers.interopDefault(_rightArrowPng);
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    let storedUser = localStorage.getItem("user");
-    let storedToken = localStorage.getItem("token");
-    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
-    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
-    const [movies, setMovies] = (0, _react.useState)([]);
-    const [sliderRef, setSliderRef] = (0, _react.useState)(null);
-    const [searchTerm, setSearchTerm] = (0, _react.useState)("");
+    let storedUser = localStorage.getItem("user"); // finds what our storedUser is (which was set in log-in)
+    let storedToken = localStorage.getItem("token"); // finds what our storedToken is (which was set in log-in)
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null); // defines user as storedUser IF it exists (it should if you logged on)
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null); // defines token as storedToken IF it exists (it should if you logged on)
+    const [movies, setMovies] = (0, _react.useState)([]); // initially defines movies as an empty array
+    const [sliderRef, setSliderRef] = (0, _react.useState)(null); // defines sliderRef which is the container that our slider functions are used for. It is null until we define it later
+    const [searchTerm, setSearchTerm] = (0, _react.useState)(""); // defines searchTerm which is used for our searching function
     const handleSliderRef = (0, _react.useCallback)((e)=>{
         if (e !== null) setSliderRef(e);
     }, []);
     (0, _react.useEffect)(()=>{
-        const slider = sliderRef;
+        const slider = sliderRef; // defines slider as sliderRef
         if (!slider) return;
+        // variables used for our scrolling
         let isDown = false;
         let startX;
         let scrollLeft;
+        // handles what to do when mouse button is clicked down
         const handleMouseDown = (e)=>{
             isDown = true;
             slider.classList.add("active");
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
         };
+        // handles what to do when mouse leaves the app
         const handleMouseLeave = ()=>{
             isDown = false;
             slider.classList.remove("active");
         };
+        // handles what to do when mouse button is unclicked
         const handleMouseUp = ()=>{
             isDown = false;
             slider.classList.remove("active");
         };
+        // handles what to do when cursor is moved around
         const handleMouseMove = (e)=>{
             if (!isDown) return;
             e.preventDefault();
@@ -27224,16 +27229,11 @@ const MainView = ()=>{
             const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
         };
+        // adds our eventListeners
         slider.addEventListener("mousedown", handleMouseDown);
         slider.addEventListener("mouseleave", handleMouseLeave);
         slider.addEventListener("mouseup", handleMouseUp);
         slider.addEventListener("mousemove", handleMouseMove);
-        return ()=>{
-            slider.removeEventListener("mousedown", handleMouseDown);
-            slider.removeEventListener("mouseleave", handleMouseLeave);
-            slider.removeEventListener("mouseup", handleMouseUp);
-            slider.removeEventListener("mousemove", handleMouseMove);
-        };
     }, [
         sliderRef
     ]);
@@ -27307,7 +27307,7 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 152,
+                lineNumber: 151,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27326,7 +27326,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 162,
+                            lineNumber: 161,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27346,7 +27346,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 177,
+                            lineNumber: 176,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27369,7 +27369,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 197,
+                            lineNumber: 196,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27471,7 +27471,7 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 219,
+                            lineNumber: 218,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27493,24 +27493,24 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 284,
+                            lineNumber: 283,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 161,
+                    lineNumber: 160,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 160,
+                lineNumber: 159,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 151,
+        lineNumber: 150,
         columnNumber: 5
     }, undefined);
 };
