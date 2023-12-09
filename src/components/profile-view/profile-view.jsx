@@ -80,9 +80,9 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 if (data) {
                     localStorage.setItem('user', JSON.stringify(data));
                     setUser(data);
-                    alert('Account successfully updated.');
+                    console.log('Account successfully updated.');
                 } else {
-                    alert('No changes detected or invalid entries');
+                    console.log('No changes detected or invalid entries');
                 }
             });
     }
@@ -99,7 +99,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 setUser(null);
                 alert('Your account has been deleted');
             } else {
-                alert('Something went wrong');
+                console.log('Something went wrong');
             }
         })
     }
@@ -180,7 +180,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         <Modal.Body>
                                             <Row className='flex-row flex-wrap'>
                                                 {profilePictures.map((pictureData) => (
-                                                    <Col className='mb-5' md={4}>
+                                                    <Col className='mb-5' md={4} key = {pictureData}>
                                                         <PictureCard
                                                             pictureData={pictureData}
                                                             onSelect={() => {

@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
 #movielist{
     overflow-x: scroll;
     scroll-behavior: auto;
@@ -28,3 +30,8 @@
     color: steelblue;
 }
 
+.directionArrow{
+    background-image: none;
+    outline: none;
+    border: none;
+}

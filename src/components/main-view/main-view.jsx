@@ -281,7 +281,7 @@ export const MainView = () => {
                       {/* This shows the new filteredMovies based on the above search */}
                       <Row className='flex-nowrap m-0' id='movielist'>
                           {filteredMovies.map((movie) => (
-                            <Col md={1} key={movie.ID}>
+                            <Col md={2} key={movie.ID}>
                               <MovieCard
                                 movieData={movie}
                               />

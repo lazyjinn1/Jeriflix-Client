@@ -1,8 +1,8 @@
+@import '~bootstrap/scss/bootstrap.scss';
+
 .ProfilePicture{
-    width: 250px;
-    height: auto;
-    max-width: 65%;
-    max-height: auto;
+    max-width: 225px;
+    max-height: 300px;
     border-radius: 50%;
 }
 
@@ -13,4 +13,9 @@
 
 .profile-title{
     text-align: center;
+}
+
+.pictureChoice{
+    max-width: 125px;
+    max-height: 150px;
 }

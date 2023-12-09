@@ -27462,7 +27462,7 @@ const MainView = ()=>{
                                                     className: "flex-nowrap m-0",
                                                     id: "movielist",
                                                     children: filteredMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                                            md: 1,
+                                                            md: 2,
                                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                                 movieData: movie
                                                             }, void 0, false, void 0, void 0)
@@ -48980,8 +48980,8 @@ const ProfileView = ({ user, setUser, token, movieData })=>{
             if (data) {
                 localStorage.setItem("user", JSON.stringify(data));
                 setUser(data);
-                alert("Account successfully updated.");
-            } else alert("No changes detected or invalid entries");
+                console.log("Account successfully updated.");
+            } else console.log("No changes detected or invalid entries");
         });
     };
     // deletes the user
@@ -48995,7 +48995,7 @@ const ProfileView = ({ user, setUser, token, movieData })=>{
             if (response.ok) {
                 setUser(null);
                 alert("Your account has been deleted");
-            } else alert("Something went wrong");
+            } else console.log("Something went wrong");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
@@ -49242,7 +49242,7 @@ const ProfileView = ({ user, setUser, token, movieData })=>{
                                                                                     lineNumber: 184,
                                                                                     columnNumber: 57
                                                                                 }, undefined)
-                                                                            }, void 0, false, {
+                                                                            }, pictureData, false, {
                                                                                 fileName: "src/components/profile-view/profile-view.jsx",
                                                                                 lineNumber: 183,
                                                                                 columnNumber: 53
@@ -49468,11 +49468,13 @@ const PictureCard = ({ pictureData, onSelect })=>{
     return(// This shows the Profile Pictures that users can change to.
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+            className: "pictureChoice",
             onClick: onSelect,
             style: {
                 cursor: "pointer"
             },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Img, {
+                className: "pictureChoice",
                 variant: "top",
                 src: pictureData
             }, void 0, false, {
