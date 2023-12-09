@@ -9,7 +9,7 @@ import './movie-view.scss';
 
 export const MovieView = ({ user, setUser, token, movieData }) => {
   const { movieID } = useParams(); // useParams allows us to use the URL (which is how our backend is setup for movieView)
-  const [isFavorite, setIsFavorite] = useState(false); 
+  const [isFavorite, setIsFavorite] = useState(false); // defined by whether the movie is in the user's FavoriteMovies list or not.
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user')); // makes sure that we have our user stored and is parsed
@@ -45,7 +45,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     if (user && user.FavoriteMovies) {
       setIsFavorite(user.FavoriteMovies.includes(movieID));
     }
-  }, [user, movieID]); 
+  }, [user, movieID]);
 
   //Function for adding a movie to their favorites
   const addToFavorites = async () => {
@@ -81,6 +81,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     });
   }
 
+  //Function for removing a movie from their favorites
   const removeFromFavorites = async () => {
     await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "DELETE",
@@ -118,6 +119,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
   return (
     <Container className='align-items-center h-100 mt-2'>
       <Row>
+        {/* This is the big movie poster */}
         <Col md={5} className='m-3'>
           <Card.Img
             variant="top"
@@ -125,6 +127,8 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
             id='moviePoster'>
           </Card.Img>
         </Col>
+
+        {/* This shows the movie's details in a card format (uses React-Bootstrap) */}
         <Col className='w-40 m-3' md={6}>
           <Card>
             <Card.Body className='p-2 h-50 text-center align-middle'>
@@ -148,6 +152,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 <span>{movie.Description}</span>
               </Card.Text>
 
+              {/* sends user back to main page */}
               <Link to={`/`}>
                 <Button
                   className='close-open-btn'
@@ -156,6 +161,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 </Button>
               </Link>
 
+              {/* Changes based on the current status (isFavorite or isNotFavorite) */}
               <Card.Body>
                 {!isFavorite ? (
                   <Button
@@ -175,8 +181,10 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
             </Card.Body>
           </Card>
 
+          {/* Similar Movies based on Genre or Director */}
           <h3 className="m-2"> Similar Movies: </h3>
           <Row>
+            {/* based on Genre */}
             <h4 className="mx-3">Other {movie.Genre.Name} movies: </h4>
             {similarMovies.length > 0 ? (
               similarMovies.map((simMovie) => (
@@ -187,9 +195,10 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 </Col>
               ))
             ) : (
+              // If no movies are found for similarMovies then this is returned
               <p className="mx-3">No other {movie.Genre.Name} movies found.</p>
             )}
-
+            {/* based on Director */}
             <h4 className="mx-3">Other movies by {movie.Director.Name}:</h4>
             {directorMovies.length > 0 ? (
               directorMovies.map((dirMovie) => (
@@ -200,6 +209,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
                 </Col>
               ))
             ) : (
+              // If no movies are found for directorMovies then this is returned
               <p className="mx-3">No other movies by {movie.Director.Name} found.</p>
             )}
           </Row>

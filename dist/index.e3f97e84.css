@@ -29,6 +29,11 @@
   justify-content: center;
 }
 
+.card-img {
+  padding: 2%;
+  position: relative;
+}
+
 #moviePoster {
   max-width: 100%;
   height: auto;
@@ -62,6 +67,27 @@
 .PreviewPicture {
   border-radius: 50%;
   width: 65%;
+}
+
+.profile-title {
+  text-align: center;
+}
+
+#movielist {
+  scroll-behavior: auto;
+  background-image: linear-gradient(to right, #000, #ff000d99, #ff000d99, #ff000d99, #000);
+  border: 1px solid #000;
+  border-width: 5px 1px 10px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+#movielist:hover {
+  cursor: pointer;
+}
+
+.jeri-flix {
+  color: #4682b4;
 }
 
 :root, [data-bs-theme="light"] {
@@ -13269,8 +13295,10 @@ textarea.form-control-lg {
   }
 }
 
-.jeri-flix {
-  color: #4682b4;
+.directionArrow {
+  background-image: none;
+  border: none;
+  outline: none;
 }
 
 .login-form {
@@ -13299,12 +13327,6 @@ button {
   transition: all .3s;
 }
 
-.directionArrow {
-  background-image: none;
-  border: none;
-  outline: none;
-}
-
 button:hover {
   cursor: pointer;
   opacity: .8;
@@ -13314,27 +13336,6 @@ button:hover {
 
 button:active {
   transform: scale(1);
-}
-
-.profile-title {
-  text-align: center;
-}
-
-.movieCard {
-  transform: none;
-}
-
-#movielist {
-  scroll-behavior: auto;
-  background-image: linear-gradient(to right, #000, #ff000d99, #ff000d99, #ff000d99, #000);
-  border: 1px solid #000;
-  border-width: 5px 1px 10px;
-  border-radius: 50px;
-  overflow: hidden;
-}
-
-#movielist:hover {
-  cursor: pointer;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

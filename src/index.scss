@@ -4,12 +4,12 @@ $body-bg: Honeydew;
 @import '~bootstrap/scss/bootstrap.scss';
 
 $color: steelblue;
-
-
-
-.jeri-flix{
-    color: $color;
+.directionArrow{
+    background-image: none;
+    outline: none;
+    border: none;
 }
+
 
 .login-form{
     margin: 20px 0;
@@ -58,13 +58,6 @@ button{
     );
 }
 
-
-.directionArrow{
-    background-image: none;
-    outline: none;
-    border: none;
-}
-
 button:hover{
     cursor: pointer;
     opacity: .8;
@@ -76,37 +69,5 @@ button:active{
     transform: scale(1);
 }
 
-.profile-title{
-    text-align: center;
-}
 
-.movieCard {
-    transform: none;
-}
 
-#movielist{
-    overflow-x: scroll;
-    scroll-behavior: auto;
-    overflow: hidden;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 10px solid black;
-    border-top: 5px solid black;
-    border-radius: 50px;
-    background-image: linear-gradient(
-        to right,
-        black,
-
-        rgba(255, 0, 13, 0.6),
-        rgba(255, 0, 13, 0.6),
-        rgba(255, 0, 13, 0.6),
-
-        black,
-    );
-
-    
-}
-
-#movielist:hover{
-    cursor: pointer;
-}

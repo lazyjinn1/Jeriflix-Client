@@ -22,10 +22,12 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [username, setUsername] = useState(user.Username);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
-    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' });
-    const [selectedProfilePicture, setSelectedProfilePicture] = useState();
-    const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' }); // Fixes Birthday to be in a better format
+    const [selectedProfilePicture, setSelectedProfilePicture] = useState(); // Changes based on what is selected
+    const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false); // Picture Menu is the profile Picture modal
+    const [isOpen, setIsOpen] = useState(false); // This is for the other detail Modal
+
+    // If there is a better way of doing this PLEASE let me know. I'd love to hear it.
     const profilePictures = [
         Avatar1,
         Avatar2,
@@ -38,11 +40,15 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
         Avatar9
     ];
 
+    // Filters based on the user's favorite Movies array
     let FavoriteMovies = user.FavoriteMovies ? movieData.filter((movie) => user.FavoriteMovies.includes(movie.ID)) : [];
 
+    // function for picking a profile picture
     let pickPFP = (picture) => {
         setSelectedProfilePicture(picture);
     }
+
+    // updates user info
     let handleUpdate = (event) => {
         event.preventDefault();
 
@@ -81,6 +87,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             });
     }
 
+    // deletes the user
     let handleRemove = () => {
         fetch(`https://jeriflix.onrender.com/users/${username}`, {
             method: 'DELETE',
@@ -112,6 +119,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             <Row>
                 <Col md={8}>
                     <Row>
+                        {/* User's Favorite Movies */}
                         <Row className='flex-row flex-wrap'>
                             {FavoriteMovies.map((movie) => (
                                 <Col className='mb-5' md={4} key={movie.ID}>
@@ -125,6 +133,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 </Col>
                 <Col md={4} className='ml-auto'>
                     <Card className='mx-3 p-1 mb-3 Account-Info'>
+                        {/* Main User Account Info Card */}
                         <Card.Body>
                             <Card.Img className='ProfilePicture'
                                 src={user.ProfilePicture}>
@@ -135,11 +144,13 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                         </Card.Body>
                     </Card>
 
-
+                    {/* Opens up the Update Account Modal */}
                     <Button className='mx-3 p-3 mb-3' variant="primary" onClick={() => setIsOpen(true)}>
                         <h5 className="profile-title">Update Account</h5>
                     </Button>
-                    <Modal className = 'w-100 h-100'show={isOpen} onHide={() => setIsOpen(false)}>
+
+                    {/* Update Account Modal */}
+                    <Modal className='w-100 h-100' show={isOpen} onHide={() => setIsOpen(false)}>
                         <Modal.Header closeButton>
                             <Modal.Title>Update Account</Modal.Title>
                         </Modal.Header>
@@ -159,7 +170,9 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         </Card.Img>
                                     </Col>
 
+                                    {/* Opens up Secondary Modal for choosing profile Picture */}
                                     <Modal show={isPictureMenuOpen} onHide={() => setIsPictureMenuOpen(false)}>
+
                                         <Modal.Header closeButton>
                                             <Modal.Title>Choose your favorite!</Modal.Title>
                                         </Modal.Header>
@@ -183,6 +196,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                     </Modal>
                                 </Row>
 
+                                {/*  Form for updating Username. Currently Disabled */}
                                 <Row>
                                     <Form.Group className="mb-2" controlId="formUsername">
                                         <Form.Label>Username:</Form.Label>
@@ -194,6 +208,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         />
                                     </Form.Group>
 
+                                    {/*  Form for updating Email */}
                                     <Form.Group className="mb-2" controlId="formEmail">
                                         <Form.Label>Email:</Form.Label>
 
@@ -208,7 +223,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         </Form.Control.Feedback>
                                     </Form.Group>
 
-
+                                    {/*  Form for updating Birthday. Currently sets it to the day before your birthday due to timezones */}
                                     <Form.Group controlId="formBirthday">
                                         <Form.Label>Birthday:</Form.Label>
 
@@ -225,12 +240,15 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                     </Form.Group>
                                 </Row>
 
-
+                                {/* Button for updating account */}
                                 <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>
+                                {/* Button for deleting account */}
                                 <Button className="delete my-3 mx-5" onClick={handleRemove}>Delete Account</Button>
 
                             </Form>
                         </Modal.Body>
+                        
+                        {/* Close the Modal Button */}
                         <Modal.Footer>
                             <Button variant="primary" onClick={() => setIsOpen(false)}>Close</Button>
                         </Modal.Footer>

@@ -7,6 +7,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { Container, Button, Row, Col, Form } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import './main-view.scss';
 import LeftArrow from '../../../assets/LeftArrow.png'
 import RightArrow from '../../../assets/RightArrow.png'
 
