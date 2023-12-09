@@ -37,7 +37,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     }
   }, [user]);
 
-  const addToFavorites = async() => {
+  const addToFavorites = async () => {
     await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "PUT",
       headers: {
@@ -72,7 +72,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
     });
   }
 
-  const removeFromFavorites = async() => {
+  const removeFromFavorites = async () => {
     await fetch(`https://jeriflix.onrender.com/users/${user.Username}/favorites/${movieID}`, {
       method: "DELETE",
       headers: {
@@ -110,7 +110,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
   return (
     <Container className='align-items-center h-100 mt-2'>
       <Row>
-        <Col md={4} className='m-3'>
+        <Col md={5} className='m-3'>
           <Card.Img
             variant="top"
             src={movie.ImagePath}
@@ -122,23 +122,22 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
             <Card.Body className='p-2 h-50 text-center align-middle'>
 
               <Card.Title>
-                <span >Title: </span>
-                <span className='Title'>{movie.Title}</span>
+                <h1>{movie.Title}</h1>
               </Card.Title>
 
               <Card.Text>
                 <span>Director: </span>
-                <span className='Director'>{movie.Director.Name}</span>
+                <span>{movie.Director.Name}</span>
               </Card.Text>
 
               <Card.Text>
                 <span>Genre: </span>
-                <span className='Genre'>{movie.Genre.Name}</span>
+                <span>{movie.Genre.Name}</span>
               </Card.Text>
 
               <Card.Text>
                 <span>Description: </span>
-                <span className='Description'>{movie.Description}</span>
+                <span>{movie.Description}</span>
               </Card.Text>
 
               <Link to={`/`}>
@@ -167,33 +166,37 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
 
             </Card.Body>
           </Card>
+
+          <h3 className="m-2"> Similar Movies: </h3>
+          <Row>
+            <h4 className="mx-3">By Genre:</h4>
+            {similarMovies.length > 0 ? (
+              similarMovies.map((simMovie) => (
+                <Col className="mb-3" md={3} key={simMovie.ID}>
+                  <MovieCard
+                    movieData={simMovie}
+                  />
+                </Col>
+              ))
+            ) : (
+              <p className="mx-3">No similar movies found.</p>
+            )}
+
+            <h4 className="mx-3">By Director:</h4>
+            {directorMovies.length > 0 ? (
+              directorMovies.map((dirMovie) => (
+                <Col className="mb-3" md={3} key={dirMovie.ID}>
+                  <MovieCard
+                    movieData={dirMovie}
+                  />
+                </Col>
+              ))
+            ) : (
+              <p className="mx-3">No other movies by this director found.</p>
+            )}
+          </Row>
         </Col>
       </Row>
-
-
-      <h2 className="m-2"> Titles you may like: </h2>
-      <Row>
-        <h3 className="m-3">By Genre:</h3>
-        {similarMovies.map((simMovie) => (
-          <Col className="mb-5" md={2} key={simMovie.ID}>
-            <MovieCard
-              movieData={simMovie}
-            />
-          </Col>
-        ))}
-      </Row>
-
-      <Row>
-        <h3 className="m-2">By Director:</h3>
-        {directorMovies.map((dirMovie) => (
-          <Col className="mb-5" md={2} key={dirMovie.ID}>
-            <MovieCard
-              movieData={dirMovie}
-            />
-          </Col>
-        ))}
-      </Row>
-
     </Container>
   );
 };

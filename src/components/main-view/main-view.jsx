@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignUpView } from '../signup-view/signup-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button, Row, Col, Form } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LeftArrow from '../../../assets/LeftArrow.png'
 import RightArrow from '../../../assets/RightArrow.png'
@@ -18,6 +18,7 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [sliderRef, setSliderRef] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleSliderRef = useCallback((e) => {
     if (e !== null) {
@@ -130,6 +131,22 @@ export const MainView = () => {
       });
   }, [token]);
 
+
+  const handleSearchMovie = (e) => {
+    setSearchTerm(e.target.value);
+  }
+
+  const filteredMovies = movies.filter(movie => {
+    if (!searchTerm) {
+      return;
+    }
+    if (searchTerm) {
+      return movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+    }
+  });
+  console.log(filteredMovies);
+
+
   return (
     <BrowserRouter>
       <NavigationBar
@@ -209,10 +226,10 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
 
-                  <Container className='mt-5 mw-100' >
+                  <Container className='mw-100 mh-100 overflow-hidden' >
                     <Row>
                       <Col md={2}>
-                        <Button className = 'directionArrow' variant='contained' onClick={scrollLeft} style={{ float: 'left'}}>
+                        <Button className='directionArrow' variant='contained' onClick={scrollLeft} style={{ float: 'left' }}>
                           <img className='img-fluid h-50 w-50' src={LeftArrow} />
                         </Button>
                       </Col>
@@ -234,10 +251,27 @@ export const MainView = () => {
                       </Col>
 
                       <Col md={2}>
-                        <Button className = 'directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
+                        <Button className='directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
                           <img className='img-fluid h-50 w-50' src={RightArrow} />
                         </Button>
                       </Col>
+                    </Row>
+                    <Row>
+                      <Form>
+                        <Form.Group>
+                          <Form.Label>Search</Form.Label>
+                          <Form.Control type="text" placeholder= "Search movies..." onChange={handleSearchMovie}></Form.Control>
+                        </Form.Group>
+                      </Form>
+                      <Row className='flex-nowrap m-0' id='movielist'>
+                          {filteredMovies.map((movie) => (
+                            <Col md={1} key={movie.ID}>
+                              <MovieCard
+                                movieData={movie}
+                              />
+                            </Col>
+                          ))}
+                      </Row>
                     </Row>
 
 

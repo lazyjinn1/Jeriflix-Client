@@ -1,4 +1,4 @@
-$primary: rgb(255, 230, 0);
+$primary: rgb(0, 0, 0);
 $body-bg: Honeydew;
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -15,6 +15,24 @@ $color: steelblue;
     margin: 20px 0;
 }
 
+.navbar{
+    font-size: 120%;
+    font-weight: bold;
+    background-image: linear-gradient(
+        to right, 
+        rgba(255, 0, 13, 0.6),
+        rgba(38, 146, 189, 0.6),
+        rgba(38, 146, 189, 0.6), 
+        rgba(38, 146, 189, 0.6),
+        rgba(255, 0, 13, 0.6),
+    );
+    opacity: .5;
+    transition: opacity 1s ease;
+}
+
+.navbar:hover{
+    opacity: 1;
+}
 
 body{
     background-image: linear-gradient(
@@ -33,16 +51,18 @@ button{
     transition: all .3s;
     background-image: linear-gradient(
         to right, 
-        rgba(0, 0, 0, 0.6),
-        rgba(255, 230, 0, 0.822),
-        rgba(255, 230, 0, 0.822),
-        rgba(255, 230, 0, 0.822),
+        rgba(0, 38, 255, 0.822),
+        rgba(0, 217, 255, 0.822),
+        rgba(0, 217, 255, 0.822),
         rgba(0, 0, 0, 0.6),
     );
 }
 
+
 .directionArrow{
     background-image: none;
+    outline: none;
+    border: none;
 }
 
 button:hover{
@@ -72,6 +92,7 @@ button:active{
     border-right: 1px solid black;
     border-bottom: 10px solid black;
     border-top: 5px solid black;
+    border-radius: 50px;
     background-image: linear-gradient(
         to right,
         black,
@@ -81,7 +102,9 @@ button:active{
         rgba(255, 0, 13, 0.6),
 
         black,
-    )
+    );
+
+    
 }
 
 #movielist:hover{
@@ -112,7 +135,7 @@ button:active{
 
 .movie-card .image-container .overlay .title {
     color: white;
-    font-size: 24px;
+    font-size: 1vw;
     transition: opacity 0.5s ease;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -123,8 +146,10 @@ button:active{
 }
 
 .ProfilePicture{
-    width: 65%;
+    width: 250px;
     height: auto;
+    max-width: 65%;
+    max-height: auto;
     border-radius: 50%;
 }
 

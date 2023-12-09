@@ -138,7 +138,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                     <Button className='mx-3 p-3 mb-3' variant="primary" onClick={() => setIsOpen(true)}>
                         <h5 className="profile-title">Update Account</h5>
                     </Button>
-                    <Modal show={isOpen} onHide={() => setIsOpen(false)}>
+                    <Modal className = 'w-100 h-100'show={isOpen} onHide={() => setIsOpen(false)}>
                         <Modal.Header closeButton>
                             <Modal.Title>Update Account</Modal.Title>
                         </Modal.Header>

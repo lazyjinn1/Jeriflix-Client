@@ -4,49 +4,50 @@ import Form from 'react-bootstrap/Form';
 
 export const LoginView = ({ onLoggedIn }) => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState(''); //defaults username to an empty string and sets how to set it
+    const [password, setPassword] = useState(''); //defaults password to an empty string and sets how to set it
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault(); // prevents the default from happening which may interfere with events
 
-        const userData = {
+        const userData = { // shows the format for how we expect to receive our login data
             Username: username,
             Password: password,
         };
 
-        fetchLogin(onLoggedIn, userData);
+        fetchLogin(onLoggedIn, userData); // launches the function below using new data gained
     }
 
     async function fetchLogin(onLoggedIn, userData) {
         console.log(userData);
 
-        await fetch('https://jeriflix.onrender.com/login', {
+        await fetch('https://jeriflix.onrender.com/login', { // fetch connects us to our backend
         // await fetch('http://localhost:8080/login', {
-            method: "POST",
-            body: JSON.stringify(userData),
-            headers: { 'Content-Type': 'application/json'},
-        }).then((response) => response.json())
+            method: "POST", 
+            body: JSON.stringify(userData), // stringifys our data so it becomes a proper format
+            headers: { 'Content-Type': 'application/json'}, // tells our app what kind of data is expected
+        }).then((response) => response.json()) // whatever is returned is now made into json
             .then((userData) => {
-                console.log('Login response: ', userData);
+                //console.log('Login response: ', userData); 
                 if (userData.user) {
-                    localStorage.setItem('user', JSON.stringify(userData.user));
-                    localStorage.setItem('token', userData.token);
-                    onLoggedIn(username, userData.token);
+                    localStorage.setItem('user', JSON.stringify(userData.user)); // sets user in localStorage
+                    localStorage.setItem('token', userData.token); // sets token in localStorage
+                    onLoggedIn(username, userData.token); // Hook to show that we are now logged in
                 } else {
-                    console.log(userData);
-                    alert('User not found');
+                    alert('User not found'); // error if log-in info is wrong
                 }
             })
             .catch((error) => {
-                console.error('Error during Login', error);
-                alert('Something went wrong');
+                // console.error('Error during Login', error);
+                alert('Something went wrong'); // error
             }
         );
     };
     return (
-        <Form onSubmit={handleSubmit} className = 'my-5'>
+        // form for our log-in. Utilizes React-Bootstrap
+        <Form onSubmit={handleSubmit} className = 'my-5'> 
 
+            {/* form for our username*/}
             <Form.Group controlId = 'formUsername'>
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -59,6 +60,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </Form.Group>
 
+            {/* form for our password. Note how type is 'password' which hides it*/}
             <Form.Group controlId = 'formPassword'>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
@@ -71,6 +73,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </Form.Group>
 
+            {/* This is our submit button. Note how it's type is 'submit' */}
             <Button variant = 'primary' type = 'submit' className = 'mt-3'>
                 Submit
             </Button>
