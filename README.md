@@ -13,10 +13,9 @@ and add or delete movies to their Favorites list. The app also showcases differe
 
 ## Features
 
-- View a variety of movies from different Genres, Directors and Art-styles
+- View a variety of movies from different Genres and Directors
 - Add or remove movies from YOUR Favorites List
-- View other users and see what's on their Favorites List
-- Learn more about your favorite movie, genre and director.
+- Learn more about your favorite movie.
 
 ## Getting Started
 
@@ -31,11 +30,21 @@ package.json.
 2. Open the `index.html` file in your preferred web browser.
 
 Alternatively:
-1. open up the website link: https://jeriflix.onrender.com
+1. open up the website link: https://jeriflix.netlify.app
 
 ## Usage
 
-1. Under Construction.
+1. Direct yourself to the sign-up page and sign yourself up
+2. Head towards log-in and using your newly created credentials, log yourself in.
+3. Click and dragon through the movie list to see all the different movies, or 
+click on the arrows to the left and right of the movies to scroll through them.
+4. Alternatively, you can also search for specific movies on the search bar below.
+5. Clicking on a movie card details more information on the movie including a description, genre and director.
+You can also add and remove movies from your favorites list from here.
+6. You will also see other related movies.
+7. You can also click on Profile on the navigation bar and be presented to your own personal profile.
+8. You can view your favorite movies list here as well as change any information such as your Password, Email or Birthday. This is also where you can give yourself a profile picture!
+9. Once satisfied, feel free to log-out with the navbar's logout button.
 
 ## Contributing
 
@@ -46,7 +55,3 @@ Before contributing, please review the [Code of Conduct](CODE_OF_CONDUCT.md).
 ## License
 
 Jeriflix is an open-source software licensed under the [MIT License](LICENSE).
-
-## Acknowledgements
-
-1. Under Construction.
