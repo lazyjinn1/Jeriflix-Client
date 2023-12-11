@@ -140,7 +140,7 @@ export const MainView = () => {
   // uses searchTerm to filter the movies array.
   const filteredMovies = movies.filter(movie => {
     if (!searchTerm) {
-      return;
+      return true;
     }
     if (searchTerm) {
       return movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -248,10 +248,10 @@ export const MainView = () => {
                       <Col md={8}>
                         <Row className='flex-nowrap m-0' id='movielist' ref={handleSliderRef}>
 
-                          {movies.map((movie) => (
+                          {filteredMovies.map((movie) => (
 
                             <Col className='mb-3' md={4} key={movie.ID}>
-                              <h2 className='fixed-top text-center justify-center pe-none movieCard'> All Movies</h2>
+                              <h2 className='fixed-top text-center justify-center pe-none movieCard'> Jeriflix</h2>
                               <MovieCard
                                 movieData={movie}
                               />
@@ -278,19 +278,9 @@ export const MainView = () => {
                           <Form.Control type="text" placeholder= "Search movies..." onChange={handleSearchMovie}></Form.Control>
                         </Form.Group>
                       </Form>
-                      {/* This shows the new filteredMovies based on the above search */}
-                      <Row className='flex-nowrap m-0' id='movielist'>
-                          {filteredMovies.map((movie) => (
-                            <Col md={2} key={movie.ID}>
-                              <MovieCard
-                                movieData={movie}
-                              />
-                            </Col>
-                          ))}
-                      </Row>
                     </Row>
 
-                  </Container>
+                  </Container>  
                 )}
               </Container>
             }

@@ -19,6 +19,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     user = JSON.parse(localStorage.getItem("user"));
 
     const [username, setUsername] = useState(user.Username);
+    const [password, setPassword] = useState(user.Password);
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' }); // Fixes Birthday to be in a better format
@@ -53,6 +54,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
         let data = {
             Username: username,
+            Password: password,
             Email: email,
             Birthday: birthday,
             ProfilePicture: selectedProfilePicture
@@ -79,7 +81,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                 if (data) {
                     localStorage.setItem('user', JSON.stringify(data));
                     setUser(data);
-                    console.log('Account successfully updated.');
+                    alert('Account successfully updated.');
                 } else {
                     console.log('No changes detected or invalid entries');
                 }
@@ -209,6 +211,15 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
                                             disabled
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-2" controlId="formPassword">
+                                        <Form.Label>Password:</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </Form.Group>
 
