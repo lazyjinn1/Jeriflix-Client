@@ -166,6 +166,7 @@ export const MainView = () => {
           setToken(null);
           localStorage.clear();
         }}
+        movies={movies}
       />
       {/* Sign Up */}
       <Row className='justify-content-md-center mt-5'>
