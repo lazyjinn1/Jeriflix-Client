@@ -5776,8 +5776,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -19017,8 +19016,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -32231,8 +32229,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -45450,8 +45447,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -58682,8 +58678,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -71910,8 +71905,7 @@ textarea.form-control-lg {
   position: fixed;
   top: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .modal-dialog {
@@ -79372,12 +79366,6 @@ button:hover {
 
 button:active {
   transform: scale(1);
-}
-
-.directionArrow {
-  background-image: none;
-  border: none;
-  outline: none;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */

@@ -143,7 +143,13 @@ export const MainView = () => {
       return true;
     }
     if (searchTerm) {
-      return movie.Title.toLowerCase().includes(searchTerm.toLowerCase())
+      return (
+        (movie.Title.toLowerCase().includes(searchTerm.toLowerCase()))
+        ||
+        (movie.Genre.Name.toLowerCase().includes(searchTerm.toLowerCase()))
+        ||
+        (movie.Director.Name.toLowerCase().includes(searchTerm.toLowerCase()))
+      )
     }
   });
   // console.log(filteredMovies);
@@ -275,8 +281,9 @@ export const MainView = () => {
                       <Form>
                         <Form.Group>
                           <Form.Label>Search</Form.Label>
-                          <Form.Control type="text" placeholder= "Search movies..." onChange={handleSearchMovie}></Form.Control>
+                          <Form.Control type="text" placeholder= "Search movies, genres, or directors..." onChange={handleSearchMovie}></Form.Control>
                         </Form.Group>
+                        <p>{filteredMovies.length} results found...</p>
                       </Form>
                     </Row>
 
