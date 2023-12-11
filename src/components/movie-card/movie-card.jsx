@@ -22,7 +22,7 @@ export const MovieCard = ({ movieData }) => {
                         className='p-0 gx-0 movieCard'
                         variant="link"
                         onClick={() => {
-                            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                            window.scrollTo({ top: 80, left: 0, behavior: 'auto' });
                         }}>
 
                         {/* This is our full picture */}

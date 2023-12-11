@@ -27558,7 +27558,7 @@ const MovieCard = ({ movieData })=>{
                     variant: "link",
                     onClick: ()=>{
                         window.scrollTo({
-                            top: 0,
+                            top: 80,
                             left: 0,
                             behavior: "auto"
                         });
