@@ -19,7 +19,7 @@ export const LoginView = ({ onLoggedIn }) => {
 
     async function fetchLogin(onLoggedIn, userData) {
 
-        await fetch('https://jeriflix.onrender.com/login', { // fetch connects us to our backend
+        await fetch('https://jeriflix.onrender.com/login/allow-cors', { // fetch connects us to our backend
             // await fetch('http://localhost:8080/login', {
             method: "POST",
             body: JSON.stringify(userData), // stringifys our data so it becomes a proper format
