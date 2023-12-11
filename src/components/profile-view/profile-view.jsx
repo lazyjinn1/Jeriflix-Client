@@ -27,6 +27,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false); // Picture Menu is the profile Picture modal
     const [isOpen, setIsOpen] = useState(false); // This is for the other detail Modal
     const [isPasswordMenuOpen, setIsPasswordMenuOpen] = useState(false);
+    const [bio, setBio] = useState(user.Bio);
 
     // If there is a better way of doing this PLEASE let me know. I'd love to hear it.
     const profilePictures = [
@@ -57,7 +58,8 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             Username: username,
             Email: email,
             Birthday: birthday,
-            ProfilePicture: selectedProfilePicture
+            ProfilePicture: selectedProfilePicture,
+            Bio: bio
         };
 
         // fetch(`http://localhost:8080/users/${username}`, {
@@ -180,6 +182,8 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                 <Card.Title>{user.Username}</Card.Title>
                                 <Card.Text>Email: {user.Email}</Card.Text>
                                 <Card.Text>Birthday: {fixedBirthday}</Card.Text>
+                                <Card.Text>{user.Bio}</Card.Text>
+
                             </Card.Body>
                         </Card>
                     </Row>
@@ -241,12 +245,12 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
                                 <Row>
                                     <Col>
-                                        <Button className = 'mb-2 py-0' onClick={() => setIsPasswordMenuOpen(true)}>
+                                        <Button className='mb-2 py-0' onClick={() => setIsPasswordMenuOpen(true)}>
                                             <p>Change Password</p>
                                         </Button>
                                     </Col>
 
-                                    <Modal className = 'p-2 ' show={isPasswordMenuOpen} onHide={() => setIsPasswordMenuOpen(false)}>
+                                    <Modal className='p-2 ' show={isPasswordMenuOpen} onHide={() => setIsPasswordMenuOpen(false)}>
 
                                         <Modal.Header closeButton>
                                             <Modal.Title>Change Password Here</Modal.Title>
@@ -266,7 +270,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                     </Modal>
                                 </Row>
 
-                                {/*  Form for updating Username. Currently Disabled */}
+                                {/*  Form for updating Username.*/}
                                 <Row>
                                     <Form.Group className="mb-2" controlId="formUsername">
                                         <Form.Label>Username:</Form.Label>
@@ -307,6 +311,17 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         <Form.Control.Feedback type="invalid">
                                             Must be a valid Birthday.
                                         </Form.Control.Feedback>
+                                    </Form.Group>
+
+                                    <Form.Group>
+                                        <Form.Label>Description: </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={bio}
+                                            placeholder="What's on your mind?"
+                                            maxlength="30"
+                                            onChange={(e) => setBio(e.target.value)}>
+                                        </Form.Control>
                                     </Form.Group>
                                 </Row>
 
