@@ -26,6 +26,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [selectedProfilePicture, setSelectedProfilePicture] = useState(); // Changes based on what is selected
     const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false); // Picture Menu is the profile Picture modal
     const [isOpen, setIsOpen] = useState(false); // This is for the other detail Modal
+    const [isPasswordMenuOpen, setIsPasswordMenuOpen] = useState(false);
 
     // If there is a better way of doing this PLEASE let me know. I'd love to hear it.
     const profilePictures = [
@@ -54,10 +55,46 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
         let data = {
             Username: username,
-            Password: password,
             Email: email,
             Birthday: birthday,
             ProfilePicture: selectedProfilePicture
+        };
+
+        // fetch(`http://localhost:8080/users/${username}`, {
+        fetch(`https://jeriflix.onrender.com/users/${username}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.text();
+                }
+
+            }).then((data) => {
+                if (data) {
+                    console.log(data);
+                    localStorage.setItem('user', JSON.stringify(data));
+                    setUser(data);
+                    alert('Account successfully updated.');
+                } else {
+                    console.log('No changes detected or invalid entries');
+                }
+            });
+    }
+
+    // changes the password
+    let handleUpdatePassword = (event) => {
+        event.preventDefault();
+
+        let data = {
+            Password: password,
         };
 
         // fetch(`http://localhost:8080/users/${username}`, {
@@ -165,7 +202,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                             <Form className="my-profile">
                                 <Row>
                                     <Col>
-                                        <Button onClick={() => setIsPictureMenuOpen(true)}>
+                                        <Button className="mb-2 py-0" onClick={() => setIsPictureMenuOpen(true)}>
                                             <p className="profile-title">Change Profile Picture</p>
                                         </Button>
                                     </Col>
@@ -202,6 +239,33 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                     </Modal>
                                 </Row>
 
+                                <Row>
+                                    <Col>
+                                        <Button className = 'mb-2 py-0' onClick={() => setIsPasswordMenuOpen(true)}>
+                                            <p>Change Password</p>
+                                        </Button>
+                                    </Col>
+
+                                    <Modal className = 'p-2 ' show={isPasswordMenuOpen} onHide={() => setIsPasswordMenuOpen(false)}>
+
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Change Password Here</Modal.Title>
+                                        </Modal.Header>
+
+                                        <Form.Group className="p-3 " controlId="formPassword">
+                                            <Form.Label>Password:</Form.Label>
+                                            <Form.Control
+                                                type="password"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                            />
+                                        </Form.Group>
+
+                                        <Button className="update my-3 mx-5" onClick={handleUpdatePassword} type="submit">Update</Button>
+
+                                    </Modal>
+                                </Row>
+
                                 {/*  Form for updating Username. Currently Disabled */}
                                 <Row>
                                     <Form.Group className="mb-2" controlId="formUsername">
@@ -211,15 +275,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
                                             disabled
-                                        />
-                                    </Form.Group>
-
-                                    <Form.Group className="mb-2" controlId="formPassword">
-                                        <Form.Label>Password:</Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </Form.Group>
 
@@ -254,6 +309,8 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Row>
+
+
 
                                 {/* Button for updating account */}
                                 <Button className="update my-3 mx-5" onClick={handleUpdate} type="submit">Update</Button>

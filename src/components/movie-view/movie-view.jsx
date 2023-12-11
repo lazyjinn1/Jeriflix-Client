@@ -131,7 +131,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
         {/* This shows the movie's details in a card format (uses React-Bootstrap) */}
         <Col className='w-40 m-3' md={6}>
           <Card>
-            <Card.Body className='p-2 h-50 text-center align-middle'>
+            <Card.Body className='p-2 h-50 text-center align-middle movieDetails'>
 
               <Card.Title>
                 <h1>{movie.Title}</h1>
