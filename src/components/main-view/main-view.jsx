@@ -12,17 +12,17 @@ import LeftArrow from '../../../assets/LeftArrow.png'
 import RightArrow from '../../../assets/RightArrow.png'
 
 export const MainView = () => {
-  let storedUser = localStorage.getItem('user'); 
-  let storedToken = localStorage.getItem('token'); 
+  let storedUser = localStorage.getItem('user');
+  let storedToken = localStorage.getItem('token');
 
-  const [user, setUser] = useState(storedUser ? storedUser : null); 
-  const [token, setToken] = useState(storedToken ? storedToken : null); 
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]); // initially defines movies as an empty array
   const [sliderRef, setSliderRef] = useState(null); // defines sliderRef which is the container that our slider functions are used for. It is null until we define it later
   const [searchTerm, setSearchTerm] = useState(''); // defines searchTerm which is used for our searching function
 
   // This uses callbacks to define SliderRef and prevents it from being 'null'
-  const handleSliderRef = useCallback((e) => { 
+  const handleSliderRef = useCallback((e) => {
     if (e !== null) {
       setSliderRef(e);
     }
@@ -31,7 +31,7 @@ export const MainView = () => {
   useEffect(() => {
     const slider = sliderRef;
 
-    if (!slider) { 
+    if (!slider) {
       return;
     }
 
@@ -69,11 +69,35 @@ export const MainView = () => {
       slider.scrollLeft = scrollLeft - walk;
     };
 
+    // Touch event handlers
+    const handleTouchStart = (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.touches[0].pageX - slider.offsetLeft;
+      const walk = (x - startX) * 2;
+      slider.scrollLeft = scrollLeft - walk;
+    };
+
+    const handleTouchEnd = () => {
+      isDown = false;
+    };
+
     // adds our eventListeners
     slider.addEventListener('mousedown', handleMouseDown);
     slider.addEventListener('mouseleave', handleMouseLeave);
     slider.addEventListener('mouseup', handleMouseUp);
     slider.addEventListener('mousemove', handleMouseMove);
+
+    slider.addEventListener('touchstart', handleTouchStart);
+    slider.addEventListener('touchcancel', handleTouchEnd);
+    slider.addEventListener('touchend', handleTouchEnd);
+    slider.addEventListener('touchmove', handleTouchMove);
   }, [sliderRef]);
 
   // Function to handle right scroll. This uses the buttons.
@@ -157,8 +181,8 @@ export const MainView = () => {
 
   return (
     // This allows us to make this whole thing a one-pager
-    <BrowserRouter> 
-    {/* This is our nav bar which shows at the top of every page */}
+    <BrowserRouter>
+      {/* This is our nav bar which shows at the top of every page */}
       <NavigationBar
         user={user}
         onLoggedOut={() => {
@@ -229,7 +253,7 @@ export const MainView = () => {
               </>
             }
           />
-          
+
           {/* Main Page */}
           <Route
             path='/'
@@ -267,7 +291,7 @@ export const MainView = () => {
                           ))}
                         </Row>
                       </Col>
-                            
+
                       {/* Direction Arrow Right */}
                       <Col md={2}>
                         <Button className='directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
@@ -275,20 +299,20 @@ export const MainView = () => {
                         </Button>
                       </Col>
                     </Row>
-                    
+
                     {/* Second Row */}
                     <Row>
                       {/* This is the UI for our search  */}
                       <Form>
                         <Form.Group>
                           <Form.Label>Search</Form.Label>
-                          <Form.Control type="text" placeholder= "Search movies, genres, or directors..." onChange={handleSearchMovie}></Form.Control>
+                          <Form.Control type="text" placeholder="Search movies, genres, or directors..." onChange={handleSearchMovie}></Form.Control>
                         </Form.Group>
                         <p>{filteredMovies.length} results found...</p>
                       </Form>
                     </Row>
 
-                  </Container>  
+                  </Container>
                 )}
               </Container>
             }

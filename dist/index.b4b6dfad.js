@@ -27231,11 +27231,31 @@ const MainView = ()=>{
             const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
         };
+        // Touch event handlers
+        const handleTouchStart = (e)=>{
+            isDown = true;
+            startX = e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        };
+        const handleTouchMove = (e)=>{
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        };
+        const handleTouchEnd = ()=>{
+            isDown = false;
+        };
         // adds our eventListeners
         slider.addEventListener("mousedown", handleMouseDown);
         slider.addEventListener("mouseleave", handleMouseLeave);
         slider.addEventListener("mouseup", handleMouseUp);
         slider.addEventListener("mousemove", handleMouseMove);
+        slider.addEventListener("touchstart", handleTouchStart);
+        slider.addEventListener("touchcancel", handleTouchEnd);
+        slider.addEventListener("touchend", handleTouchEnd);
+        slider.addEventListener("touchmove", handleTouchMove);
     }, [
         sliderRef
     ]);
@@ -27312,7 +27332,7 @@ const MainView = ()=>{
                 movies: movies
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 162,
+                lineNumber: 186,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27331,7 +27351,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 174,
+                            lineNumber: 198,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27351,7 +27371,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 190,
+                            lineNumber: 214,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27374,7 +27394,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 211,
+                            lineNumber: 235,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27472,7 +27492,7 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 234,
+                            lineNumber: 258,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27494,24 +27514,24 @@ const MainView = ()=>{
                             }, void 0, false, void 0, void 0)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 298,
+                            lineNumber: 322,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 173,
+                    lineNumber: 197,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 172,
+                lineNumber: 196,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 160,
+        lineNumber: 184,
         columnNumber: 5
     }, undefined));
 };
@@ -41949,7 +41969,6 @@ const LoginView = ({ onLoggedIn })=>{
         fetchLogin(onLoggedIn, userData); // launches the function below using new data gained
     };
     async function fetchLogin(onLoggedIn, userData) {
-        console.log(userData);
         await fetch("https://jeriflix.onrender.com/login", {
             // await fetch('http://localhost:8080/login', {
             method: "POST",
@@ -41964,7 +41983,10 @@ const LoginView = ({ onLoggedIn })=>{
                 localStorage.setItem("user", JSON.stringify(userData.user)); // sets user in localStorage
                 localStorage.setItem("token", userData.token); // sets token in localStorage
                 onLoggedIn(username, userData.token); // Hook to show that we are now logged in
-            } else alert("User not found"); // error if log-in info is wrong
+            } else {
+                console.log(userData);
+                alert("User not found"); // error if log-in info is wrong
+            }
         }).catch((error)=>{
             // console.error('Error during Login', error);
             alert("Something went wrong"); // error
