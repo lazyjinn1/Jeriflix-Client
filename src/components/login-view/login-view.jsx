@@ -32,6 +32,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     localStorage.setItem('token', userData.token); // sets token in localStorage
                     onLoggedIn(username, userData.token); // Hook to show that we are now logged in
                 } else {
+                    console.log(userData);
                     alert('User not found'); // error if log-in info is wrong
                 }
             })
