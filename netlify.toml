@@ -2,17 +2,3 @@
   from = "/*"
   to = "/"
   status = 200
-
-  [[headers]]
-  for = "/api/*" # Adjust the path to match your API path
-  [headers.values]
-    Access-Control-Allow-Origin = 
-    "[
-    'http://localhost:1234',
-    'http://localhost:8080',
-    'https://jeriflix.netlify.app',
-    'https://main--jeriflix.netlify.app',
-    'https://jeriflix.netlify.com',
-    'https://jeriflix.onrender.com/login',
-    'https://jeriflix.onrender.com'
-    ]"
