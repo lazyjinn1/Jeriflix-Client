@@ -279,6 +279,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                             type="text"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
+                                            disabled
                                         />
                                     </Form.Group>
 
