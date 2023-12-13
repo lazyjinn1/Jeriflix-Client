@@ -156,15 +156,12 @@ export const MainView = () => {
   }, [token]);
 
 
-  // function for setting the search term to be searched in 'filteredMovies' below
-  const handleSearchMovie = (e) => {
-    setSearchTerm(e.target.value);
-  }
+  
 
   // uses searchTerm to filter the movies array.
   const filteredMovies = movies.filter(movie => {
     if (!searchTerm) {
-      return true;
+      return ;
     }
     if (searchTerm) {
       return (
@@ -191,9 +188,12 @@ export const MainView = () => {
           localStorage.clear();
         }}
         movies={movies}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        filteredMovies={filteredMovies}
       />
       {/* Sign Up */}
-      <Row className='justify-content-md-center mt-5'>
+      <Row className='justify-content-md-center mt-1'>
         <Routes>
           <Route
             path='/signup'
@@ -265,24 +265,35 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
 
-                  <Container className='mw-100 mh-100 overflow-hidden' >
-                    {/* First Row */}
+                  <Container className='mw-100 mh-100 overflow-hidden' >  
                     <Row>
                       {/* Direction Arrow Left */}
-                      <Col md={2}>
+                      <Col md={1} className = 'directionArrowLocation'>
                         <Button className='directionArrow' variant='contained' onClick={scrollLeft} style={{ float: 'left' }}>
-                          <img className='img-fluid h-50 w-50' src={LeftArrow} />
+                          <img className='img-fluid' src={LeftArrow} />
                         </Button>
                       </Col>
-
                       {/* The main movie list which shows ALL the movies */}
-                      <Col md={8}>
+                      <Col md={10}>
+                      <h2>All Movies:</h2>
                         <Row className='flex-nowrap m-0' id='movielist' ref={handleSliderRef}>
 
+                          {movies.map((movie) => (
+
+                            <Col className='my-3' md={3} key={movie.ID}>
+                              <MovieCard
+                                movieData={movie}
+                              />
+
+                            </Col>
+                          ))}
+                        </Row>
+                        <h4 className='mt-1' >Search Results: ({searchTerm})</h4>
+                        <Row className='flex m-0' id='movielist'>
+                          
                           {filteredMovies.map((movie) => (
 
-                            <Col className='mb-3' md={4} key={movie.ID}>
-                              <h2 className='fixed-top text-center justify-center pe-none movieCard'> Jeriflix</h2>
+                            <Col className='my-1 mx-3' md={2} key={movie.ID}>
                               <MovieCard
                                 movieData={movie}
                               />
@@ -293,23 +304,11 @@ export const MainView = () => {
                       </Col>
 
                       {/* Direction Arrow Right */}
-                      <Col md={2}>
+                      <Col md={1} className = 'directionArrowLocation'>
                         <Button className='directionArrow' variant='contained' onClick={scrollRight} style={{ float: 'right' }}>
-                          <img className='img-fluid h-50 w-50' src={RightArrow} />
+                          <img className='img-fluid' src={RightArrow} />
                         </Button>
                       </Col>
-                    </Row>
-
-                    {/* Second Row */}
-                    <Row>
-                      {/* This is the UI for our search  */}
-                      <Form>
-                        <Form.Group>
-                          <Form.Label>Search</Form.Label>
-                          <Form.Control type="text" placeholder="Search movies, genres, or directors..." onChange={handleSearchMovie}></Form.Control>
-                        </Form.Group>
-                        <p>{filteredMovies.length} results found...</p>
-                      </Form>
                     </Row>
 
                   </Container>

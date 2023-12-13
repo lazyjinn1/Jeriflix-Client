@@ -1,59 +1,81 @@
-import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Navbar, Container, Nav, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export const NavigationBar = ({ user, onLoggedOut, movies}) => {
-
-    // Function to get a random movie ID
-    const getRandomMovieId = () => {
-        if (movies && movies.length) {
-            const randomMovie = Math.floor(Math.random() * movies.length);
-            console.log(randomMovie);
-            return movies[randomMovie].ID;
-            
-        }
-        return null;
+export const NavigationBar = ({ user, onLoggedOut, movies, searchTerm, setSearchTerm, filteredMovies }) => {
+    // function for setting the search term to be searched in 'filteredMovies' below
+    const handleSearchMovie = (e) => {
+        setSearchTerm(e.target.value);
     }
 
-    const randomMovie = getRandomMovieId(); 
+    const handleSearchReset = () => {
+        setSearchTerm('');
+    }
+
+    // Function to get a random movie ID
+    let getRandomMovieId = () => {
+        if (movies && movies.length) {
+            const randomIndex = Math.floor(Math.random() * movies.length);
+            return movies[randomIndex].ID;
+        }
+        return;
+    }
+
+    const randomMovie = getRandomMovieId();
 
     return (
-        // Navigation bar on top of every page
-        <Navbar bg = 'light' expand = 'lg' fixed = 'top' className = 'mb-5 navbar'>
+        <Navbar bg='light' expand='lg' className='navbar'>
             <Container>
-                <Navbar.Brand as = {Link} to = '/'>
-                    Jeriflix
+                <Navbar.Brand as={Link} to='/'>
+                    <h1>Jeriflix</h1>
                 </Navbar.Brand>
 
-                <Navbar.Toggle aria-controls = 'basic-navbar-nav ' />
-                
-                {/* Shows what it looks like when the screen is too small. */}
-                <Navbar.Collapse id = 'basic-navbar-nav'>
-                    <Nav className = 'me-auto '>
+                <Navbar.Toggle aria-controls='basic-navbar-nav' />
+
+                <Navbar.Collapse id='basic-navbar-nav'>
+                    <Nav className='me-auto'>
                         {!user && (
                             <>
-                                <Nav.Link as = {Link} to ='/login'>
+                                <Nav.Link as={Link} to='/login'>
                                     Login
                                 </Nav.Link>
-                                <Nav.Link as = {Link} to ='/signup'>
+                                <Nav.Link as={Link} to='/signup'>
                                     Sign Up
                                 </Nav.Link>
                             </>
                         )}
-                        {  user && (
-                                <>
-                                    <Nav.Link as = {Link} to = '/'>
-                                        Home
-                                    </Nav.Link>
-                                    <Nav.Link as = {Link} to ='/profile'>
-                                        Profile
-                                    </Nav.Link>
-                                    <Nav.Link as = {Link} to = {`/movies/${randomMovie}`}>Feeling Lucky?</Nav.Link>
-
-                                    <Nav.Link as = {Link} to = '/' onClick = {onLoggedOut}>Logout</Nav.Link>
-                                </>
-                            )
-                        }
+                        {user && (
+                            <Nav>
+                                
+                                <Nav.Link as={Link} to='/profile'>
+                                    Profile
+                                </Nav.Link>
+                                <Nav.Link onClick = {getRandomMovieId()} as = {Link} to={`/movies/${randomMovie}`}>Feeling Lucky?</Nav.Link>
+                                <Nav.Link as={Link} to='/' onClick={onLoggedOut}>Logout</Nav.Link>
+                            </Nav>
+                        )}
                     </Nav>
+
+                    {user && (
+                        <Nav className='ml-auto'>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Control
+                                        value={searchTerm}
+                                        type="text"
+                                        placeholder="Search movies, genres, or directors..."
+                                        onChange={handleSearchMovie}
+                                        style={{ width: '300px', padding: '5px', fontSize: '1rem' }}
+                                    />
+                                </Form.Group>
+                                
+                            </Form>
+                            <Nav.Link as={Link} to='/'>
+                                <p>{filteredMovies.length} results found...</p>
+                            </Nav.Link>
+                            <Button className='ml-2 mb-3' onClick={handleSearchReset}>Reset</Button>
+                            
+                        </Nav>
+                    )}
                 </Navbar.Collapse>
             </Container>
         </Navbar>

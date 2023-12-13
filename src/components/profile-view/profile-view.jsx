@@ -19,7 +19,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     user = JSON.parse(localStorage.getItem("user"));
 
     const [username, setUsername] = useState(user.Username);
-    const [password, setPassword] = useState(user.Password);
+    const [password, setPassword] = useState('');
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
     const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' }); // Fixes Birthday to be in a better format
@@ -74,6 +74,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             .then((response) => {
 
                 if (response.ok) {
+                    console.log(response);
                     return response.json();
                 } else {
                     return response.text();
@@ -81,10 +82,9 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
             }).then((data) => {
                 if (data) {
-                    console.log(data);
-                    localStorage.setItem('user', JSON.stringify(data));
                     setUser(data);
                     alert('Account successfully updated.');
+                    localStorage.setItem('user', JSON.stringify(data));
                 } else {
                     console.log('No changes detected or invalid entries');
                 }
@@ -111,6 +111,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
             .then((response) => {
 
                 if (response.ok) {
+                    console.log(response);
                     return response.json();
                 } else {
                     return response.text();
@@ -147,17 +148,17 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
 
 
     return (
-        <Container className='mr-5 p-1 overflow-hidden profile-body'>
+        <Container className='mx-5 p-1'>
             <Row className='text-center'>
-                <Col md={9}>
+                <Col md={8}>
                     <h3 className='justify-content-center'>Favorite Movies</h3>
                 </Col>
-                <Col>
-                    <h3 className='justify-content-center mr-3'>About:</h3>
+                <Col md={3}>
+                    <h3 className='justify-content-center profile-body'>About:</h3>
                 </Col>
             </Row>
             <Row>
-                <Col md={9}>
+                <Col md={8}>
                     <Row>
                         {/* User's Favorite Movies */}
                         <Row className='flex-row flex-wrap'>
@@ -171,7 +172,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                         </Row>
                     </Row>
                 </Col>
-                <Col md={3} className='ml-auto'>
+                <Col md={3} className='profile-body'>
                     <Row>
                         <Card className='p-1 mb-3 Account-Info'>
                             {/* Main User Account Info Card */}
@@ -278,7 +279,6 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                             type="text"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
-                                            disabled
                                         />
                                     </Form.Group>
 
@@ -319,7 +319,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
                                             type="text"
                                             value={bio}
                                             placeholder="What's on your mind?"
-                                            maxlength="30"
+                                            maxLength="30"
                                             onChange={(e) => setBio(e.target.value)}>
                                         </Form.Control>
                                     </Form.Group>

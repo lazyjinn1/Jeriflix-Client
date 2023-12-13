@@ -188,7 +188,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
             <h4 className="mx-3">Other {movie.Genre.Name} movies: </h4>
             {similarMovies.length > 0 ? (
               similarMovies.map((simMovie) => (
-                <Col className="mb-3" md={3} key={simMovie.ID}>
+                <Col className="mb-3" md={2} key={simMovie.ID}>
                   <MovieCard
                     movieData={simMovie}
                   />
@@ -202,7 +202,7 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
             <h4 className="mx-3">Other movies by {movie.Director.Name}:</h4>
             {directorMovies.length > 0 ? (
               directorMovies.map((dirMovie) => (
-                <Col className="mb-3" md={3} key={dirMovie.ID}>
+                <Col className="mb-3" md={2} key={dirMovie.ID}>
                   <MovieCard
                     movieData={dirMovie}
                   />
