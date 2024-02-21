@@ -5,10 +5,11 @@ and add or delete movies to their Favorites list. The app also showcases differe
 ## Table of Contents
 
 - [Features](#features)
+- [Installation](#installation)
+- [Prerequisites](#prerequisites)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 
 ## Features
@@ -17,7 +18,6 @@ and add or delete movies to their Favorites list. The app also showcases differe
 - Add or remove movies from YOUR Favorites List
 - Learn more about your favorite movie.
 
-## Getting Started
 
 ### Prerequisites
 
@@ -27,7 +27,8 @@ package.json.
 ### Installation
 
 1. Clone or download the repository to your local machine.
-2. Open the `index.html` file in your preferred web browser.
+2. install all dependencies
+3. run npm start or expo start
 
 Alternatively:
 1. open up the website link: https://jeriflix.netlify.app
