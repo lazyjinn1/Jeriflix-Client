@@ -1,12 +1,13 @@
 # Jeriflix-Client
 
-This is a simple React app that allows users to create accounts, log-in, view different available movies
+This is a Movie app created using React that allows users to create accounts, log-in, view different available movies
 and add or delete movies to their Favorites list. The app also showcases different facts about the movies, directors and genres.
 ## Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
+- [Technologies](#technologies)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -23,6 +24,16 @@ and add or delete movies to their Favorites list. The app also showcases differe
 
 To run JeriFlix, you need a web browser with JavaScript enabled. Other dependencies are listed under
 package.json.
+
+### Technologies
+* React
+* Parcel
+* React-Bootstrap
+* Render
+* MongoDB
+* MongoDB Compass
+* Netlify
+* Postman
 
 ### Installation
 
