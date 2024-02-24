@@ -22,7 +22,7 @@ export const ProfileView = ({ user, setUser, token, movieData }) => {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
-    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'PST' }); // Fixes Birthday to be in a better format
+    const fixedBirthday = new Date(birthday).toLocaleDateString('en-US', { timeZone: 'UTC' }); // Fixes Birthday to be in a better format
     const [selectedProfilePicture, setSelectedProfilePicture] = useState(); // Changes based on what is selected
     const [isPictureMenuOpen, setIsPictureMenuOpen] = useState(false); // Picture Menu is the profile Picture modal
     const [isOpen, setIsOpen] = useState(false); // This is for the other detail Modal
