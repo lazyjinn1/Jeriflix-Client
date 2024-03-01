@@ -26,9 +26,6 @@ export const MovieView = ({ user, setUser, token, movieData }) => {
   let directorMovies = movieData.filter((dirMovie) => {
     return (dirMovie.Director.Name === movie.Director.Name && dirMovie.Title !== movie.Title)
   })
-  // console.log(movie);
-  // console.log(similarMovies);
-  // console.log(directorMovies);
 
   useEffect(() => {
     // Changes the property of a movie based on if they are in the Favorites List or not
