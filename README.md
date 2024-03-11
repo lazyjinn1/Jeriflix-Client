@@ -4,6 +4,7 @@ This is a Movie app created using React that allows users to create accounts, lo
 and add or delete movies to their Favorites list. The app also showcases different facts about the movies, directors and genres.
 ## Table of Contents
 
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Installation](#installation)
 - [Prerequisites](#prerequisites)
@@ -12,6 +13,13 @@ and add or delete movies to their Favorites list. The app also showcases differe
 - [Contributing](#contributing)
 - [License](#license)
 
+
+## Screenshots
+![plot](./assets/screenshots/screenshot1.png)
+![plot](./assets/screenshots/screenshot2.png)
+![plot](./assets/screenshots/screenshot3.png)
+![plot](./assets/screenshots/screenshot4.png)
+![plot](./assets/screenshots/screenshot5.png)
 
 ## Features
 
