@@ -56,7 +56,7 @@ Alternatively:
 
 1. Direct yourself to the sign-up page and sign yourself up
 2. Head towards log-in and using your newly created credentials, log yourself in.
-3. Click and dragon through the movie list to see all the different movies, or 
+3. Click and drag through the movie list to see all the different movies, or 
 click on the arrows to the left and right of the movies to scroll through them.
 4. Alternatively, you can also search for specific movies on the search bar below.
 5. Clicking on a movie card details more information on the movie including a description, genre and director.
