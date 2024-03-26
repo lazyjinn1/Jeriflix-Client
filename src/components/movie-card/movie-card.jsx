@@ -9,7 +9,6 @@ export const MovieCard = ({ movieData }) => {
 
     return (
         <Container>
-
             <Card
                 className='h-100 gx-0 mt-1 movie-card'
                 onMouseEnter={() => setIsHovered(true)} // defines when hovered is true or false (when mouse enters or leaves)
